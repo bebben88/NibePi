@@ -14,11 +14,12 @@ Hämta image filen här http://anerdins.se/NibePi/NibePi-backup-official.rar
 Skriv den till ett 8GB (eller större) microSD kort.
 
 På boot partionen (som även är tillgänglig i windows) ligger det en fil som heter nibepi.conf. 
+```
 {
         "ssid":"MittWifi",
         "pass":"mittwifilösen"
 }
-
+```
 Ändra filen enligt ovan och spara. Nu är raspberryn färdig att anslutas till pumpen.
 
 ![alt text](http://url/to/img.png)
