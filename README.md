@@ -1,6 +1,7 @@
 # NibePi
 
 Denna sida visar instruktioner hur man får sin Nibe Värmepump att skicka och ta emot MQTT meddelanden via Node-RED.
+NibePi körs i read-only. Vilket gör den väldigt driftsäker. I Node-RED flödet finns snabbknappar för att starta om/stänga av. Sätta NibePi i read läge, eller write läge. Innan varje Deploy så måste man sätta write läge, efter Deploy sätts NibePi automatiskt i read läge. 
 
 ![alt text](https://github.com/bebben88/NibePi/blob/master/pics/nodered_2.png)
 
