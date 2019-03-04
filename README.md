@@ -2,6 +2,8 @@
 
 Denna sida visar instruktioner hur man får sin Nibe Värmepump att skicka och ta emot MQTT meddelanden via Node-RED.
 
+![alt text](https://github.com/bebben88/NibePi/blob/master/pics/nodered_2.png)
+
 Hårdvara som behövs.
 ```
 https://thepihut.com/products/raspberry-pi-zero-w / https://www.kiwi-electronics.nl/raspberry-pi-zero-w
@@ -38,11 +40,11 @@ Steg 3: Luta ut fronten i nederkant 10-20 cm och lyft fronten uppåt (Den hänge
 Steg 4: Ställ undan fronten.
 Steg 5: Ta bort det lilla snäpplocket enl. bild nedan
 ```
-![alt text](https://github.com/bebben88/NibePi/blob/master/nibepi_1.jpg)
+![alt text](https://github.com/bebben88/NibePi/blob/master/pics/nibepi_1.jpg)
 ```
 Steg 6: Anslut NibePi enl. bild nedan.
 ```
-![alt text](https://github.com/bebben88/NibePi/blob/master/nibepi_2.jpg)
+![alt text](https://github.com/bebben88/NibePi/blob/master/pics/nibepi_2.jpg)
 ```
 Steg 7: Stoppa in SD-kortet. Starta värmepumpen med fronten av så länge.
 ```
@@ -50,6 +52,8 @@ Vid uppstart så kommer värmepumpen att börja lysa rött igen. Vid första upp
 Efter ca 1.5 minut så kommer den röda lampan att bli grön igen, för att sedan släckas igen efter några sekunder medans NibePi startar om. Efter ytterligare ca 1.5 minut så kommer lampan lysa grönt igen och anslutningen är färdig!
 
 Node-RED är nu tillgängligt på NibePi's IP adress. T.ex http://192.168.0.100:1880
+
+![alt text](https://github.com/bebben88/NibePi/blob/master/pics/nodered_1.png)
 
 Gå in på NibePi's sida och dubbelklicka på config noden. Skriv in vilken värmepump som är inkopplad. Samt vilket topic det ska annonseras på. Det går även att få NibePi att starta om efter 5 minuter ifall den inte kan pinga en IP adress som väljs i flödet. Sätt rebootOnNetworkLoss:true om det ska fungera.
 ```
