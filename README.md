@@ -29,18 +29,17 @@ Steg 2: Gå in i meny 5.2 Systeminställningar
 Steg 3: Nästan längst ner i den menyn bockar man för "Modbus".
 Steg 4: Pumpen kommer nu lysa rött och gå in i Felläge. (Ev åtgärder vidtas i pumpen så varmvatten produktion eller värme kan stanna av)
 Steg 5: Stäng av värmepumpen och installera raspberryn.
-
+```
 Installera raspberryn
 Steg 1: Ta bort den övre luckan där luftfiltret sitter (Gäller endast vid frånluftspumpar).
 Steg 2: Skruva bort de två stora torx T30 skruvarna längst ner i botten på fronten.
 Steg 3: Luta ut fronten i nederkant 10-20 cm och lyft fronten uppåt (Den hänger på en skena i ovankant.
 Steg 4: Ställ undan fronten.
-Steg 5: Ta bort den lilla luckan enl. bild nedan
+Steg 5: Ta bort det lilla snäpplocket enl. bild nedan
+```
 ![alt text](https://github.com/bebben88/NibePi/blob/master/nibepi_1.jpg)
-
-
-Nu är raspberryn färdig att anslutas till pumpen.
-
-![alt text](https://github.com/bebben88/NibePi/blob/master/nibepi_1.jpg)
+```
+Steg 6: Anslut raspberryn enl. bild nedan.
+```
 ![alt text](https://github.com/bebben88/NibePi/blob/master/nibepi_2.jpg)
-
+```
