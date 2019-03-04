@@ -22,7 +22,7 @@ På boot partionen (som även är tillgänglig i windows) ligger det en fil som 
 }
 ```
 Ändra filen enligt ovan och spara.
-
+```
 Aktivera Modbus i Värmepumpen.
 Steg 1: Håll in bakåt knappen i ca 7 sekunder, en service meny kommer upp, gå in i den.
 Steg 2: Gå in i meny 5.2 Systeminställningar
