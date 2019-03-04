@@ -22,4 +22,4 @@ På boot partionen (som även är tillgänglig i windows) ligger det en fil som 
 ```
 Ändra filen enligt ovan och spara. Nu är raspberryn färdig att anslutas till pumpen.
 
-![alt text](http://url/to/img.png)
+![alt text](https://github.com/bebben88/NibePi/blob/master/nibepi_1.jpg)
