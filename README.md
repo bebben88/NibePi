@@ -48,7 +48,7 @@ Steg 5: Ta bort det lilla snäpplocket enl. bild nedan
 ```
 ![alt text](https://github.com/bebben88/NibePi/blob/master/pics/nibepi_1.jpg)
 ```
-Steg 6: Anslut NibePi enl. bild nedan.
+Steg 6: Anslut NibePi enl. bild nedan. Inkopplingen kan skilja sig från olika värmepumpar https://www.nibe.se/assets/documents/9133/031725-4.pdf 
 ```
 ![alt text](https://github.com/bebben88/NibePi/blob/master/pics/nibepi_2.jpg)
 ```
