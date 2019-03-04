@@ -11,7 +11,7 @@ https://thepihut.com/products/adafruit-8gb-class-10-sd-microsd-memory-card-sd-ad
 ```
 Löd på anslutningskontakter på A och B på RS485 kortet. Stacka sedan ihop alla kort, antingen med headers eller löd dom rätt på varandra för minsta möjliga.
 
-Hämta image filen här http://anerdins.se/NibePi/NibePi-backup-official.rar
+Hämta image filen här https://1drv.ms/u/s!AijwO0Pec8Krg54WLSOxh4mu_JdiKg
 Skriv den till ett 8GB (eller större) microSD kort.
 
 På boot partionen (som även är tillgänglig i windows) ligger det en fil som heter nibepi.conf. 
