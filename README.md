@@ -1,10 +1,12 @@
 # NibePi
 
-Denna sida visar instruktioner hur man får sin Nibe Värmepump att skicka och ta emot MQTT meddelanden via Node-RED.
-Stöd för följande Nibe värmepumpar F370,F470,F730,F750,F1145,F1245,F1155,F1255.
-OBS. NibePi är testad mot en Nibe F750. De andra pumparna fungerar på samma sätt och de har individuella register inlagda i Node-RED så det ska också fungera.
+NibePi är en IoT produkt för din Nibe värmepump.
+Med en Raspberry Pi Zero+RS485 HAT så kommunicerar NibePi med pumpen via Modbus. NibePi får plats innanför skalet på Värmepumpen och matas direkt från kretskortet i pumpen. NibePi stödjer Nibe F370,F470,F730,F750,F1145,F1245,F1155,F1255.
 
-NibePi körs i read-only. Vilket gör den väldigt driftsäker.
+OBS. NibePi är testad mot en Nibe F750. De andra pumparna fungerar på samma sätt och individuella register för varje modell finns.
+
+En viktig aspekt i hela projektet är att det måste vara en driftsäker lösning. Sönderskrivna SD-kort bör inte kunna hända på en NibePi eftersom att systemet körs i read-only. Detta gör den väldigt driftsäker.
+
 I Node-RED flödet finns snabbknappar för att starta om/stänga av, sätta NibePi i read läge, eller write läge.
 Innan varje Deploy så måste man sätta write läge, efter Deploy sätts NibePi automatiskt i read läge. 
 
