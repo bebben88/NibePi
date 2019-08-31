@@ -732,7 +732,7 @@ function checkConfig(configCheck) {
     fs.readFile('/home/pi/node-red-contrib-nibeheatpump/config.json','utf8', (err, data) => {
         if (err) throw err;
         if(JSON.stringify(configCheck)!=data) {
-            logMQTT('Config has changed')
+            //logMQTT('Config has changed')
             console.log('Config has changed')
             startExternalMQTT()
             addPluginRegisters()
