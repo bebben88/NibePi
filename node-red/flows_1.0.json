@@ -5708,7 +5708,7 @@
         "id": "d955baaf.b75258",
         "type": "exec",
         "z": "ade2c7a9.e97ba8",
-        "command": "cp /home/pi/.node-red/flows.json /home/pi/.node-red/flows_saved.json && cp /home/pi/node-red-contrib-nibeheatpump/heatpump.js /home/pi/node-red-contrib-nibeheatpump/heatpump_saved.js",
+        "command": "cp /home/pi/.node-red/flows.json /home/pi/.node-red/flows_saved.bak && cp /home/pi/node-red-contrib-nibeheatpump/heatpump.js /home/pi/node-red-contrib-nibeheatpump/heatpump_saved.js",
         "addpay": false,
         "append": "",
         "useSpawn": "false",
@@ -5780,7 +5780,7 @@
         "type": "file",
         "z": "ade2c7a9.e97ba8",
         "name": "",
-        "filename": "/home/pi/.node-red/flows.test",
+        "filename": "/home/pi/.node-red/flows.json",
         "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
@@ -5838,11 +5838,11 @@
         "type": "file",
         "z": "ade2c7a9.e97ba8",
         "name": "",
-        "filename": "/home/pi/node-red-contrib-nibeheatpump/heatpump.test",
+        "filename": "/home/pi/node-red-contrib-nibeheatpump/heatpump.js",
         "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
-        "x": 791,
+        "x": 781,
         "y": 1778,
         "wires": [
             [
@@ -5968,7 +5968,7 @@
         "retain": "false",
         "broker": "d7f6b34d.d13d6",
         "x": 1205,
-        "y": 1918,
+        "y": 1911,
         "wires": []
     },
     {
@@ -6195,5 +6195,15 @@
                 "af0de0e2.cb4c9"
             ]
         ]
+    },
+    {
+        "id": "d2f51b3d.dd74a8",
+        "type": "comment",
+        "z": "ade2c7a9.e97ba8",
+        "name": "Version 1.0",
+        "info": "",
+        "x": 105,
+        "y": 273,
+        "wires": []
     }
 ]
