@@ -54,5 +54,5 @@ Steg 7: Stoppa in SD-kortet. Starta värmepumpen med fronten av så länge.
 Vid uppstart så kommer värmepumpen att börja lysa rött igen. Vid första uppstarten av NibePi kommer den hämta wifi uppgifter från wifi.conf och sedan starta om NibePi.
 Efter några minuter så kommer den röda lampan att bli grön igen. När lampan är grön så har NibePi hittat värmepumpen automatiskt och startat webinterfacet.
 
-Node-RED är nu tillgängligt på NibePi's IP adress. T.ex http://192.168.0.100:1880
+Node-RED är nu tillgängligt på NibePi's IP adress. T.ex http://192.168.0.100:1880<br>
 Webinterfacet är tillgängligt på http://192.168.0.100:1880/ui
