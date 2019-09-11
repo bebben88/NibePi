@@ -20,6 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+const version = "1.0";
 var exec = require('child_process').exec;
 const serialport = require('serialport');
 const mqtt = require('mqtt');
@@ -49,7 +50,10 @@ var pumpFound = false;
 var register = [];
 var reset = 10;
 var requestCounter = 0;
-
+if(config.version!=version) {
+    config.version = version;
+    checkConfig(config);
+}
 var connected = false;
 async function checkMQTT() {
     console.log('Checking MQTT');
@@ -262,7 +266,7 @@ function setPump(data,callback) {
             config.firmware = firmware;
             checkConfig(config);
         logMQTT('Setting up Nibe '+pump)
-        logMQTT('Version: '+firmware)
+        logMQTT('Firmware: '+firmware)
         console.log('Pump: '+pump);
         console.log('Setting up the pump');
         if(pump=='F370') {
@@ -868,6 +872,7 @@ function checkRegister(configCheck) {
             console.log('Write mode active')
             configCheck = JSON.stringify(configCheck, null, "\t")
             configCheck = configCheck.toString()
+            if(configCheck.length>50) {
             fs.writeFile("/home/pi/.nibepi/models/"+config.pump+".json", configCheck, function (err) {
                 if (err) console.log(err);
                 console.log('Register updated')
@@ -883,6 +888,7 @@ function checkRegister(configCheck) {
                     }
                   });
             });
+        }
         }
       });
     }
