@@ -23,14 +23,18 @@ SOFTWARE.
 var exec = require('child_process').exec;
 const serialport = require('serialport');
 const mqtt = require('mqtt');
+var SunCalc = require('suncalc');
 var portName = "/dev/ttyAMA0";
 var config = require('./config.json')
 var myPort = new serialport(portName, 9600);
-const f370_f470 = require('./models/F370_F470.json');
+const f370 = require('./models/F370.json');
+const f470 = require('./models/F470.json');
 const f730 = require('./models/F730.json');
 const f750 = require('./models/F750.json');
-const f1145_f1245 = require('./models/F1145_F1245.json');
-const f1155_f1255 = require('./models/F1155_F1255.json');
+const f1145 = require('./models/F1145.json');
+const f1245 = require('./models/F1245.json');
+const f1155 = require('./models/F1155.json');
+const f1255 = require('./models/F1255.json');
 const EventEmitter = require('events').EventEmitter
 const nibe = new EventEmitter();
 module.exports = nibe;
@@ -58,7 +62,6 @@ async function checkMQTT() {
     }
 }
 updateWifi()
-addPluginRegisters()
 checkMQTT()
 
 myPort.on('open', showPortOpen);
@@ -68,6 +71,7 @@ myPort.on('error', showError);
 
 function showPortOpen() {
     console.log('Port open. Data rate: ' + myPort.baudRate);
+	addPluginRegisters()
 }
 function showPortClose() {
     console.log('Port closed. Data rate: ' + myPort.baudRate);
@@ -83,7 +87,7 @@ function concatBuffers(data) {
     analyze(Array.from(data));
 }
 function analyze(data) {
-    nibe.emit("log",data,"RAW");
+    nibe.emit("log",data,"Serial");
     if(data==06) {
         if(waitACK!=false) {
             console.log('Message ACKED')
@@ -106,7 +110,7 @@ function analyze(data) {
    
     if(msgOut.length>=3) {
         if(msgOut[1]!=0 || msgOut[2]!=32) {
-                nibe.emit("error","ERROR ADR",msgOut);
+            nibe.emit("log",msgOut,"Err adr");
                 msgOut = []
                 start = false;
         }
@@ -114,7 +118,7 @@ function analyze(data) {
     if(msgOut.length>=6) {
         msgLength = msgOut[4]
         if(msgLength!=0 && msgLength!=1 && msgLength!=6 && msgLength!=10 && msgLength!=80) {
-                nibe.emit("error","ERROR LEN",msgOut);
+            nibe.emit("log",msgOut,"Err length");
                 msgOut = []
                 start = false;
         }
@@ -122,7 +126,7 @@ function analyze(data) {
             if(msgLength==80) {
                 if(msgOut.length>=msgLength+5) {
                 if(msgOut[83]!=0 || msgOut[84]!=0) {
-                    nibe.emit("error","ERROR SHORT",msgOut);
+                    nibe.emit("log",msgOut,"Err short");
                     nibe.emit("validate",msgOut);
                 }
             }
@@ -142,12 +146,12 @@ function analyze(data) {
 var msgOut = [];
 var msgLength = 0;
 nibe.on('log',function(data,key) {
-    /*console.log('OK ',JSON.stringify(data))
-    fs.appendFile('./Buffers.log', '\n'+key+': '+JSON.stringify(data), function (err) {
-        if (err) throw err;
-        
-    });
-    */
+    if(config.debug!==undefined && config.debug==true) {
+        fs.appendFile('/home/pi/node-red-static/log/nodered.log', '\n'+key+': '+JSON.stringify(data), function (err) {
+            if (err) throw err;
+            
+        });
+    }
 })
 nibe.on('error',function(err,data,time) {
     /*console.log('Error ('+err+')',JSON.stringify(data))
@@ -185,7 +189,7 @@ nibe.on('validate',function(data) {
     checkMessageCHK(data,function(err,result) {
         if(err) {
             err = "ERROR CHKSUM";
-            nibe.emit("error",err,data);
+            nibe.emit("log",data,"Err chksum");
         } else {
             makeResponse(result, function(err,result) {
                 nibe.emit("log",result,"OK");
@@ -251,14 +255,31 @@ function makeResponse(data,callback) {
 }
 function setPump(data,callback) {
     var sliced = Buffer.from(data).slice(8,data.length-2).toString();
+    var firmware = (data[6]*256)+data[7];
     var split = sliced.split(" ");
     pump = split[0];
         if(pumpFound==false) {
+            config.firmware = firmware;
+            checkConfig(config);
         logMQTT('Setting up Nibe '+pump)
+        logMQTT('Version: '+firmware)
         console.log('Pump: '+pump);
         console.log('Setting up the pump');
-        if(pump=='F370' || pump=='F470') {
-            register = f370_f470;
+        if(pump=='F370') {
+            register = f370;
+            config.pump = pump;
+            config.plugins.airflow.enable = false;
+            config.plugins.smhi.enable = true;
+            config.plugins.indoor.enable = true;
+            config.plugins.tibber.enable = true;
+            checkConfig(config);
+            publishMQTT('nibe/register',JSON.stringify(register),true);
+            pumpFound = true;
+            logMQTT('Setting registers')
+            console.log('Setting registers for Nibe '+pump);
+            callback()
+        } else if(pump=='F470') {
+            register = f470;
             config.pump = pump;
             config.plugins.airflow.enable = false;
             config.plugins.smhi.enable = true;
@@ -294,8 +315,8 @@ function setPump(data,callback) {
             logMQTT('Setting registers')
             console.log('Setting registers for Nibe '+pump);
             callback()
-        } else if(pump=='F1145' || pump=='F1245') {
-            register = f1145_f1245;
+        } else if(pump=='F1145') {
+            register = f1145;
             config.pump = pump;
             config.plugins.airflow.enable = false;
             config.plugins.smhi.enable = true;
@@ -306,8 +327,32 @@ function setPump(data,callback) {
             logMQTT('Setting registers')
             console.log('Setting registers for Nibe '+pump);
             callback()
-        } else if(pump=='F1155' || pump=='F1255') {
-            register = f1155_f1255;
+        } else if(pump=='F1245') {
+            register = f1245;
+            config.pump = pump;
+            config.plugins.airflow.enable = false;
+            config.plugins.smhi.enable = true;
+            config.plugins.indoor.enable = true;
+            config.plugins.tibber.enable = true;
+            publishMQTT('nibe/register',JSON.stringify(register),true);
+            pumpFound = true;
+            logMQTT('Setting registers')
+            console.log('Setting registers for Nibe '+pump);
+            callback()
+        } else if(pump=='F1155') {
+            register = f1155;
+            config.pump = pump;
+            config.plugins.airflow.enable = false;
+            config.plugins.smhi.enable = true;
+            config.plugins.indoor.enable = true;
+            config.plugins.tibber.enable = true;
+            publishMQTT('nibe/register',JSON.stringify(register),true);
+            pumpFound = true;
+            logMQTT('Setting registers')
+            console.log('Setting registers for Nibe '+pump);
+            callback()
+        } else if(pump=='F1255') {
+            register = f1255;
             config.pump = pump;
             config.plugins.airflow.enable = false;
             config.plugins.smhi.enable = true;
@@ -496,7 +541,7 @@ function decodeMessage(register, buf) {
                 }
             }
             var logout = item.register+": "+data+" "+item.unit
-            nibe.emit("log",logout,"VAL");
+            nibe.emit("log",logout,"Value");
             if(valueMap!==undefined) {
                 item.data = valueMap;
             } else {
@@ -637,9 +682,12 @@ async function startMQTT() {
 })
 }
 function addRegister(data) {
-    var item = register.find(item => item.register == data);
+    let index = register.findIndex(index => index.register == data);
+    let item = register.find(item => item.register == data);
     if(item!==undefined) {
-        var check = config.registers.find(item => item.register == data);
+        register[index].isChecked = true;
+        checkRegister(register)
+        var check = config.registers.find(check => check.register == data);
         if(check!==undefined) {
             //console.log('Register ('+item.register+') already exists.')
         } else {
@@ -705,48 +753,80 @@ function setRegister(topic,value) {
 }
 function addPluginRegisters() {
     if(config.plugins.indoor.active==true) {
-        addRegister("40033");
-        addRegister("40004");
-        addRegister("47398");
+        sendQueue.push(setData({"register":47394,"value":0}));
+        let index = register.findIndex(index => index.register == "40033");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("40033"); } }
+        index = register.findIndex(index => index.register == "40004");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("40004"); } }
+        index = register.findIndex(index => index.register == "47398");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("47398"); } }
+        index = register.findIndex(index => index.register == "47402");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("47402"); } }
+        index = register.findIndex(index => index.register == "47375");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("47375"); } }
+        index = register.findIndex(index => index.register == "47011");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("47011"); } }
     }
     if(config.plugins.smhi.active==true) {
-        addRegister("40033");
-        addRegister("40004");
-        addRegister("47007");
+        let index = register.findIndex(index => index.register == "40033");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("40033"); } }
+        index = register.findIndex(index => index.register == "40004");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("40004"); } }
+        index = register.findIndex(index => index.register == "47007");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("47007"); } }
+        index = register.findIndex(index => index.register == "47011");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("47011"); } }
     }
     if(config.plugins.airflow.active==true) {
-        addRegister("40050");
-        addRegister("47265");
-        addRegister("40026");
-        addRegister("45001");
+        index = register.findIndex(index => index.register == "40050");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("40050"); } }
+        index = register.findIndex(index => index.register == "47265");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("47265"); } }
+        index = register.findIndex(index => index.register == "40026");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("40026"); } }
+        index = register.findIndex(index => index.register == "45001");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("45001"); } }
+        index = register.findIndex(index => index.register == "47011");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("47011"); } }
     }
     if(config.plugins.tibber.active==true) {
-        addRegister("40033");
-        addRegister("40004");
-        addRegister("47007");
-        addRegister("47398");
+        let index = register.findIndex(index => index.register == "40033");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("40033"); } }
+        index = register.findIndex(index => index.register == "40004");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("40004"); } }
+        index = register.findIndex(index => index.register == "47041");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("47041"); } }
+        index = register.findIndex(index => index.register == "43005");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("43005"); } }
+        index = register.findIndex(index => index.register == "47206");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("47206"); } }
+        index = register.findIndex(index => index.register == "47007");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("47007"); } }
+        index = register.findIndex(index => index.register == "47398");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("47398"); } }
+        index = register.findIndex(index => index.register == "47011");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("47011"); } }
     }
-    
 }
 function checkConfig(configCheck) {
-    fs.readFile('/home/pi/node-red-contrib-nibeheatpump/config.json','utf8', (err, data) => {
+    fs.readFile('/home/pi/.nibepi/config.json','utf8', (err, data) => {
         if (err) throw err;
         if(JSON.stringify(configCheck)!=data) {
             //logMQTT('Config has changed')
             console.log('Config has changed')
             startExternalMQTT()
-            addPluginRegisters()
-            writeConfig(configCheck);
+            let savedConfig = JSON.parse(data);
+            writeConfig(configCheck,savedConfig);
         }
       });
 }
-function writeConfig(configCheck) {
+function writeConfig(configCheck,savedConfig) {
 exec('sudo mount -o remount,rw /', function(error, stdout, stderr) {
     if (error) {
       console.log(stderr);
     } else {
         console.log('Write mode active')
-        fs.writeFile('/home/pi/node-red-contrib-nibeheatpump/config.json', JSON.stringify(configCheck), function (err) {
+        fs.writeFile('/home/pi/.nibepi/config.json', JSON.stringify(configCheck), function (err) {
             if (err) console.log(err);
             console.log('Config saved')
             publishMQTT('nibe/config',JSON.stringify(configCheck),true);
@@ -754,16 +834,58 @@ exec('sudo mount -o remount,rw /', function(error, stdout, stderr) {
             exec('sudo mount -o remount,ro /', function(error, stdout, stderr) {
                 if (error) {
                   console.log('Could not set Read only mode');
+                  logMQTT('Fel. Kunde inte sätta läsbart läge')
                 } else {
                     console.log('Read-only mode active')
-                    logMQTT('Read-only mode active')
+                }
+                if(config.plugins.indoor.active===true && savedConfig.plugins.indoor.active===false) {
+                    logMQTT('Lägger till register för Inomhusreglering')
+
+                    addPluginRegisters()
+                }
+                if(config.plugins.smhi.active===true && savedConfig.plugins.smhi.active===false) {
+                    logMQTT('Lägger till register för Prognosreglering')
+                    addPluginRegisters()
+                }
+                if(config.plugins.tibber.active===true && savedConfig.plugins.tibber.active===false) {
+                    logMQTT('Lägger till register för Elprisreglering')
+                    addPluginRegisters()
+                }
+                if(config.plugins.airflow.active===true && savedConfig.plugins.airflow.active===false) {
+                    logMQTT('Lägger till register för Automatisk lufthastighet')
+                    addPluginRegisters()
                 }
               });
         });
     }
   });
 }
-
+function checkRegister(configCheck) {
+    exec('sudo mount -o remount,rw /', function(error, stdout, stderr) {
+        if (error) {
+          console.log(stderr);
+        } else {
+            console.log('Write mode active')
+            configCheck = JSON.stringify(configCheck, null, "\t")
+            configCheck = configCheck.toString()
+            fs.writeFile("/home/pi/.nibepi/models/"+config.pump+".json", configCheck, function (err) {
+                if (err) console.log(err);
+                console.log('Register updated')
+                register = require('./models/'+config.pump+'.json');
+                publishMQTT('nibe/register',JSON.stringify(register),true);
+                
+                exec('sudo mount -o remount,ro /', function(error, stdout, stderr) {
+                    if (error) {
+                      console.log('Could not set Read only mode');
+                    } else {
+                        console.log('Read-only mode active')
+                        logMQTT('Read-only mode active')
+                    }
+                  });
+            });
+        }
+      });
+    }
 function logMQTT(data) {
     publishMQTT("nibe/log", data,true);
 }
@@ -862,26 +984,64 @@ function incomingMQTT(topic, message) {
             config = configMsg;
             checkConfig(configMsg);
         }
+    } else if(topic=="nibe/suncalc/get") {
+        suncalc = JSON.parse(message)
+        var times = SunCalc.getTimes(suncalc.timestamp, suncalc.lat, suncalc.lon);
+        publishMQTT('nibe/suncalc',JSON.stringify(times).toString(),false);
     } else if(topic=="nibe/register/get") {
         publishMQTT('nibe/register',JSON.stringify(register),true);
+    } else if(topic=="nibe/register/set") {
+        checkRegister(message);
     } else if(topic=="nibe/register/add") {
         addRegister(message)
     } else if(topic=="nibe/register/remove") {
-        function checkIt(element) {
+        let index = register.findIndex(index => index.register == message);
+            if(index!==undefined && index!=-1) {
+                console.log('Registersss ('+message+') found at index: '+index)
+                register[index].isChecked = false;
+                checkRegister(register)
+            }
+        let indexConfig = config.registers.findIndex(indexConfig => indexConfig.register == message);
+        /*function checkIt(element) {
             return element.register == message;
         }
         function checkMa(element) {
             return element.register == message;
         }
         var confReg = config.registers.findIndex(checkMa)
+        
         if(confReg!=-1) {
             console.log('Register ('+message+') removed from Registers database')
             config.registers.splice(confReg,1)
             checkConfig(config);
         } else {
             console.log('Register ('+message+') is not in the Registers database.')
+        }*/
+        if(indexConfig!=-1) {
+            console.log('Register ('+message+') found at index: '+indexConfig)
+            logMQTT('Register ('+message+') removed from Registers database')
+            console.log('Register ('+message+') removed from Registers database')
+            config.registers.splice(indexConfig,1)
+            checkConfig(config);
+        } else {
+            logMQTT('Register ('+message+') is not in the Registers database.')
+            console.log('Register ('+message+') is not in the Registers database.')
         }
-        let reg = dataRegister.findIndex(checkIt)
+        let indexData = dataRegister.findIndex(indexData => indexData.register == message);
+        if(indexData!=-1) {
+            console.log('Register Data ('+message+') found at index: '+indexData)
+            console.log('Register ('+message+') removed from Data database')
+            checkRegisterType(dataRegister[indexData],function(err,callback) {
+                if (err) throw err;
+                var topicOut = 'homeassistant/'+callback.component+'/'+message+'/config'
+                var payload = "";
+                publishMQTT(topicOut,payload,true)
+                dataRegister.splice(indexData,1)
+            });
+        } else {
+            console.log('Register ('+message+') is not in the Data database.')
+        }
+        /*let reg = dataRegister.findIndex(checkIt)
         if(reg!=-1) {
             console.log('Register ('+message+') removed from Data database')
             checkRegisterType(dataRegister[reg],function(err,callback) {
@@ -893,7 +1053,7 @@ function incomingMQTT(topic, message) {
             });
         } else {
             console.log('Register ('+message+') is not in the Data database.')
-        }
+        }*/
     } else if(topic.includes(config.defaultTopic)) {
         topic = topic.split("/");
         function find_register_in_topic(element) {
