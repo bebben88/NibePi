@@ -2105,7 +2105,6 @@
         "wires": [
             [
                 "7d7654e1.96954c",
-                "eeb4f709.bcda38",
                 "279b9bf4.1c3254"
             ]
         ]
@@ -2274,8 +2273,7 @@
         "y": 469,
         "wires": [
             [
-                "1e06d0c.d83dd2f",
-                "de953256.6f268"
+                "1e06d0c.d83dd2f"
             ]
         ]
     },
@@ -2300,8 +2298,7 @@
         "y": 420,
         "wires": [
             [
-                "705ed848.fa2f48",
-                "f912304c.d4ef"
+                "705ed848.fa2f48"
             ]
         ]
     },
@@ -3649,6 +3646,7 @@
         "type": "subflow:64327e50.8f365",
         "z": "ade2c7a9.e97ba8",
         "name": "Skrivläge",
+        "env": [],
         "x": 466,
         "y": 252,
         "wires": []
@@ -4047,7 +4045,7 @@
         "type": "function",
         "z": "7e884fc9.b6c45",
         "name": "",
-        "func": "var config = global.get('config');\nif(config===undefined) return;\nif(msg.statusCode!==200) {\n    global.set('priceSet',0);\n    node.warn('Får ej kontakt med Tibber servern. Ställer in reglering till 0.')\n    return;\n}\nvar today = msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.today;\nvar tomorrow;\nvar current = msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.current.energy*100;\nvar consumption = msg.payload.data.viewer.homes[0].consumption.nodes;\n\nnode.send({payload:[]});\nif(consumption!==undefined) {\nfor( var i = 0; i < consumption.length; i++){\n    var timestamp = toTimestamp(consumption[i].from)\n    var topic = \"Förbrukning\"\n    var value = consumption[i].consumption;\n    node.send({topic:topic,timestamp:timestamp,payload:value})\n}\n}\n\nif(msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.tomorrow!==undefined) {\n    tomorrow = msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.tomorrow;\n}\nvar priceArray = today.concat(tomorrow);\npriceArray.sort(function(a,b){return a.energy - b.energy});\nvar time = toTimestamp(new Date());\nvar lowestPrice = toTimestamp(priceArray[0].startsAt);\nvar Min = priceArray[config.plugins.tibber.price_min].energy*100;\nvar Max = priceArray[(priceArray.length-1)-config.plugins.tibber.price_max].energy*100;\nfor( var i = 0; i < priceArray.length; i++){\n    var timestamp = toTimestamp(priceArray[i].startsAt)\n    var topic = \"Pris\"\n    var adjust = 0;\n    var hotwater_adjust = Number(config.plugins.tibber.hotwater_price_normal);\n    var value = Number(priceArray[i].energy*100).toFixed(2);\n    if(value>Max) {\n        hotwater_adjust = Number(config.plugins.tibber.hotwater_price_high);\n        adjust = config.plugins.tibber.adjust_high;\n    }\n    if(value<=(config.plugins.tibber.price_low)) {\n        hotwater_adjust = Number(config.plugins.tibber.hotwater_price_superlow);\n        adjust = config.plugins.tibber.adjust_superlow;\n    } else if(timestamp>=lowestPrice) {\n        if(value<Min) {\n            hotwater_adjust = Number(config.plugins.tibber.hotwater_price_low);\n            adjust = config.plugins.tibber.adjust_low;\n        }\n    }\n    if((Max-Min)<config.plugins.tibber.adjust_active) {\n        hotwater_adjust = Number(config.plugins.tibber.hotwater_price_normal);\n        adjust = 0;\n    }\n    if(config.plugins.tibber.hotwater_active===true) {\n        node.send({topic:\"Varmvattenläge\",timestamp:timestamp,payload:hotwater_adjust})\n    }\n    node.send({topic:\"Nedre Brytpunkt\",timestamp:timestamp,payload:Min})\n    node.send({topic:\"Övre Brytpunkt\",timestamp:timestamp,payload:Max})\n    node.send({topic:topic,timestamp:timestamp,payload:value})\n    node.send({topic:\"Kurvjustering\",timestamp:timestamp,payload:adjust})\n    \n}\nnode.send({topic:\"Nuvarande Pris\",payload:current})\nif(current<=(config.plugins.tibber.price_low)) {\n    node.send([null,null,{payload:\"super_low\"}])\n    node.send([null,{payload:`Super lågt elpris: ${(current).toFixed(2)} öre`}])\n} else if(current<Min) {\n    if(time>lowestPrice) {\n        node.send([null,null,{payload:\"low\"}])\n    }\n    node.send([null,{payload:`Lågt elpris: ${(current).toFixed(2)} öre`}])\n} else if(current>Max) {\n    node.send([null,null,{payload:\"high\"}])\n    node.send([null,{payload:`Högt elpris: ${(current).toFixed(2)} öre`}])\n} else {\n    node.send([null,null,{payload:\"normal\"}])\n    node.send([null,{payload:`Normalt elpris: ${(current).toFixed(2)} öre`}])\n}\nfunction toTimestamp(strDate){\n var datum = Date.parse(strDate);\n return Number(datum.toFixed());\n}\n",
+        "func": "var config = global.get('config');\nif(config===undefined) return;\nif(msg.statusCode!==200) {\n    global.set('priceSet',0);\n    node.warn('Får ej kontakt med Tibber servern. Ställer in reglering till 0.')\n    return;\n}\nvar today = msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.today;\nvar tomorrow;\nvar current = msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.current.energy*100;\nvar consumption = msg.payload.data.viewer.homes[0].consumption.nodes;\n\nnode.send({payload:[]});\nif(consumption!==undefined) {\nfor( var i = 0; i < consumption.length; i++){\n    var timestamp = toTimestamp(consumption[i].from)\n    var topic = \"Förbrukning\"\n    var value = consumption[i].consumption;\n    node.send({topic:topic,timestamp:timestamp,payload:value})\n}\n}\n\nif(msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.tomorrow!==undefined) {\n    tomorrow = msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.tomorrow;\n}\nvar priceArray = today.concat(tomorrow);\npriceArray.sort(function(a,b){return a.energy - b.energy});\nvar time = toTimestamp(new Date());\nvar lowestPrice = toTimestamp(priceArray[0].startsAt);\nvar Min = priceArray[config.plugins.tibber.price_min].energy*100;\nvar Max = priceArray[(priceArray.length-1)-config.plugins.tibber.price_max].energy*100;\nfor( var i = 0; i < priceArray.length; i++){\n    var timestamp = toTimestamp(priceArray[i].startsAt)\n    var topic = \"Pris\"\n    var adjust = 0;\n    var hotwater_adjust = Number(config.plugins.tibber.hotwater_price_normal);\n    var value = Number(priceArray[i].energy*100).toFixed(2);\n    if(value>Max) {\n        hotwater_adjust = Number(config.plugins.tibber.hotwater_price_high);\n        adjust = config.plugins.tibber.adjust_high;\n    }\n    if(value<=(config.plugins.tibber.price_low)) {\n        hotwater_adjust = Number(config.plugins.tibber.hotwater_price_superlow);\n        adjust = config.plugins.tibber.adjust_superlow;\n    } else if(timestamp>=lowestPrice) {\n        if(value<Min) {\n            hotwater_adjust = Number(config.plugins.tibber.hotwater_price_low);\n            adjust = config.plugins.tibber.adjust_low;\n        }\n    }\n    if((Max-Min)<config.plugins.tibber.adjust_active) {\n        hotwater_adjust = Number(config.plugins.tibber.hotwater_price_normal);\n        adjust = 0;\n    }\n    if(config.plugins.tibber.hotwater_active===true) {\n        node.send({topic:\"Varmvattenläge\",timestamp:timestamp,payload:hotwater_adjust})\n    }\n    node.send({topic:\"Nedre Brytpunkt\",timestamp:timestamp,payload:Min})\n    node.send({topic:\"Övre Brytpunkt\",timestamp:timestamp,payload:Max})\n    node.send({topic:topic,timestamp:timestamp,payload:value})\n    node.send({topic:\"Kurvjustering\",timestamp:timestamp,payload:adjust})\n    \n}\nif(current<=(config.plugins.tibber.price_low)) {\n    node.send([null,null,{payload:\"super_low\"}])\n    node.send([null,{payload:`Super lågt elpris: ${(current).toFixed(2)} öre`}])\n} else if(current<Min) {\n    if(time>lowestPrice) {\n        node.send([null,null,{payload:\"low\"}])\n    }\n    node.send([null,{payload:`Lågt elpris: ${(current).toFixed(2)} öre`}])\n} else if(current>Max) {\n    node.send([null,null,{payload:\"high\"}])\n    node.send([null,{payload:`Högt elpris: ${(current).toFixed(2)} öre`}])\n} else {\n    node.send([null,null,{payload:\"normal\"}])\n    node.send([null,{payload:`Normalt elpris: ${(current).toFixed(2)} öre`}])\n}\nfunction toTimestamp(strDate){\n var datum = Date.parse(strDate);\n return Number(datum.toFixed());\n}\n",
         "outputs": 3,
         "noerr": 0,
         "x": 757,
@@ -4488,8 +4486,7 @@
         "y": 511,
         "wires": [
             [
-                "a4d15c9a.e3c7d",
-                "f95f02b1.f76a8"
+                "a4d15c9a.e3c7d"
             ]
         ]
     },
@@ -4516,8 +4513,7 @@
         "y": 560,
         "wires": [
             [
-                "5e63c432.130d9c",
-                "f32c7321.5f8d7"
+                "5e63c432.130d9c"
             ]
         ]
     },
@@ -4544,8 +4540,7 @@
         "y": 658,
         "wires": [
             [
-                "5fe6d87b.09b708",
-                "ae487bc5.a97188"
+                "5fe6d87b.09b708"
             ]
         ]
     },
@@ -4572,8 +4567,7 @@
         "y": 707,
         "wires": [
             [
-                "52879113.37138",
-                "e9e3b7aa.07b0b8"
+                "52879113.37138"
             ]
         ]
     },
@@ -4600,8 +4594,7 @@
         "y": 805,
         "wires": [
             [
-                "f0b9c693.212c58",
-                "28d2a6e2.7f4a6a"
+                "f0b9c693.212c58"
             ]
         ]
     },
@@ -4799,8 +4792,7 @@
         "y": 609,
         "wires": [
             [
-                "d7bbffae.a1a68",
-                "d745b938.fb5078"
+                "d7bbffae.a1a68"
             ]
         ]
     },
@@ -4827,8 +4819,7 @@
         "y": 756,
         "wires": [
             [
-                "98927d22.9c10d",
-                "e01b3def.f30f9"
+                "98927d22.9c10d"
             ]
         ]
     },
@@ -4931,8 +4922,7 @@
         "y": 518,
         "wires": [
             [
-                "a38e1625.a487e8",
-                "25270b4e.000fc4"
+                "a38e1625.a487e8"
             ]
         ]
     },
@@ -6205,54 +6195,6 @@
         "wires": []
     },
     {
-        "id": "eeb4f709.bcda38",
-        "type": "ui_text",
-        "z": "41f52341.96686c",
-        "group": "810e862f.c36438",
-        "order": 5,
-        "width": "1",
-        "height": "1",
-        "name": "SMHI timmar",
-        "label": "",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "x": 350,
-        "y": 777,
-        "wires": []
-    },
-    {
-        "id": "de953256.6f268",
-        "type": "ui_text",
-        "z": "dedc2653.57a3d8",
-        "group": "a2cfe148.70708",
-        "order": 8,
-        "width": "1",
-        "height": "1",
-        "name": "Utomhustemp block text",
-        "label": "",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "x": 1202,
-        "y": 469,
-        "wires": []
-    },
-    {
-        "id": "f912304c.d4ef",
-        "type": "ui_text",
-        "z": "dedc2653.57a3d8",
-        "group": "a2cfe148.70708",
-        "order": 6,
-        "width": "1",
-        "height": "1",
-        "name": "Inomhusbörvärde text",
-        "label": "",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "x": 1164,
-        "y": 420,
-        "wires": []
-    },
-    {
         "id": "8b550c79.8557b",
         "type": "ui_text",
         "z": "dedc2653.57a3d8",
@@ -6298,22 +6240,6 @@
         "layout": "row-left",
         "x": 988,
         "y": 91,
-        "wires": []
-    },
-    {
-        "id": "25270b4e.000fc4",
-        "type": "ui_text",
-        "z": "dedc2653.57a3d8",
-        "group": "a2cfe148.70708",
-        "order": 6,
-        "width": "1",
-        "height": "1",
-        "name": "Faktor Inomhusgivare",
-        "label": "",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "x": 1206,
-        "y": 525,
         "wires": []
     },
     {
@@ -6738,139 +6664,6 @@
         "templateScope": "local",
         "x": 504,
         "y": 399,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "f95f02b1.f76a8",
-        "type": "ui_template",
-        "z": "7e884fc9.b6c45",
-        "group": "f481a5f0.f9f1c8",
-        "name": "Högsta pris (Dec)",
-        "order": 5,
-        "width": "1",
-        "height": "1",
-        "format": "<div ng-bind-html=\"msg.payload\"></div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "templateScope": "local",
-        "x": 944,
-        "y": 511,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "f32c7321.5f8d7",
-        "type": "ui_template",
-        "z": "7e884fc9.b6c45",
-        "group": "f481a5f0.f9f1c8",
-        "name": "Lägsta pris (Dec)",
-        "order": 7,
-        "width": "1",
-        "height": "1",
-        "format": "<div ng-bind-html=\"msg.payload\"></div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "templateScope": "local",
-        "x": 944,
-        "y": 560,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "ae487bc5.a97188",
-        "type": "ui_template",
-        "z": "7e884fc9.b6c45",
-        "group": "b561c5cd.249a58",
-        "name": "Kurvjustering Högt (Dec)",
-        "order": 2,
-        "width": "1",
-        "height": "1",
-        "format": "<div ng-bind-html=\"msg.payload\"></div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "templateScope": "local",
-        "x": 957,
-        "y": 658,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "e9e3b7aa.07b0b8",
-        "type": "ui_template",
-        "z": "7e884fc9.b6c45",
-        "group": "b561c5cd.249a58",
-        "name": "Kurvjustering Lågt (Dec)",
-        "order": 4,
-        "width": "1",
-        "height": "1",
-        "format": "<div ng-bind-html=\"msg.payload\"></div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "templateScope": "local",
-        "x": 957,
-        "y": 707,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "28d2a6e2.7f4a6a",
-        "type": "ui_template",
-        "z": "7e884fc9.b6c45",
-        "group": "f481a5f0.f9f1c8",
-        "name": "Minsta differens (Dec)",
-        "order": 11,
-        "width": "1",
-        "height": "1",
-        "format": "<div ng-bind-html=\"msg.payload\"></div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "templateScope": "local",
-        "x": 915,
-        "y": 809,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "d745b938.fb5078",
-        "type": "ui_template",
-        "z": "7e884fc9.b6c45",
-        "group": "f481a5f0.f9f1c8",
-        "name": "Super lågt pris (Dec)",
-        "order": 9,
-        "width": "1",
-        "height": "1",
-        "format": "<div ng-bind-html=\"msg.payload\"></div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "templateScope": "local",
-        "x": 947,
-        "y": 609,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "e01b3def.f30f9",
-        "type": "ui_template",
-        "z": "7e884fc9.b6c45",
-        "group": "b561c5cd.249a58",
-        "name": "Kurvjustering Super lågt (Dec)",
-        "order": 6,
-        "width": "1",
-        "height": "1",
-        "format": "<div ng-bind-html=\"msg.payload\"></div>",
-        "storeOutMessages": true,
-        "fwdInMessages": true,
-        "templateScope": "local",
-        "x": 1005,
-        "y": 756,
         "wires": [
             []
         ]
