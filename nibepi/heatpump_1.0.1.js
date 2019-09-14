@@ -20,6 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+const version = "1.0";
 var exec = require('child_process').exec;
 const serialport = require('serialport');
 const mqtt = require('mqtt');
@@ -49,7 +50,10 @@ var pumpFound = false;
 var register = [];
 var reset = 10;
 var requestCounter = 0;
-
+if(config.version!=version) {
+    config.version = version;
+    checkConfig(config);
+}
 var connected = false;
 async function checkMQTT() {
     console.log('Checking MQTT');
@@ -254,7 +258,8 @@ function makeResponse(data,callback) {
     }
 }
 function setPump(data,callback) {
-    var sliced = Buffer.from(data).slice(8,data.length-2).toString();
+    let len = data[4]+5;
+    var sliced = Buffer.from(data).slice(8,len).toString();
     var firmware = (data[6]*256)+data[7];
     var split = sliced.split(" ");
     pump = split[0];
@@ -262,7 +267,7 @@ function setPump(data,callback) {
             config.firmware = firmware;
             checkConfig(config);
         logMQTT('Setting up Nibe '+pump)
-        logMQTT('Version: '+firmware)
+        logMQTT('Firmware: '+firmware)
         console.log('Pump: '+pump);
         console.log('Setting up the pump');
         if(pump=='F370') {
