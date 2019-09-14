@@ -19,7 +19,7 @@ https://thepihut.com/products/adafruit-8gb-class-10-sd-microsd-memory-card-sd-ad
 Löd på anslutningskontakter på A och B på RS485 kortet. Stacka sedan ihop alla kort, antingen med headers eller löd dom rätt på varandra för minsta möjliga.
 
 
-På boot partionen (som även är tillgänglig i windows) ligger det en fil som heter wifi.conf. 
+På boot partionen (som även är tillgänglig i windows) ligger det en fil som heter wifi.txt. 
 ```
 {
         "ssid":"MittWifi",
