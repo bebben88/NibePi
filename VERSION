@@ -1,4 +1,4 @@
 [
-{"version":"1.0.1","url":"https://raw.githubusercontent.com/bebben88/NibePi/master/node-red/flows_1.0.1.json","url2":"https://raw.githubusercontent.com/bebben88/NibePi/master/nibepi/heatpump_1.0.1.js"},
-{"version":"1.0","url":"https://raw.githubusercontent.com/bebben88/NibePi/master/node-red/flows_1.0.json","url2":"https://raw.githubusercontent.com/bebben88/NibePi/master/nibepi/heatpump_1.0.js"}
+{"version":"1.0","url":"https://raw.githubusercontent.com/bebben88/NibePi/master/node-red/flows_1.0.json","url2":"https://raw.githubusercontent.com/bebben88/NibePi/master/nibepi/heatpump_1.0.js"},
+{"version":"1.0.1","url":"https://raw.githubusercontent.com/bebben88/NibePi/master/node-red/flows_1.0.1.json","url2":"https://raw.githubusercontent.com/bebben88/NibePi/master/nibepi/heatpump_1.0.1.js"}
 ]
