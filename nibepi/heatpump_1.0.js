@@ -258,10 +258,18 @@ function makeResponse(data,callback) {
     }
 }
 function setPump(data,callback) {
-    var sliced = Buffer.from(data).slice(8,data.length-2).toString();
-    var firmware = (data[6]*256)+data[7];
-    var split = sliced.split(" ");
-    pump = split[0];
+    var sliced;
+    var split;
+    var firmware = "";
+    if(data[3]==238) {
+        sliced = config.pump;
+    } else {
+        let len = data[4]+5;
+        sliced = Buffer.from(data).slice(8,len).toString();
+        firmware = (data[6]*256)+data[7];
+    }
+        split = sliced.split(" ");
+        pump = split[0];
         if(pumpFound==false) {
             config.firmware = firmware;
             checkConfig(config);
@@ -377,11 +385,15 @@ function setPump(data,callback) {
 }
 function parseMessage(data) {
     if(data[3]==109) {
-        startExternalMQTT()
         setPump(data,function(err,result) {
             if ( err ) throw err;
-            getQueue.push(getData(45001));
         })
+        } else if (data[3]==238) {
+            startExternalMQTT()
+            setPump(data,function(err,result) {
+                if ( err ) throw err;
+                getQueue.push(getData(45001));
+            })
         } else {
     if(register!==undefined) {
         decodeMessage(register,data);
