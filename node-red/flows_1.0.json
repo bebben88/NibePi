@@ -747,7 +747,7 @@
         "type": "function",
         "z": "7e884fc9.b6c45",
         "name": "",
-        "func": "var config = global.get('config');\nvar data = global.get('data');\nif(config===undefined || data===undefined) { return; }\nvar time = Date.now();\nvar lastSent = context.get('last')||0;\nvar mode = msg.payload;\nvar tempInside = data[40033];\nif(data.indoorSensor!==undefined && config.plugins.indoor.nibesensor!==undefined && config.plugins.indoor.nibesensor===false) {\n    tempInside = data.indoorSensor;\n}\nvar hotwater = data[47041]\nvar tempOutside = data[40004];\nvar heatCurve = data[47007];\nvar setTemp = data[47398];\nvar dM = data[43005];\nvar dMstart = data[47206];\nvar time = Number(getTime());\nif(tempInside===undefined || tempOutside===undefined) {\n    return;\n}\n\n\ntempInside = Number(tempInside);\ntempOutside = Number(tempOutside);\nheatCurve = Number(heatCurve);\nsetTemp = Number(setTemp);\ndMstart = Number(dMstart);\nif(mode===\"super_low\") { // Super lågt pris\n    if(config.plugins.tibber.hotwater_active===true) {\n        if(hotwater!=config.plugins.tibber.hotwater_price_superlow) {\n            node.send({topic:config.defaultTopic+\"47041/set\",payload:config.plugins.tibber.hotwater_price_superlow});\n        }\n    }\nif(tempInside<=(setTemp-0.5)) {\n    global.set('priceSet',config.plugins.tibber.adjust_superlow);\n} else {\n    global.set('priceSet',0);\n}\n} else if (mode==\"low\") { // Lågt pris\nif(config.plugins.tibber.hotwater_active===true) {\n    if(hotwater!=config.plugins.tibber.hotwater_price_low) {\n        node.send({topic:config.defaultTopic+\"47041/set\",payload:config.plugins.tibber.hotwater_price_low});\n    }\n}\nif(tempInside<=(setTemp-0.5)) {\n    global.set('priceSet',config.plugins.tibber.adjust_low);\n} else {\n    global.set('priceSet',0);\n}\n} else if (mode==\"normal\") { //Normalt\nif(config.plugins.tibber.hotwater_active===true) {\n    if(hotwater!=config.plugins.tibber.hotwater_price_normal) {\n        node.send({topic:config.defaultTopic+\"47041/set\",payload:config.plugins.tibber.hotwater_price_normal});\n    }\n}\n    global.set('priceSet',0);\n/*\nvar hW1 = config.hotWaterPriority1.split(\"-\");\nvar hW2 = config.hotWaterPriority2.split(\"-\");\nnode.send([null,null,{debug:\"Klockan är: \"+time+\", Varmvatten period 1: \"+hW1[0]+\"-\"+hW1[1]+\", Varmvatten period 2: \"+hW2[0]+\"-\"+hW2[1]}]);\n    if((time>=Number(hW1[0]) && time <=Number(hW1[1])) || (time>=Number(hW2[0]) && time <=Number(hW2[1]))) {\n        node.send([null,null,{debug:\"Normalt elpris. Prioriterad varmvatten period.\"}]);\n        node.send({topic:config.defaultTopic+\"47041/set\",payload:\"1\"});\n    } else {\n        node.send({topic:config.defaultTopic+\"47041/set\",payload:\"0\"});\n        node.send([null,null,{debug:\"Normalt elpris. Ej prioriterad varmvatten period.\"}]);\n    }*/\n} else if (mode==\"high\") { // Dyrt pris\nif(config.plugins.tibber.hotwater_active===true) {\n    if(hotwater!=config.plugins.tibber.hotwater_price_high) {\n        node.send({topic:config.defaultTopic+\"47041/set\",payload:config.plugins.tibber.hotwater_price_high});\n    }\n}\nif(tempInside>=(setTemp-0.5)) {\n    if(dM<(dMstart-50) && time>=lastSent) { // Får endast sända gradminuter en gång var 55e minut.\n        node.send({topic:config.defaultTopic+\"43005/set\",payload:0});\n        context.set('last',time+3300000);\n    }\n    global.set('priceSet',config.plugins.tibber.adjust_high);\n} else {\n    global.set('priceSet',0);\n}\n}\n\n\nfunction getTime() {\nvar now     = new Date(); \nvar hour    = now.getHours();\nvar minute  = now.getMinutes();\n\nif(hour.toString().length == 1) {\n    hour = '0'+hour;\n}\nif(minute.toString().length == 1) {\n    minute = '0'+minute;\n}\nvar result = hour.toString()+minute.toString();\nreturn result;\n}",
+        "func": "var config = global.get('config');\nvar data = global.get('data');\nif(config===undefined || data===undefined) { return; }\nvar time = Date.now();\nvar lastSent = context.get('last')||0;\nvar mode = msg.payload;\nvar tempInside = data[40033];\nif(data.indoorSensor!==undefined && config.plugins.indoor.nibesensor!==undefined && config.plugins.indoor.nibesensor===false) {\n    tempInside = data.indoorSensor;\n}\nvar hotwater = data[47041]\nvar tempOutside = data[40004];\nvar heatCurve = data[47007];\nvar setTemp = data[47398];\nvar dM = data[43005];\nvar dMstart = data[47206];\n//var time = Number(getTime());\nif(tempInside===undefined || tempOutside===undefined) {\n    return;\n}\n\n\ntempInside = Number(tempInside);\ntempOutside = Number(tempOutside);\nheatCurve = Number(heatCurve);\nsetTemp = Number(setTemp);\ndMstart = Number(dMstart);\nif(mode===\"super_low\") { // Super lågt pris\n    if(config.plugins.tibber.hotwater_active===true) {\n        if(hotwater!=config.plugins.tibber.hotwater_price_superlow) {\n            node.send({topic:config.defaultTopic+\"47041/set\",payload:config.plugins.tibber.hotwater_price_superlow});\n        }\n    }\nif(tempInside<=(setTemp-0.5)) {\n    global.set('priceSet',config.plugins.tibber.adjust_superlow);\n} else {\n    global.set('priceSet',0);\n}\n} else if (mode==\"low\") { // Lågt pris\nif(config.plugins.tibber.hotwater_active===true) {\n    if(hotwater!=config.plugins.tibber.hotwater_price_low) {\n        node.send({topic:config.defaultTopic+\"47041/set\",payload:config.plugins.tibber.hotwater_price_low});\n    }\n}\nif(tempInside<=(setTemp-0.5)) {\n    global.set('priceSet',config.plugins.tibber.adjust_low);\n} else {\n    global.set('priceSet',0);\n}\n} else if (mode==\"normal\") { //Normalt\nif(config.plugins.tibber.hotwater_active===true) {\n    if(hotwater!=config.plugins.tibber.hotwater_price_normal) {\n        node.send({topic:config.defaultTopic+\"47041/set\",payload:config.plugins.tibber.hotwater_price_normal});\n    }\n}\n    global.set('priceSet',0);\n/*\nvar hW1 = config.hotWaterPriority1.split(\"-\");\nvar hW2 = config.hotWaterPriority2.split(\"-\");\nnode.send([null,null,{debug:\"Klockan är: \"+time+\", Varmvatten period 1: \"+hW1[0]+\"-\"+hW1[1]+\", Varmvatten period 2: \"+hW2[0]+\"-\"+hW2[1]}]);\n    if((time>=Number(hW1[0]) && time <=Number(hW1[1])) || (time>=Number(hW2[0]) && time <=Number(hW2[1]))) {\n        node.send([null,null,{debug:\"Normalt elpris. Prioriterad varmvatten period.\"}]);\n        node.send({topic:config.defaultTopic+\"47041/set\",payload:\"1\"});\n    } else {\n        node.send({topic:config.defaultTopic+\"47041/set\",payload:\"0\"});\n        node.send([null,null,{debug:\"Normalt elpris. Ej prioriterad varmvatten period.\"}]);\n    }*/\n} else if (mode==\"high\") { // Dyrt pris\nif(config.plugins.tibber.hotwater_active===true) {\n    if(hotwater!=config.plugins.tibber.hotwater_price_high) {\n        node.send({topic:config.defaultTopic+\"47041/set\",payload:config.plugins.tibber.hotwater_price_high});\n    }\n}\nif(tempInside>=(setTemp-0.5)) {\n    if(dM<(dMstart-50) && time>=lastSent) { // Får endast sända gradminuter en gång var 55e minut.\n        node.send({topic:config.defaultTopic+\"43005/set\",payload:0});\n        context.set('last',time+3300000);\n    }\n    global.set('priceSet',config.plugins.tibber.adjust_high);\n} else {\n    global.set('priceSet',0);\n}\n}\n\n\nfunction getTime() {\nvar now     = new Date(); \nvar hour    = now.getHours();\nvar minute  = now.getMinutes();\n\nif(hour.toString().length == 1) {\n    hour = '0'+hour;\n}\nif(minute.toString().length == 1) {\n    minute = '0'+minute;\n}\nvar result = hour.toString()+minute.toString();\nreturn result;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 988,
@@ -764,7 +764,7 @@
         "type": "debug",
         "z": "7e884fc9.b6c45",
         "name": "Utgående",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -820,8 +820,11 @@
         "name": "",
         "method": "POST",
         "ret": "obj",
+        "paytoqs": false,
         "url": "https://api.tibber.com/v1-beta/gql",
         "tls": "",
+        "proxy": "",
+        "authType": "",
         "x": 582,
         "y": 136,
         "wires": [
@@ -915,7 +918,7 @@
         "type": "function",
         "z": "dedc2653.57a3d8",
         "name": "",
-        "func": "var config = global.get('config');\nvar data = global.get('data');\nif(config===undefined || data===undefined) { return; }\nif(config.plugins.indoor===undefined || config.plugins.indoor.active===false) {\n    global.set('indoorSet',0);\n    return;\n}\nvar tempInside = data[40033];\nif(data.indoorSensor!==undefined && config.plugins.indoor.nibesensor!==undefined && config.plugins.indoor.nibesensor===false) {\n    tempInside = data.indoorSensor;\n}\nvar tempOutside = data[40004];\nvar setTemp = data[47398];\nvar factor = data[47402]||0;\nnode.send({topic:\"Inomhustemp\",payload:tempInside});\nnode.send({topic:\"Utomhustemp\",payload:tempOutside});\n\nvar block = global.get('blockHeat')||false;\nvar time = getTime();\nvar weather = global.get('weatherData');\nif(tempInside===undefined || tempOutside===undefined) {\n    node.send([null,null,{debug:\"Saknar värden, avslutar.\"}]);\n    return;\n}\ntempInside = Number(tempInside);\ntempOutside = Number(tempOutside);\nfactor = Number(factor);\n\nif(tempInside>setTemp) {\n    var indoorSet = Number(((setTemp-tempInside)*factor).toFixed(1));\n    if(indoorSet<-10) { indoorSet = -10; }\n    global.set('indoorSet',indoorSet);\n    node.send({topic:\"Kurvjustering\",payload:indoorSet});\n    node.send([null,null,{debug:\"Inomhustemp(\"+tempInside+\") för hög, justering: \"+indoorSet+\"°C\"}]);\n} else if(tempInside<(setTemp-0.5)) {\n    var indoorSet = Number((((setTemp-0.5)-tempInside)*factor).toFixed(1));\n    if(indoorSet>10) { indoorSet = 10; }\n    global.set('indoorSet',indoorSet);\n    node.send({topic:\"Kurvjustering\",payload:indoorSet});\n    node.send([null,null,{debug:\"Inomhustemp(\"+tempInside+\") för låg, justering: \"+indoorSet+\"°C\"}]);\n} else {\n    var indoorSet = 0;\n    if(indoorSet>10) { indoorSet = 10; }\n    global.set('indoorSet',indoorSet);\n    node.send({topic:\"Kurvjustering\",payload:indoorSet});\n    node.send([null,null,{debug:\"Inomhustemp(\"+tempInside+\") lagom, ingen justering: \"+indoorSet+\"°C\"}]);\n}\nnode.send([null,null,{debug:\"Jämför temperaturer...\"}]);\nnode.send([null,null,{debug:\"Inomhus: \"+tempInside+\"°C, Utomhus: \"+tempOutside+\"°C, Kurvlutning: \"+indoorSet+\"°C\"}]);\n\nif(indoorSet<-5) {\n    block = true;\n} else if(indoorSet>-3) {\n    block = false;\n}\n/*\nif(block===true) {\n    if(((tempOutside+3)<tempInside) && (time>2200 || time<800) && 5<=weather.avg && 5<=tempOutside) {\n        var savedSpeed = Number(global.get('nibe_data.47265')||\"70\");\n        context.set('nightCold',savedSpeed);\n        if(Number(global.get('nibe_data.47265'))!==99) {\n        node.send([null,{topic:\"nibe/modbus/47265/set\",payload:99}]);\n            node.send([null,null,{debug:\"Nattsvalka inaktiv\"}]);\n        }\n        node.send([null,null,{debug:\"Nattsvalka aktiv\"}]);\n    } else {\n        var savedSpeed = context.get('savedSpeed')||70;\n        if(Number(global.get('nibe_data.47265'))===99) {\n            node.send([null,{topic:\"nibe/modbus/47265/set\",payload:savedSpeed}]);\n            node.send([null,null,{debug:\"Nattsvalka inaktiv\"}]);\n        }\n    }\n} else {\n    var savedSpeed = context.get('savedSpeed')||70;\n    if(Number(global.get('nibe_data.47265'))===99) {\n        node.send([null,{topic:\"nibe/modbus/47265/set\",payload:savedSpeed}]);\n        node.send([null,null,{debug:\"Nattsvalka inaktiv\"}]);\n    }\n}*/\nglobal.set('blockHeat',block);\n\n\nfunction getTime() {\nvar now     = new Date(); \nvar hour    = now.getHours();\nvar minute  = now.getMinutes();\n\nif(hour.toString().length == 1) {\n    hour = '0'+hour;\n}\nif(minute.toString().length == 1) {\n    minute = '0'+minute;\n}\nvar result = hour.toString()+minute.toString();\nreturn Number(result);\n}",
+        "func": "var config = global.get('config');\nvar data = global.get('data');\nif(config===undefined || data===undefined) { return; }\nif(config.plugins.indoor===undefined || config.plugins.indoor.active===false) {\n    global.set('indoorSet',0);\n    return;\n}\nvar tempInside = data[40033];\nif(data.indoorSensor!==undefined && config.plugins.indoor.nibesensor!==undefined && config.plugins.indoor.nibesensor===false) {\n    tempInside = data.indoorSensor;\n}\nvar tempOutside = data[40004];\nvar setTemp = data[47398];\nvar factor = data[47402]||0;\nnode.send({topic:\"Inomhustemp\",payload:tempInside});\nnode.send({topic:\"Utomhustemp\",payload:tempOutside});\n\nvar block = global.get('blockHeat')||false;\nvar time = getTime();\nvar weather = global.get('weatherData');\nif(tempInside===undefined || tempOutside===undefined) {\n    node.send([null,null,{debug:\"Saknar värden, avslutar.\"}]);\n    return;\n}\ntempInside = Number(tempInside);\ntempOutside = Number(tempOutside);\nfactor = Number(factor);\n\nif(tempInside>setTemp) {\n    var indoorSet = Number(((setTemp-tempInside)*factor).toFixed(1));\n    if(indoorSet<-10) { indoorSet = -10; }\n    global.set('indoorSet',indoorSet);\n    node.send({topic:\"Kurvjustering\",payload:indoorSet});\n    node.send([null,null,{debug:\"Inomhustemp(\"+tempInside+\") för hög, justering: \"+indoorSet+\"°C\"}]);\n} else if(tempInside<setTemp) {\n    var indoorSet = Number(((setTemp-tempInside)*factor).toFixed(1));\n    if(indoorSet>10) { indoorSet = 10; }\n    global.set('indoorSet',indoorSet);\n    node.send({topic:\"Kurvjustering\",payload:indoorSet});\n    node.send([null,null,{debug:\"Inomhustemp(\"+tempInside+\") för låg, justering: \"+indoorSet+\"°C\"}]);\n} else {\n    var indoorSet = 0;\n    if(indoorSet>10) { indoorSet = 10; }\n    global.set('indoorSet',indoorSet);\n    node.send({topic:\"Kurvjustering\",payload:indoorSet});\n    node.send([null,null,{debug:\"Inomhustemp(\"+tempInside+\") lagom, ingen justering: \"+indoorSet+\"°C\"}]);\n}\nnode.send([null,null,{debug:\"Jämför temperaturer...\"}]);\nnode.send([null,null,{debug:\"Inomhus: \"+tempInside+\"°C, Utomhus: \"+tempOutside+\"°C, Kurvlutning: \"+indoorSet+\"°C\"}]);\n\nif(indoorSet<-5) {\n    block = true;\n} else if(indoorSet>-3) {\n    block = false;\n}\n/*\nif(block===true) {\n    if(((tempOutside+3)<tempInside) && (time>2200 || time<800) && 5<=weather.avg && 5<=tempOutside) {\n        var savedSpeed = Number(global.get('nibe_data.47265')||\"70\");\n        context.set('nightCold',savedSpeed);\n        if(Number(global.get('nibe_data.47265'))!==99) {\n        node.send([null,{topic:\"nibe/modbus/47265/set\",payload:99}]);\n            node.send([null,null,{debug:\"Nattsvalka inaktiv\"}]);\n        }\n        node.send([null,null,{debug:\"Nattsvalka aktiv\"}]);\n    } else {\n        var savedSpeed = context.get('savedSpeed')||70;\n        if(Number(global.get('nibe_data.47265'))===99) {\n            node.send([null,{topic:\"nibe/modbus/47265/set\",payload:savedSpeed}]);\n            node.send([null,null,{debug:\"Nattsvalka inaktiv\"}]);\n        }\n    }\n} else {\n    var savedSpeed = context.get('savedSpeed')||70;\n    if(Number(global.get('nibe_data.47265'))===99) {\n        node.send([null,{topic:\"nibe/modbus/47265/set\",payload:savedSpeed}]);\n        node.send([null,null,{debug:\"Nattsvalka inaktiv\"}]);\n    }\n}*/\nglobal.set('blockHeat',block);\n\n\nfunction getTime() {\nvar now     = new Date(); \nvar hour    = now.getHours();\nvar minute  = now.getMinutes();\n\nif(hour.toString().length == 1) {\n    hour = '0'+hour;\n}\nif(minute.toString().length == 1) {\n    minute = '0'+minute;\n}\nvar result = hour.toString()+minute.toString();\nreturn Number(result);\n}",
         "outputs": 3,
         "noerr": 0,
         "x": 470,
@@ -1072,7 +1075,8 @@
                 "c8a189c9.71c2b8",
                 "4c5fe2e7.3d8a7c",
                 "2a75b220.bceb6e",
-                "a71fc0a0.cbad4"
+                "a71fc0a0.cbad4",
+                "3cf2e9a5.ebb2c6"
             ]
         ]
     },
@@ -2685,7 +2689,7 @@
         "type": "debug",
         "z": "dedc2653.57a3d8",
         "name": "MQTT Sensor",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -4045,7 +4049,7 @@
         "type": "function",
         "z": "7e884fc9.b6c45",
         "name": "",
-        "func": "var config = global.get('config');\nif(config===undefined) return;\nif(msg.statusCode!==200) {\n    global.set('priceSet',0);\n    node.warn('Får ej kontakt med Tibber servern. Ställer in reglering till 0.')\n    return;\n}\nvar today = msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.today;\nvar tomorrow;\nvar current = msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.current.energy*100;\nvar consumption = msg.payload.data.viewer.homes[0].consumption.nodes;\n\nnode.send({payload:[]});\nif(consumption!==undefined) {\nfor( var i = 0; i < consumption.length; i++){\n    var timestamp = toTimestamp(consumption[i].from)\n    var topic = \"Förbrukning\"\n    var value = consumption[i].consumption;\n    node.send({topic:topic,timestamp:timestamp,payload:value})\n}\n}\n\nif(msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.tomorrow!==undefined) {\n    tomorrow = msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.tomorrow;\n}\nvar priceArray = today.concat(tomorrow);\npriceArray.sort(function(a,b){return a.energy - b.energy});\nvar time = toTimestamp(new Date());\nvar lowestPrice = toTimestamp(priceArray[0].startsAt);\nvar Min = priceArray[config.plugins.tibber.price_min].energy*100;\nvar Max = priceArray[(priceArray.length-1)-config.plugins.tibber.price_max].energy*100;\nfor( var i = 0; i < priceArray.length; i++){\n    var timestamp = toTimestamp(priceArray[i].startsAt)\n    var topic = \"Pris\"\n    var adjust = 0;\n    var hotwater_adjust = Number(config.plugins.tibber.hotwater_price_normal);\n    var value = Number(priceArray[i].energy*100).toFixed(2);\n    if(value>Max) {\n        hotwater_adjust = Number(config.plugins.tibber.hotwater_price_high);\n        adjust = config.plugins.tibber.adjust_high;\n    }\n    if(value<=(config.plugins.tibber.price_low)) {\n        hotwater_adjust = Number(config.plugins.tibber.hotwater_price_superlow);\n        adjust = config.plugins.tibber.adjust_superlow;\n    } else if(timestamp>=lowestPrice) {\n        if(value<Min) {\n            hotwater_adjust = Number(config.plugins.tibber.hotwater_price_low);\n            adjust = config.plugins.tibber.adjust_low;\n        }\n    }\n    if((Max-Min)<config.plugins.tibber.adjust_active) {\n        hotwater_adjust = Number(config.plugins.tibber.hotwater_price_normal);\n        adjust = 0;\n    }\n    if(config.plugins.tibber.hotwater_active===true) {\n        node.send({topic:\"Varmvattenläge\",timestamp:timestamp,payload:hotwater_adjust})\n    }\n    node.send({topic:\"Nedre Brytpunkt\",timestamp:timestamp,payload:Min})\n    node.send({topic:\"Övre Brytpunkt\",timestamp:timestamp,payload:Max})\n    node.send({topic:topic,timestamp:timestamp,payload:value})\n    node.send({topic:\"Kurvjustering\",timestamp:timestamp,payload:adjust})\n    \n}\nif(current<=(config.plugins.tibber.price_low)) {\n    node.send([null,null,{payload:\"super_low\"}])\n    node.send([null,{payload:`Super lågt elpris: ${(current).toFixed(2)} öre`}])\n} else if(current<Min) {\n    if(time>lowestPrice) {\n        node.send([null,null,{payload:\"low\"}])\n    }\n    node.send([null,{payload:`Lågt elpris: ${(current).toFixed(2)} öre`}])\n} else if(current>Max) {\n    node.send([null,null,{payload:\"high\"}])\n    node.send([null,{payload:`Högt elpris: ${(current).toFixed(2)} öre`}])\n} else {\n    node.send([null,null,{payload:\"normal\"}])\n    node.send([null,{payload:`Normalt elpris: ${(current).toFixed(2)} öre`}])\n}\nfunction toTimestamp(strDate){\n var datum = Date.parse(strDate);\n return Number(datum.toFixed());\n}\n",
+        "func": "var config = global.get('config');\nif(config===undefined) return;\nif(msg.statusCode!==200) {\n    global.set('priceSet',0);\n    node.warn('Får ej kontakt med Tibber servern. Ställer in reglering till 0.')\n    return;\n}\nvar today = msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.today;\nvar tomorrow;\nvar current = msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.current.energy*100;\nvar consumption = msg.payload.data.viewer.homes[0].consumption.nodes;\n\nnode.send({payload:[]});\nif(consumption!==undefined) {\nfor( var i = 0; i < consumption.length; i++){\n    let timestamp = toTimestamp(consumption[i].from)\n    let topic = \"Förbrukning\"\n    let value = consumption[i].consumption;\n    node.send({topic:topic,timestamp:timestamp,payload:value})\n}\n}\n\nif(msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.tomorrow!==undefined) {\n    tomorrow = msg.payload.data.viewer.homes[0].currentSubscription.priceInfo.tomorrow;\n}\nvar priceArray = today.concat(tomorrow);\nvar unsortedPrice = priceArray;\npriceArray.sort(function(a,b){return a.energy - b.energy});\nvar time = toTimestamp(new Date());\nvar lowestPrice = toTimestamp(priceArray[0].startsAt);\nvar Min = priceArray[config.plugins.tibber.price_min].energy*100;\nvar Max = priceArray[(priceArray.length-1)-config.plugins.tibber.price_max].energy*100;\n\nvar MinArray = [];\nvar MaxArray = [];\nvar valueArray = [];\nvar adjustArray = [];\nfor( var o = 0; o < unsortedPrice.length; o++){\n    let timestamp = toTimestamp(unsortedPrice[o].startsAt)\n    let topic = \"Pris\"\n    var adjust = 0;\n    var hotwater_adjust = Number(config.plugins.tibber.hotwater_price_normal);\n    let value = Number(unsortedPrice[o].energy*100).toFixed(2);\n    if(value>Max) {\n        hotwater_adjust = Number(config.plugins.tibber.hotwater_price_high);\n        adjust = config.plugins.tibber.adjust_high;\n    }\n    if(value<=(config.plugins.tibber.price_low)) {\n        hotwater_adjust = Number(config.plugins.tibber.hotwater_price_superlow);\n        adjust = config.plugins.tibber.adjust_superlow;\n    } else if(timestamp>=lowestPrice) {\n        if(value<Min) {\n            hotwater_adjust = Number(config.plugins.tibber.hotwater_price_low);\n            adjust = config.plugins.tibber.adjust_low;\n        }\n    }\n    if((Max-Min)<config.plugins.tibber.adjust_active) {\n        hotwater_adjust = Number(config.plugins.tibber.hotwater_price_normal);\n        adjust = 0;\n    }\n    if(config.plugins.tibber.hotwater_active===true) {\n        //node.send({topic:\"Varmvattenläge\",timestamp:timestamp,payload:hotwater_adjust})\n    }\n    MinArray.push({x:timestamp,y:Min});\n    MaxArray.push({x:timestamp,y:Max});\n    valueArray.push({x:timestamp,y:Number(value)});\n    adjustArray.push({x:timestamp,y:Number(adjust)})\n    //node.send({topic:\"Nedre Brytpunkt\",timestamp:timestamp,payload:Min})\n    //node.send({topic:\"Övre Brytpunkt\",timestamp:timestamp,payload:Max})\n    //node.send({topic:topic,timestamp:timestamp,payload:value})\n    //node.send({topic:\"Kurvjustering\",timestamp:timestamp,payload:adjust})\n    \n}\n//node.warn(valueArray);\nvar sendArray = [\n    {\n        \"series\":[\"Nedre Brytpunkt\",\"Övre Brytpunkt\",\"Pris\",\"Kurvjustering\"],\n        \"data\":[MinArray,MaxArray,valueArray,adjustArray],\n        \"labels\":[\"Nedre Brytpunkt\",\"Övre Brytpunkt\",\"Pris\",\"Kurvjustering\"]\n    }];\nnode.send({topic:\"Kostnad\",payload:sendArray});\nif(current<=(config.plugins.tibber.price_low)) {\n    node.send([null,null,{payload:\"super_low\"}])\n    node.send([null,{payload:`Super lågt elpris: ${(current).toFixed(2)} öre`}])\n} else if(current<Min) {\n    if(time>lowestPrice) {\n        node.send([null,null,{payload:\"low\"}])\n    }\n    node.send([null,{payload:`Lågt elpris: ${(current).toFixed(2)} öre`}])\n} else if(current>Max) {\n    node.send([null,null,{payload:\"high\"}])\n    node.send([null,{payload:`Högt elpris: ${(current).toFixed(2)} öre`}])\n} else {\n    node.send([null,null,{payload:\"normal\"}])\n    node.send([null,{payload:`Normalt elpris: ${(current).toFixed(2)} öre`}])\n}\nfunction toTimestamp(strDate){\n var datum = Date.parse(strDate);\n return Number(datum.toFixed());\n}\n",
         "outputs": 3,
         "noerr": 0,
         "x": 757,
@@ -4873,11 +4877,10 @@
         "x": 897,
         "y": 49,
         "wires": [
+            [],
             [
-                "e12c845b.003a68"
-            ],
-            [
-                "60ad58d5.7422c8"
+                "60ad58d5.7422c8",
+                "ef9345be.279118"
             ]
         ]
     },
@@ -5007,7 +5010,7 @@
         "z": "ade2c7a9.e97ba8",
         "name": "",
         "group": "4a7ab836.172ae8",
-        "order": 1,
+        "order": 3,
         "width": "6",
         "height": "1",
         "passthru": false,
@@ -5033,7 +5036,7 @@
         "z": "ade2c7a9.e97ba8",
         "name": "",
         "group": "4a7ab836.172ae8",
-        "order": 1,
+        "order": 4,
         "width": "6",
         "height": "1",
         "passthru": false,
@@ -5059,7 +5062,7 @@
         "z": "ade2c7a9.e97ba8",
         "name": "",
         "group": "4a7ab836.172ae8",
-        "order": 1,
+        "order": 5,
         "width": "6",
         "height": "1",
         "passthru": false,
@@ -5085,7 +5088,7 @@
         "z": "ade2c7a9.e97ba8",
         "name": "",
         "group": "4a7ab836.172ae8",
-        "order": 1,
+        "order": 6,
         "width": "6",
         "height": "1",
         "passthru": false,
@@ -5112,7 +5115,7 @@
         "z": "ade2c7a9.e97ba8",
         "name": "",
         "group": "4a7ab836.172ae8",
-        "order": 1,
+        "order": 7,
         "width": "6",
         "height": "1",
         "passthru": false,
@@ -6381,7 +6384,7 @@
         "chartType": "line",
         "legend": "true",
         "xformat": "dd HH:mm",
-        "interpolate": "step",
+        "interpolate": "linear",
         "nodata": "",
         "dot": false,
         "ymin": "",
@@ -6404,10 +6407,12 @@
         ],
         "useOldStyle": false,
         "outputs": 1,
-        "x": 1152,
-        "y": 28,
+        "x": 1120,
+        "y": 20,
         "wires": [
-            []
+            [
+                "dd86ab18.aab248"
+            ]
         ]
     },
     {
@@ -6548,8 +6553,8 @@
         "storeOutMessages": false,
         "fwdInMessages": false,
         "templateScope": "local",
-        "x": 734,
-        "y": 280,
+        "x": 670,
+        "y": 220,
         "wires": [
             []
         ]
@@ -6579,15 +6584,15 @@
         "z": "ade2c7a9.e97ba8",
         "group": "4a7ab836.172ae8",
         "name": "",
-        "order": 4,
+        "order": 2,
         "width": 0,
         "height": 0,
         "format": "Värmepump: Nibe {{msg.payload.pump}}<br>\nFirmware: {{msg.payload.firmware}}<br>\nNibePi Version: {{msg.payload.version}}",
         "storeOutMessages": false,
         "fwdInMessages": false,
         "templateScope": "local",
-        "x": 627,
-        "y": 483,
+        "x": 520,
+        "y": 520,
         "wires": [
             []
         ]
@@ -6687,6 +6692,104 @@
             [
                 "ad071f9c.747ff",
                 "b69122fd.049d2"
+            ]
+        ]
+    },
+    {
+        "id": "dd86ab18.aab248",
+        "type": "debug",
+        "z": "7e884fc9.b6c45",
+        "name": "Utgående",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1160,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "ef9345be.279118",
+        "type": "debug",
+        "z": "7e884fc9.b6c45",
+        "name": "Utgående",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1160,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "5c99e36c.80d42c",
+        "type": "inject",
+        "z": "7e884fc9.b6c45",
+        "name": "",
+        "topic": "",
+        "payload": "[]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 610,
+        "y": 60,
+        "wires": [
+            [
+                "60ad58d5.7422c8"
+            ]
+        ]
+    },
+    {
+        "id": "7500426e.4f401c",
+        "type": "ui_text_input",
+        "z": "ade2c7a9.e97ba8",
+        "name": "Pump manuell",
+        "label": "Pump: ",
+        "tooltip": "Vid problem med autodetektering, skriv in pumpens modell manuellt. T.ex. \"F1255\"",
+        "group": "4a7ab836.172ae8",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "text",
+        "delay": "0",
+        "topic": "pump",
+        "x": 840,
+        "y": 480,
+        "wires": [
+            [
+                "b6d60ac6.a4d8d8"
+            ]
+        ]
+    },
+    {
+        "id": "3cf2e9a5.ebb2c6",
+        "type": "change",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.pump",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 460,
+        "wires": [
+            [
+                "7500426e.4f401c"
             ]
         ]
     }
