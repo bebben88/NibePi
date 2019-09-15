@@ -4434,8 +4434,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 325,
-        "y": 399,
+        "x": 260,
+        "y": 400,
         "wires": [
             [
                 "a95559b9.c53f88"
@@ -4454,16 +4454,22 @@
                 "t": "neq",
                 "v": "",
                 "vt": "str"
+            },
+            {
+                "t": "else"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 1,
+        "outputs": 2,
         "x": 343,
         "y": 350,
         "wires": [
             [
                 "333e437b.43764c"
+            ],
+            [
+                "d7caab2f.99b4c8"
             ]
         ]
     },
@@ -6663,12 +6669,12 @@
         "order": 3,
         "width": 0,
         "height": 0,
-        "format": "<div ng-bind-html=\"msg.payload\"></div>",
+        "format": "På den här sidan kan du hämta ditt Tibber token.<br>\nhttps://developer.tibber.com/settings/accesstoken<br>\n<div ng-bind-html=\"msg.payload\"></div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
-        "x": 504,
-        "y": 399,
+        "x": 630,
+        "y": 400,
         "wires": [
             []
         ]
@@ -6790,6 +6796,33 @@
         "wires": [
             [
                 "7500426e.4f401c"
+            ]
+        ]
+    },
+    {
+        "id": "d7caab2f.99b4c8",
+        "type": "change",
+        "z": "7e884fc9.b6c45",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 520,
+        "y": 340,
+        "wires": [
+            [
+                "a95559b9.c53f88"
             ]
         ]
     }
