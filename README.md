@@ -19,22 +19,13 @@ https://thepihut.com/products/adafruit-8gb-class-10-sd-microsd-memory-card-sd-ad
 Löd på anslutningskontakter på A och B på RS485 kortet. Stacka sedan ihop alla kort, antingen med headers eller löd dom rätt på varandra för minsta möjliga.
 
 
-På boot partionen (som även är tillgänglig i windows) ligger det en fil som heter wifi.txt. 
+På boot partionen (som även är tillgänglig i windows) ligger det en fil som heter wifi.txt. Där skriver du in dina wifi uppgifter. Nätverksnamn på första raden och lösenord på andra raden.
 ```
-{
-        "ssid":"MittWifi",
-        "pass":"mittwifilösen"
-}
+Fam_Svensson_Wifi
+hemligkod231
 ```
-Ändra filen enligt ovan och spara.
-```
-Aktivera Modbus i Värmepumpen.
-Steg 1: Håll in bakåt knappen i ca 7 sekunder, en service meny kommer upp, gå in i den.
-Steg 2: Gå in i meny 5.2 Systeminställningar
-Steg 3: Nästan längst ner i den menyn bockar man för "Modbus".
-Steg 4: Pumpen kommer nu lysa rött och gå in i Felläge. (Ev åtgärder vidtas i pumpen så varmvatten produktion eller värme kan stanna av)
-Steg 5: Stäng av värmepumpen och installera NibePi.
-```
+Ändra filen enligt ovan och spara. OBS Skriv endast wifi namn och lösenord.
+
 ```
 Installera NibePi
 Steg 1: Ta bort den övre luckan där luftfiltret sitter (Gäller endast vid frånluftspumpar).
@@ -51,8 +42,16 @@ Steg 6: Anslut NibePi enl. bild nedan. Inkopplingen kan skilja sig från olika v
 ```
 Steg 7: Stoppa in SD-kortet. Starta värmepumpen med fronten av så länge.
 ```
-Vid uppstart så kommer värmepumpen att börja lysa rött igen. Vid första uppstarten av NibePi kommer den hämta wifi uppgifter från wifi.conf och sedan starta om NibePi.
+```
+Aktivera Modbus i Värmepumpen.
+Steg 1: Håll in bakåt knappen i ca 7 sekunder, en service meny kommer upp, gå in i den.
+Steg 2: Gå in i meny 5.2 Systeminställningar
+Steg 3: Nästan längst ner i den menyn bockar man för "Modbus".
+Steg 4: Pumpen kan nu börja lysa rött om NibePi inte har startat ordentligt än, vilket kan ta några minuter.
+```
+Vid första uppstarten av NibePi kommer den hämta wifi uppgifter från wifi.txt och sedan starta om NibePi.
 Efter några minuter så kommer den röda lampan att bli grön igen. När lampan är grön så har NibePi hittat värmepumpen automatiskt och startat webinterfacet.
+Det kan vara så att NibePi inte kan identifiera pumpen automatiskt. Då får man skriva in modellbeteckningen i webinterfacet.
 
 Node-RED är nu tillgängligt på NibePi's adress. http://nibepi:1880<br>
 Webinterfacet är tillgängligt på http://nibepi:1880/ui<br>
