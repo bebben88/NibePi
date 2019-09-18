@@ -24,7 +24,10 @@ På boot partionen (som även är tillgänglig i windows) ligger det en fil som 
 Fam_Svensson_Wifi:hemligkod231
 ```
 Ändra filen enligt ovan och spara. OBS Skriv endast wifi namn och lösenord.<br>
-Om din värmepump inte hittas automatiskt av NibePi så kan du skapa en textfil på boot partionen som heter "pump.txt" där i skriver du in modellbeteckningen på din värmepump. T.ex "F1255"
+Om din värmepump inte hittas automatiskt av NibePi så kan du skapa en textfil på boot partionen som heter "pump.txt" där i skriver du in modellbeteckningen på din värmepump.
+```
+F1255
+```
 
 ```
 Installera NibePi
