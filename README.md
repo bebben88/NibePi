@@ -30,6 +30,7 @@ Reglerar fläkthastigheten för att hålla lufthastigheten inom ett visst värde
 
 ![alt text](https://github.com/bebben88/NibePi/blob/master/pics/airflow.jpg)
 
+Fler funktioner kommer att byggas till och optimeras löpande. Det går även att uppdatera NibePi direkt via webinterfacet för att få tillgång till de senaste funktionerna.<br>
 I webinterfacet finns information samt möjligheter för att starta om hårdvara eller mjukvara.
 
 Hårdvara som behövs.
