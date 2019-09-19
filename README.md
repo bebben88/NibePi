@@ -11,7 +11,7 @@ Följande funktioner finns att tillgå i webbinterfacet för att göra värmepum
 <b>Prognosreglering</b><br>
 Hämtar väderdata från SMHI och jämför med nuvarande utetemperatur. Justering görs av kurvjusteringen för att få pumpen att agera som om det vore prognostemperaturen.<br>
 ```
-![alt text](https://github.com/bebben88/NibePi/blob/master/pics/smhi.png)
+![alt text](https://raw.githubusercontent.com/bebben88/NibePi/master/pics/smhi.jpg)
 ```
 <b>Elprisreglering</b><br>
 Hämtar ditt elpris från Tibber (du måste vara kund). I webinterfacet finns det inställningar för hur den ska agera och när den ska agera. Om du inte är kund hos tibber får du gärna använda min affiliate länk och bli det. <a href="https://invite.tibber.com/587354e8">https://invite.tibber.com/587354e8</a><br>
