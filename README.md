@@ -7,6 +7,27 @@ OBS. NibePi är testad mot en Nibe F750. De andra pumparna fungerar på samma s�
 
 En viktig aspekt i hela projektet är att det måste vara en driftsäker lösning. Sönderskrivna SD-kort bör inte kunna hända på en NibePi eftersom att systemet körs i read-only. Detta gör den väldigt driftsäker.
 
+Följande funktioner finns att tillgå i webbinterfacet för att göra värmepumpen smartare:<br>
+<b>Prognosreglering</b><br>
+Hämtar väderdata från SMHI och jämför med nuvarande utetemperatur. Justering görs av kurvjusteringen för att få pumpen att agera som om det vore prognostemperaturen.<br>
+```
+![alt text](https://github.com/bebben88/NibePi/blob/master/pics/smhi.jpg)
+```
+<b>Elprisreglering</b><br>
+Hämtar ditt elpris från Tibber (du måste vara kund). I webinterfacet finns det inställningar för hur den ska agera och när den ska agera. Om du inte är kund hos tibber får du gärna använda min affiliate länk och bli det. <a href="https://invite.tibber.com/587354e8">https://invite.tibber.com/587354e8</a><br>
+```
+![alt text](https://github.com/bebben88/NibePi/blob/master/pics/tibber.jpg)
+```
+<b>Inomhusreglering</b><br>
+Ersätter pumpens inbyggda styrning mot inomhustemperatur. Mer ställbar och anpassar sig till de övriga funktionerna.<br>
+```
+![alt text](https://github.com/bebben88/NibePi/blob/master/pics/indoor.jpg)
+```
+<b>Automatisk Lufthastighet</b><br>
+Reglerar fläkthastigheten för att hålla lufthastigheten inom ett visst värde.<br>
+```
+![alt text](https://github.com/bebben88/NibePi/blob/master/pics/airflow.jpg)
+```
 I webinterfacet finns information samt möjligheter för att starta om hårdvara eller mjukvara.
 
 Hårdvara som behövs.
@@ -16,14 +37,25 @@ https://thepihut.com/products/rs485-pizero?variant=26469099976 / https://www.kiw
 https://thepihut.com/products/wide-input-shim / https://www.kiwi-electronics.nl/wide-input-shim
 https://thepihut.com/products/adafruit-8gb-class-10-sd-microsd-memory-card-sd-adapter-included?variant=27740055697 (Eller vilket kort som helst)
 ```
-Löd på anslutningskontakter på A och B på RS485 kortet. Stacka sedan ihop alla kort, antingen med headers eller löd dom rätt på varandra för minsta möjliga.
+Löd på anslutningskontakter på A och B på RS485 kortet. Stacka sedan ihop alla kort, antingen med headers eller löd dom rätt på varandra för minsta möjliga bygghöjd.<br>
 
+Ladda ner en fullständig image fil att skriva till ett 16GB SD kort.<br>
+http://anerdins.se/NibePi/nibepi_1.0.rar<br>
+eller<br>
+https://1drv.ms/u/s!AijwO0Pec8KrhNUkBiG4TvlsmCgwfQ?e=70lEYL<br>
 
-På boot partionen (som även är tillgänglig i windows) ligger det en fil som heter wifi.txt. Där skriver du in dina wifi uppgifter. Nätverksnamn innan : och lösenord efter. OBS kolon mellan namn och lösen.
+På boot partionen (som även är tillgänglig i windows) ligger det en fil som heter wpa_supplicant.conf Där skriver du in dina wifi uppgifter.
 ```
-Fam_Svensson_Wifi:hemligkod231
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+country=SE
+
+network={
+	ssid="WIFINAMN"
+	psk="WIFILÖSEN"
+	key_mgmt=WPA-PSK
+}
 ```
-Ändra filen enligt ovan och spara. OBS Skriv endast wifi namn och lösenord.<br>
+Ändra filen enligt ovan och spara.<br>
 Om din värmepump inte hittas automatiskt av NibePi så kan du skapa en textfil på boot partionen som heter "pump.txt" där i skriver du in modellbeteckningen på din värmepump. T.ex.
 ```
 F1255
@@ -52,9 +84,8 @@ Steg 2: Gå in i meny 5.2 Systeminställningar
 Steg 3: Nästan längst ner i den menyn bockar man för "Modbus".
 Steg 4: Pumpen kan nu börja lysa rött om NibePi inte har startat ordentligt än, vilket kan ta några minuter.
 ```
-Vid första uppstarten av NibePi kommer den hämta wifi uppgifter från wifi.txt och sedan starta om NibePi.
-Efter några minuter så kommer den röda lampan att bli grön igen. När lampan är grön så har NibePi hittat värmepumpen automatiskt och startat webinterfacet.
-Det kan vara så att NibePi inte kan identifiera pumpen automatiskt. Då får man skriva in modellbeteckningen i webinterfacet.
+
+Det kan vara så att NibePi inte kan identifiera pumpen automatiskt. Då får man skriva in modellbeteckningen i webinterfacet eller mata in uppgifterna i pump.txt på boot partionen.
 
 Node-RED är nu tillgängligt på NibePi's adress. http://nibepi:1880<br>
 Webinterfacet är tillgängligt på http://nibepi:1880/ui<br>
