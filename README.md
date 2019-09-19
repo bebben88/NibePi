@@ -83,7 +83,7 @@ Steg 7: Stoppa in SD-kortet. Starta värmepumpen med fronten av så länge.
 ```
 Aktivera Modbus i Värmepumpen.
 Steg 1: Håll in bakåt knappen i ca 7 sekunder, en service meny kommer upp, gå in i den.
-Steg 2: Gå in i meny 5.2 Systeminställningar
+Steg 2: Gå in i meny 5.2 Systeminställningar ( I vissa pumpar är det ytterligare ett menyval )
 Steg 3: Nästan längst ner i den menyn bockar man för "Modbus".
 Steg 4: Pumpen kan nu börja lysa rött om NibePi inte har startat ordentligt än, vilket kan ta några minuter.
 ```
