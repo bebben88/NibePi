@@ -16,18 +16,19 @@ Hämtar väderdata från SMHI och jämför med nuvarande utetemperatur. Justerin
 <b>Elprisreglering</b><br>
 Hämtar ditt elpris från Tibber (du måste vara kund). I webinterfacet finns det inställningar för hur den ska agera och när den ska agera. Om du inte är kund hos tibber får du gärna använda min affiliate länk och bli det. <a href="https://invite.tibber.com/587354e8">https://invite.tibber.com/587354e8</a><br>
 ```
-![alt text](https://github.com/bebben88/NibePi/blob/master/pics/tibber1.png)
-![alt text](https://github.com/bebben88/NibePi/blob/master/pics/tibber2.png)
+![alt text](https://github.com/bebben88/NibePi/blob/master/pics/tibber1.jpg)
+![alt text](https://github.com/bebben88/NibePi/blob/master/pics/tibber2.jpg)
 ```
 <b>Inomhusreglering</b><br>
 Ersätter pumpens inbyggda styrning mot inomhustemperatur. Mer ställbar och anpassar sig till de övriga funktionerna.<br>
 ```
-![alt text](https://github.com/bebben88/NibePi/blob/master/pics/indoor.png)
+![alt text](https://github.com/bebben88/NibePi/blob/master/pics/indoor1.jpg)
+![alt text](https://github.com/bebben88/NibePi/blob/master/pics/indoor2.jpg)
 ```
 <b>Automatisk Lufthastighet</b><br>
 Reglerar fläkthastigheten för att hålla lufthastigheten inom ett visst värde.<br>
 ```
-![alt text](https://github.com/bebben88/NibePi/blob/master/pics/airflow.png)
+![alt text](https://github.com/bebben88/NibePi/blob/master/pics/airflow.jpg)
 ```
 I webinterfacet finns information samt möjligheter för att starta om hårdvara eller mjukvara.
 
