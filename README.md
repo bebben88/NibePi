@@ -1,5 +1,7 @@
 # NibePi
 
+![alt text](https://github.com/bebben88/NibePi/blob/master/pics/nibepi-pic.jpg)
+
 NibePi är en IoT produkt för din Nibe värmepump.
 Med en Raspberry Pi Zero+RS485 HAT så kommunicerar NibePi med pumpen via Modbus. NibePi får plats innanför skalet på Värmepumpen och matas direkt från kretskortet i pumpen. NibePi stödjer Nibe F370,F470,F730,F750,F1145,F1245,F1155,F1255.<br>
 Grunden i automatisering och styrning av pumpen är baserad på NodeJS och Node-RED. Det finns även möjligheter att kunna redigera fritt.<br>
