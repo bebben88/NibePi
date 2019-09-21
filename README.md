@@ -62,6 +62,7 @@ https://1drv.ms/u/s!AijwO0Pec8KrhNUkBiG4TvlsmCgwfQ?e=70lEYL<br>
 På boot partionen (som även är tillgänglig i windows) ligger det en fil som heter wpa_supplicant.conf Där skriver du in dina wifi uppgifter.
 ```
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
 country=SE
 
 network={
