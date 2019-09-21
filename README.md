@@ -39,7 +39,6 @@ Rpi Zero W:<br>
 https://thepihut.com/products/raspberry-pi-zero-w<br>
 https://www.kiwi-electronics.nl/raspberry-pi-zero-w<br>
 https://www.electrokit.com/produkt/raspberry-pi-zero-wh/<br>
-
 RS485 HAT:<br>
 https://thepihut.com/products/rs485-pizero?variant=26469099976<br>
 https://www.kiwi-electronics.nl/rs-485-pi<br>
@@ -87,7 +86,8 @@ Steg 5: Ta bort det lilla snäpplocket enl. bild nedan
 ```
 ![alt text](https://github.com/bebben88/NibePi/blob/master/pics/nibepi_1.jpg)
 ```
-Steg 6: Anslut NibePi enl. bild nedan. Inkopplingen kan skilja sig från olika värmepumpar https://www.nibe.se/assets/documents/9133/031725-4.pdf 
+Steg 6: Anslut NibePi enl. bild nedan.<br>
+Inkopplingen kan skilja sig från olika värmepumpar https://www.nibe.se/assets/documents/9133/031725-4.pdf 
 ```
 ![alt text](https://github.com/bebben88/NibePi/blob/master/pics/nibepi_2.jpg)
 ```
