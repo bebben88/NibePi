@@ -1,4 +1,3 @@
 [
-{"version":"1.0.3","url":"https://raw.githubusercontent.com/bebben88/NibePi/master/node-red/flows_1.0.1.json","url2":"https://raw.githubusercontent.com/bebben88/NibePi/master/nibepi/heatpump_1.0.js","changelog":"Bugfix i Prognosmodulen<br>Möjlighet till changelog"},
-{"version":"1.0.2","url":"https://raw.githubusercontent.com/bebben88/NibePi/master/node-red/flows_1.0.json","url2":"https://raw.githubusercontent.com/bebben88/NibePi/master/nibepi/heatpump_1.0.js"}
+{"version":"1.0","url":"https://raw.githubusercontent.com/bebben88/NibePi/master/node-red/flows_1.0.json","url2":"https://raw.githubusercontent.com/bebben88/NibePi/master/nibepi/heatpump_1.0.js","changelog":""}
 ]
