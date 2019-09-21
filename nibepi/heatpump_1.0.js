@@ -40,8 +40,14 @@ const EventEmitter = require('events').EventEmitter
 const nibe = new EventEmitter();
 module.exports = nibe;
 var dataRegister = []
-const { updateWifi } = require("./wifiConfig.js");
-
+//const { updateWifi } = require("./wifiConfig.js");
+exec('sudo mount -o remount,ro /', function(error, stdout, stderr) {
+    if(error) {
+        console.log('Boot: Could not set read-only mode')
+    } else {
+        console.log('Boot: Read-only mode active.')
+    }
+});
 const fs = require('fs');
 var sendQueue = [];
 var getQueue = [];
@@ -65,7 +71,15 @@ async function checkMQTT() {
         console.log('Waiting for MQTT broker');
     }
 }
-updateWifi()
+//updateWifi()
+updatePump(function(result) {
+if(result!==undefined && result!=="") {
+    console.log('Config updated with pump from file. Pump: '+result)
+    config.pump = result;
+    checkConfig(config);
+}
+});
+
 checkMQTT()
 
 myPort.on('open', showPortOpen);
@@ -388,7 +402,7 @@ function parseMessage(data) {
         setPump(data,function(err,result) {
             if ( err ) throw err;
         })
-        } else if (data[3]==238) {
+        } else if (data[3]==238 && config.pump!="") {
             startExternalMQTT()
             setPump(data,function(err,result) {
                 if ( err ) throw err;
@@ -769,7 +783,9 @@ function setRegister(topic,value) {
 }
 function addPluginRegisters() {
     if(config.plugins.indoor.active==true) {
-        sendQueue.push(setData({"register":47394,"value":0}));
+        if(config.pump!=="") {
+            sendQueue.push(setData({"register":47394,"value":0}));
+        }
         let index = register.findIndex(index => index.register == "40033");
         if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("40033"); } }
         index = register.findIndex(index => index.register == "40004");
@@ -1088,3 +1104,31 @@ function incomingMQTT(topic, message) {
         }
     }
 }
+function updatePump(callback) { 
+        console.log('Checking for pump settings')
+    exec('sudo mount -o remount,rw /boot', function(error, stdout, stderr) {
+      if (error) console.log(stderr);
+      fs.readFile('/boot/pump.txt','utf8', (err, file) => {
+        if (err) return;
+        const lines = file.split('\n')
+        if(lines[0].length<2) {
+          console.log('Missing data in pump config file.');
+          return;
+        } else {
+          console.log(`Pump name found in file: ${lines[0]}`)
+          exec('sudo rm /boot/pump.txt', function(error, stdout, stderr) {
+            if (err) throw err;
+            console.log('/boot/pump.txt deleted.');
+            exec('sudo mount -o remount,ro /boot', function(error, stdout, stderr) {
+              if (error) {
+                console.log('Could not set Read only mode');
+              } else {
+                  console.log('Pump config finished')
+              }
+            });
+        }); 
+          callback(lines[0]);
+        }
+      });
+  });
+  }
