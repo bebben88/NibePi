@@ -284,11 +284,13 @@ function setPump(data,callback) {
     }
         split = sliced.split(" ");
         pump = split[0];
-        if(pumpFound==false) {
+        if(firmware!="" && (config.firmware=="" || config.firmware!=firmware)) {
             config.firmware = firmware;
             checkConfig(config);
+            logMQTT('Firmware: '+firmware)
+        }
+        if(pumpFound==false) {
         logMQTT('Setting up Nibe '+pump)
-        logMQTT('Firmware: '+firmware)
         console.log('Pump: '+pump);
         console.log('Setting up the pump');
         if(pump=='F370') {
