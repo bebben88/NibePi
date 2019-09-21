@@ -33,13 +33,25 @@ Reglerar fläkthastigheten för att hålla lufthastigheten inom ett visst värde
 Fler funktioner kommer att byggas till och optimeras löpande. Det går även att uppdatera NibePi direkt via webinterfacet för att få tillgång till de senaste funktionerna.<br>
 I webinterfacet finns information samt möjligheter för att starta om hårdvara eller mjukvara.
 
-Hårdvara som behövs.
-```
-https://thepihut.com/products/raspberry-pi-zero-w / https://www.kiwi-electronics.nl/raspberry-pi-zero-w
-https://thepihut.com/products/rs485-pizero?variant=26469099976 / https://www.kiwi-electronics.nl/rs-485-pi
-https://thepihut.com/products/wide-input-shim / https://www.kiwi-electronics.nl/wide-input-shim
-MicroSD-kort minst 16gb
-```
+<b>Hårdvara som behövs</b>
+
+Rpi Zero W:<br>
+https://thepihut.com/products/raspberry-pi-zero-w<br>
+https://www.kiwi-electronics.nl/raspberry-pi-zero-w<br>
+https://www.electrokit.com/produkt/raspberry-pi-zero-wh/<br>
+
+RS485 HAT:<br>
+https://thepihut.com/products/rs485-pizero?variant=26469099976<br>
+https://www.kiwi-electronics.nl/rs-485-pi<br>
+https://www.abelectronics.co.uk/p/77/rs485-pi<br>
+https://www.m.nu/utbyggnadskort/wide-input-shim-kit<br>
+12V HAT:<br>
+https://thepihut.com/products/wide-input-shim<br>
+https://www.kiwi-electronics.nl/wide-input-shim<br>
+https://www.electrokit.com/produkt/wide-input-shim-3-16v/<br>
+SD-kort:<br>
+https://www.clasohlson.com/se/MicroSDHC-SDXC-minneskort-Klass-10,-Kingston/38-5562<br>
+
 Löd på anslutningskontakter på A och B på RS485 kortet. Stacka sedan ihop alla kort, antingen med headers eller löd dom rätt på varandra för minsta möjliga bygghöjd.<br>
 
 Ladda ner en fullständig image fil att skriva till ett 16GB SD kort.<br>
