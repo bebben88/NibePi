@@ -41,13 +41,7 @@ const nibe = new EventEmitter();
 module.exports = nibe;
 var dataRegister = []
 //const { updateWifi } = require("./wifiConfig.js");
-exec('sudo mount -o remount,ro /', function(error, stdout, stderr) {
-    if(error) {
-        console.log('Boot: Could not set read-only mode')
-    } else {
-        console.log('Boot: Read-only mode active.')
-    }
-});
+
 const fs = require('fs');
 var sendQueue = [];
 var getQueue = [];
@@ -89,6 +83,13 @@ myPort.on('error', showError);
 
 function showPortOpen() {
     console.log('Port open. Data rate: ' + myPort.baudRate);
+    exec('sudo mount -o remount,ro /', function(error, stdout, stderr) {
+        if(error) {
+            console.log('Boot: Could not set read-only mode')
+        } else {
+            console.log('Boot: Read-only mode active.')
+        }
+    });
 	addPluginRegisters()
 }
 function showPortClose() {
@@ -284,11 +285,13 @@ function setPump(data,callback) {
     }
         split = sliced.split(" ");
         pump = split[0];
-        if(pumpFound==false) {
+        if(firmware!="" && (config.firmware=="" || config.firmware!=firmware)) {
             config.firmware = firmware;
             checkConfig(config);
+            logMQTT('Firmware: '+firmware)
+        }
+        if(pumpFound==false) {
         logMQTT('Setting up Nibe '+pump)
-        logMQTT('Firmware: '+firmware)
         console.log('Pump: '+pump);
         console.log('Setting up the pump');
         if(pump=='F370') {
@@ -516,12 +519,10 @@ function decodeMessage(register, buf) {
             }
             else if (item.size == "s8") {
                 data = (buf[i + 3] & 0xFF) << 8 | (buf[i + 2] & 0xFF);
-                // Change in new firmware
-                /*
-                if (data > 128) {
+                //Special for old and new firmware
+                if (data > 128 && data < 32768) {
                     data = data - 256;
-                }*/
-                if (data > 32767) {
+                } else if (data > 32767) {
                     data = data - 65536;
                 }
                 i = i + 3;
