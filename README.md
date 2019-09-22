@@ -58,7 +58,7 @@ Löd på anslutningskontakter på A och B på RS485 kortet. Stacka sedan ihop al
 Ladda ner en fullständig image fil att skriva till ett 16GB SD kort.<br>
 http://anerdins.se/NibePi/nibepi_1.0.rar<br>
 eller<br>
-https://1drv.ms/u/s!AijwO0Pec8KrhNUkBiG4TvlsmCgwfQ?e=70lEYL<br>
+https://1drv.ms/u/s!AijwO0Pec8KrhOJ5iVjv2AQB1HEWjw?e=Nlw2Mx<br>
 
 På boot partionen (som även är tillgänglig i windows) ligger det en fil som heter wpa_supplicant.conf Där skriver du in dina wifi uppgifter.
 ```
