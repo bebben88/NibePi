@@ -108,3 +108,7 @@ Det kan vara så att NibePi inte kan identifiera pumpen automatiskt. Då får ma
 Node-RED är nu tillgängligt på NibePi's adress. http://nibepi:1880<br>
 Webinterfacet är tillgängligt på http://nibepi:1880/ui<br>
 Om det ovanstående länkar inte fungerar så använd IP adressen istället. T.ex http://192.168.0.100:1880
+
+Om du uppskattar mitt arbete så kan du bjuda mig på lite kaffe på nedanstående länk.
+
+https://www.buymeacoffee.com/0oKFXbQ
