@@ -597,7 +597,7 @@
         "type": "function",
         "z": "41f52341.96686c",
         "name": "",
-        "func": "var config = global.get('config');\nvar data = global.get('data');\nif(config===undefined) {\n    node.error('Prognosreglering',{topic:\"Prognosreglering\",payload:\"Saknar config fil.\"})\n    return;\n} if(data===undefined) {\n    node.error('Prognosreglering',{topic:\"Prognosreglering\",payload:\"Data har inte inkommit än.\"})\n    return;\n}\nvar hours = (config.plugins.smhi.hours-1);\nif(msg.topic==\"nibe/suncalc\") {\n    var sunrise = toTimestamp(msg.payload.sunrise);\n    var sunset = toTimestamp(msg.payload.sunset);\n    global.set('sun',{sunrise:sunrise,sunset:sunset});\n    return;\n}\n\nvar timeNow = Number((Date.now()/1000).toFixed());\nvar time = Number((Date.now()/1000).toFixed())+(config.plugins.smhi.hours*3600);\nvar sun = global.get('sun');\nif(time>sun.sunrise && time<sun.sunset) {\n    sun = true;\n} else {\n    sun = false;\n}\nvar temp = msg.payload.timeSeries[hours].parameters.find(temp => temp.name == \"t\");\nvar weather = msg.payload.timeSeries[hours].parameters.find(weather => weather.name == \"Wsymb2\");\n\nvar tempPredicted;\nif (temp!==undefined) {\ntempPredicted = temp.values[0];\n}\nvar weatherPredicted;\nif (weather!==undefined) {\nweatherPredicted = Number(weather.values[0]);\n}\nvar tempOutside = data[40004];\n\nvar tempInside = data[40033];\nif(data.indoorSensor!==undefined && config.plugins.indoor.nibesensor!==undefined && config.plugins.indoor.nibesensor===false) {\n    tempInside = data.indoorSensor;\n}\nvar heatCurve = data[47007];\nvar setOffset;\n//var factor;\nvar sunFactor = 0;\nif(tempOutside===undefined || heatCurve===undefined) {\n    node.error('Prognosreglering',{topic:\"Prognosreglering\",payload:\"Saknar värde från utomhusgivaren eller värmekurvan.\"})\n    return;\n}\ntempOutside = Number(tempOutside);\n//node.warn(tempOutside)\ntempInside = Number(tempInside);\nheatCurve = Number(heatCurve);\n//factor = heatCurve/10;\nif(weatherPredicted===1 && sun===true) {\n    sunFactor = config.plugins.smhi.clear;\n} else if(weatherPredicted===2 && sun===true) {\n    sunFactor = config.plugins.smhi.mostly_clear;\n} else if(weatherPredicted===3 && sun===true) {\n    sunFactor = config.plugins.smhi.half_clear;\n}\nsetOffset = Number(((tempOutside-tempPredicted-sunFactor)*(heatCurve*1.2/10)/((heatCurve/10)+1)).toFixed(2));\n\nnode.send([null,null,{debug:\"Jämför temperaturer...\"}]);\nnode.send([null,null,{debug:\"Utomhus: \"+tempOutside+\"°C, Prognos \"+config.plugins.smhi.hours+\"h: \"+tempPredicted+\"°C, Vädertyp: \"+weatherPredicted+\", Värmekurva: \"+heatCurve+\", Kurvlutning efter prognos: \"+setOffset+\"°C\"}]);\n\nglobal.set('weatherSet',Number(setOffset));\n\nnode.send({topic:\"Utomhustemp\",payload:tempOutside});\nnode.send({topic:\"Inomhustemp\",payload:tempInside});\nnode.send({topic:\"Prognos (Nu) \"+config.plugins.smhi.hours+\"h\",payload:tempPredicted});\nnode.send([{topic:\"Prognos \"+config.plugins.smhi.hours+\"h\",payload:tempPredicted,timestamp:Date.now()+(config.plugins.smhi.hours*3600000)},{topic:\"SMHI Utomhustemp\",payload:tempPredicted,delay:(config.plugins.smhi.hours*3600000)}]);\nnode.send({topic:\"Kurvjustering\",payload:setOffset});\n\nfunction toTimestamp(strDate){\n var datum = Date.parse(strDate);\n return Number((datum/1000).toFixed());\n}\n",
+        "func": "var config = global.get('config');\nvar data = global.get('data');\nif(config===undefined) {\n    node.error('Prognosreglering',{topic:\"Prognosreglering\",payload:\"Saknar config fil.\"})\n    return;\n} if(data===undefined) {\n    node.error('Prognosreglering',{topic:\"Prognosreglering\",payload:\"Data har inte inkommit än.\"})\n    return;\n}\nvar hours = (config.plugins.smhi.hours-1);\nif(msg.topic==\"nibe/suncalc\") {\n    var sunrise = toTimestamp(msg.payload.sunrise);\n    var sunset = toTimestamp(msg.payload.sunset);\n    global.set('sun',{sunrise:sunrise,sunset:sunset});\n    return;\n}\n\nvar timeNow = Number((Date.now()/1000).toFixed());\nvar time = Number((Date.now()/1000).toFixed())+(config.plugins.smhi.hours*3600);\nvar sun = global.get('sun');\nif(time>sun.sunrise && time<sun.sunset) {\n    sun = true;\n} else {\n    sun = false;\n}\nvar temp = msg.payload.timeSeries[hours].parameters.find(temp => temp.name == \"t\");\nvar weather = msg.payload.timeSeries[hours].parameters.find(weather => weather.name == \"Wsymb2\");\n\nvar tempPredicted;\nif (temp!==undefined) {\ntempPredicted = temp.values[0];\n}\nvar weatherPredicted;\nif (weather!==undefined) {\nweatherPredicted = Number(weather.values[0]);\n}\nvar tempOutside = data[40004];\n\nvar tempInside = data[40033];\nif(data.indoorSensor!==undefined && config.plugins.indoor.nibesensor!==undefined && config.plugins.indoor.nibesensor===false) {\n    tempInside = data.indoorSensor;\n}\nvar heatCurve = data[47007];\nvar setOffset;\n//var factor;\nvar sunFactor = 0;\nif(tempOutside===undefined || heatCurve===undefined) {\n    node.error('Prognosreglering',{topic:\"Prognosreglering\",payload:\"Saknar värde från utomhusgivaren eller värmekurvan.\"});\n    return;\n}\ntempOutside = Number(tempOutside);\n//node.warn(tempOutside)\ntempInside = Number(tempInside);\nheatCurve = Number(heatCurve);\n//factor = heatCurve/10;\nif(weatherPredicted===1 && sun===true) {\n    sunFactor = config.plugins.smhi.clear;\n} else if(weatherPredicted===2 && sun===true) {\n    sunFactor = config.plugins.smhi.mostly_clear;\n} else if(weatherPredicted===3 && sun===true) {\n    sunFactor = config.plugins.smhi.half_clear;\n}\nsetOffset = Number(((tempOutside-tempPredicted-sunFactor)*(heatCurve*1.2/10)/((heatCurve/10)+1)).toFixed(2));\n\nnode.send([null,null,{debug:\"Jämför temperaturer...\"}]);\nnode.send([null,null,{debug:\"Utomhus: \"+tempOutside+\"°C, Prognos \"+config.plugins.smhi.hours+\"h: \"+tempPredicted+\"°C, Vädertyp: \"+weatherPredicted+\", Värmekurva: \"+heatCurve+\", Kurvlutning efter prognos: \"+setOffset+\"°C\"}]);\n\nglobal.set('weatherSet',Number(setOffset));\n\nnode.send({topic:\"Utomhustemp\",payload:tempOutside});\nnode.send({topic:\"Inomhustemp\",payload:tempInside});\nnode.send({topic:\"Prognos (Nu) \"+config.plugins.smhi.hours+\"h\",payload:tempPredicted});\nnode.send([{topic:\"Prognos \"+config.plugins.smhi.hours+\"h\",payload:tempPredicted,timestamp:Date.now()+(config.plugins.smhi.hours*3600000)},{topic:\"SMHI Utomhustemp\",payload:tempPredicted,delay:(config.plugins.smhi.hours*3600000)}]);\nnode.send({topic:\"Kurvjustering\",payload:setOffset});\n\nfunction toTimestamp(strDate){\n var datum = Date.parse(strDate);\n return Number((datum/1000).toFixed());\n}\n",
         "outputs": 3,
         "noerr": 0,
         "x": 799,
@@ -680,8 +680,8 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 960,
-        "y": 182,
+        "x": 970,
+        "y": 200,
         "wires": [
             [
                 "2d6fec7d.944184"
@@ -696,8 +696,8 @@
         "func": "var bt1 = context.get('bt1');\nvar smhi = context.get('smhi');\nvar array = context.get('smhi_success')||[];\nif(msg.topic==\"Utomhustemp\") {\n    bt1 = msg.payload;\n} else if(msg.topic==\"SMHI Utomhustemp\") {\n    smhi = msg.payload;\n}\nif(bt1!==undefined && smhi!==undefined) {\n    array.unshift({\"bt1\":bt1,\"smhi\":smhi});\n    var tmp1 = 0;\n    var tmp2 = 0;\n    for (i = 0; i < array.length; i=i+1) {\n    tmp1 = tmp1+array[i].bt1;\n    tmp2 = tmp2+array[i].smhi;\n    }\n    var message = tmp2/tmp1;\n    node.send({topic:\"SMHI Träffsäkerhet\",payload:message.toFixed(2)});\n    bt1 = undefined;\n    smhi = undefined;\n}\nif(array.length>144) { var lastMsg = array.pop; }\ncontext.set('bt1',bt1);\ncontext.set('smhi',smhi);\ncontext.set('smhi_success',array);\n\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 1100,
-        "y": 133,
+        "x": 1090,
+        "y": 140,
         "wires": [
             [
                 "fef3df9b.58651",
@@ -2665,7 +2665,7 @@
         "type": "debug",
         "z": "dedc2653.57a3d8",
         "name": "MQTT Sensor",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -5202,7 +5202,7 @@
         "label": "SMHI Prognos",
         "tooltip": "",
         "group": "810e862f.c36438",
-        "order": 3,
+        "order": 2,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -5961,7 +5961,7 @@
         "type": "ui_text",
         "z": "41f52341.96686c",
         "group": "810e862f.c36438",
-        "order": 2,
+        "order": 1,
         "width": 0,
         "height": 0,
         "name": "",
@@ -6072,8 +6072,8 @@
         ],
         "useOldStyle": false,
         "outputs": 1,
-        "x": 1260,
-        "y": 217,
+        "x": 1250,
+        "y": 220,
         "wires": [
             []
         ]
@@ -6403,7 +6403,7 @@
         "order": 8,
         "width": 0,
         "height": 0,
-        "format": "Hur mycket ska solen påverka prognosstyrningen?<br>\nStäll in en faktor under varje alternativ.",
+        "format": "Hur mycket ska solen påverka prognosstyrningen?<br>\nStäll in en faktor under varje alternativ.<br>\nVärdet ska symbolisera antal grader som du anser att temperaturen höjs utomhus.",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -6981,7 +6981,7 @@
         "id": "557e5528.03745c",
         "type": "exec",
         "z": "ade2c7a9.e97ba8",
-        "command": "cp /home/pi/.node-red/flows_saved.bak /home/pi/.node-red/flows.json && cp /home/pi/.nibepi/heatpump_saved.js /home/pi/.nibepi/heatpump.js && cp /home/pi/.nibepi/config_saved.json /home/pi/.nibepi/config.json",
+        "command": "cp /home/pi/.node-red/flows_saved.bak /home/pi/.node-red/flows.json && cp /home/pi/.nibepi/heatpump_saved.js /home/pi/.nibepi/heatpump.js",
         "addpay": false,
         "append": "",
         "useSpawn": "false",
@@ -7003,7 +7003,7 @@
         "type": "function",
         "z": "ade2c7a9.e97ba8",
         "name": "",
-        "func": "if(msg.payload.code===0) {\n    node.error('Uppdatering',{topic:\"Uppdatering\",payload:\"Backup återställd!\"})\n    node.send({payload:true});\n} else {\n    node.error('Uppdatering',{topic:\"Uppdatering\",payload:\"Fel. Backup inte återställd.\"})\n}",
+        "func": "if(msg.payload.code===0) {\n    node.error('Uppdatering',{topic:\"Uppdatering\",payload:\"Backup återställd! Startar om...\"})\n    node.send({payload:true});\n} else {\n    node.error('Uppdatering',{topic:\"Uppdatering\",payload:\"Fel. Backup inte återställd.\"})\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 1010,
@@ -7012,6 +7012,63 @@
             [
                 "4af779bd.44f368"
             ]
+        ]
+    },
+    {
+        "id": "68b1d3a4.167bfc",
+        "type": "ui_template",
+        "z": "41f52341.96686c",
+        "group": "810e862f.c36438",
+        "name": "SMHI Lat long info",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "format": "Ange koordinater med tre decimaler och punkt. T.ex 59.221 16.226",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 930,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ee55f1c9.ec242",
+        "type": "ui_template",
+        "z": "41f52341.96686c",
+        "group": "810e862f.c36438",
+        "name": "SMHI Prognosinfo",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "format": "Ange hur långt fram i prognosen det ska regleras för.<br>\nNibePi kommer reglera värmepumpen efter prognostemperaturen istället.",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 310,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7d7d054.01743fc",
+        "type": "ui_template",
+        "z": "41f52341.96686c",
+        "group": "810e862f.c36438",
+        "name": "SMHI Solfaktor Info 2",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "format": "Solfaktor är ett fiktivt värde och ska ses mer som ett värde än som en temperatur.<br>\nUpplevs det att huset värms upp för mycket i förhand på t.ex en solig dag så går det att höja värdet.",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 1240,
+        "y": 820,
+        "wires": [
+            []
         ]
     }
 ]
