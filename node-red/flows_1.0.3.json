@@ -6569,7 +6569,7 @@
         "op2": "false",
         "op1type": "nul",
         "op2type": "bool",
-        "duration": "1",
+        "duration": "60",
         "extend": true,
         "units": "min",
         "reset": "",
