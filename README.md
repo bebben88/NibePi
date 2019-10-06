@@ -56,10 +56,11 @@ https://www.clasohlson.com/se/MicroSDHC-SDXC-minneskort-Klass-10,-Kingston/38-55
 Löd på anslutningskontakter på A och B på RS485 kortet. Stacka sedan ihop alla kort, antingen med headers eller löd dom rätt på varandra för minsta möjliga bygghöjd.<br>
 
 Ladda ner en fullständig image fil att skriva till ett 16GB SD kort.<br>
-http://anerdins.se/NibePi/nibepi_1.0.rar<br>
+http://anerdins.se/NibePi/nibepi_1.0.rar (1.0.0)<br>
+http://anerdins.se/NibePi/nibepi_1.0.3.rar (1.0.3)<br>
 eller<br>
-https://1drv.ms/u/s!AijwO0Pec8KrhOJ5iVjv2AQB1HEWjw?e=Nlw2Mx<br>
-
+https://1drv.ms/u/s!AijwO0Pec8KrhOJ5iVjv2AQB1HEWjw?e=Nlw2Mx (1.0.0)<br>
+https://1drv.ms/u/s!AijwO0Pec8KrhOQjladTxa9XekBBEA?e=EDWucy (1.0.3)<br>
 På boot partionen (som även är tillgänglig i windows) ligger det en fil som heter wpa_supplicant.conf Där skriver du in dina wifi uppgifter.
 ```
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
