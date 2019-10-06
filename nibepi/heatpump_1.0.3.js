@@ -108,6 +108,7 @@ function analyze(data) {
     if(data==06) {
         if(waitACK!=false) {
             console.log('Message ACKED')
+            nibe.emit("log",waitACK,"ACK");
             getQueue.push(getData(waitACK));
             waitACK = false;
         }
@@ -257,6 +258,7 @@ function makeResponse(data,callback) {
         if(sendQueue.length!==0) {
             var lastMsg = sendQueue.pop();
             myPort.write(lastMsg);
+            nibe.emit("log",lastMsg,"Set");
             console.log('Sending message: ', lastMsg);
         } else {
             sendAck(function(err) {
@@ -615,7 +617,7 @@ function decodeMessage(register, buf) {
                     if(err) throw err;
                     if(callback!==undefined) {
                         var topic = 'homeassistant/'+callback.component+'/'+item.register.toString()+'/config'
-                        var payload = {"name": item.titel,"device_class":callback.type,"temperature_state_topic":callback.setTempState,"current_temperature_topic":callback.current,"temperature_command_topic":callback.setTemp, "unit_of_measurement":callback.unit, "state_topic":callback.topic,"modes":callback.modes};
+                        var payload = {"name": "Nibe "+item.titel,"device_class":callback.type,"temperature_state_topic":callback.setTempState,"current_temperature_topic":callback.current,"temperature_command_topic":callback.setTemp, "unit_of_measurement":callback.unit, "state_topic":callback.topic,"modes":callback.modes};
                         if(callback.component!==undefined) {
                             publishMQTT(topic,JSON.stringify(payload),true)
                         } else {
@@ -838,6 +840,8 @@ function addPluginRegisters() {
         if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("45001"); } }
         index = register.findIndex(index => index.register == "47011");
         if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("47011"); } }
+        index = register.findIndex(index => index.register == "43136");
+        if(index!==-1) { if(register[index].isChecked===undefined || register[index].isChecked===false) { index = -1; addRegister("43136"); } }
     }
     if(config.plugins.tibber.active==true) {
         let index = register.findIndex(index => index.register == "40033");
