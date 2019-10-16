@@ -576,7 +576,7 @@ function decodeMessage(register, buf) {
                     if ((data > max / item.factor) || (data < min / item.factor)) {
                         corruptData = true;
                         console.log('Corrupt payload (', data, ') from register ', address);
-                        logMQTT('Korrupt data (', data, ') från register ', address)
+                        logMQTT('Korrupt data ('+data+') från register ', address)
                     }
                 }
             }
