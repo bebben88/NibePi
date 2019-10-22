@@ -8005,7 +8005,7 @@
         "name": "",
         "label": "Låg ventilation vid kompressorstopp",
         "tooltip": "",
-        "group": "1409f0ed.f2d6cf",
+        "group": "ad7a33f3.24adf",
         "order": 2,
         "width": 0,
         "height": 0,
@@ -8440,8 +8440,8 @@
         "tls": "",
         "proxy": "",
         "authType": "",
-        "x": 756,
-        "y": 3136,
+        "x": 917,
+        "y": 3206,
         "wires": [
             [
                 "d1fc039e.ecb4d"
@@ -8457,10 +8457,12 @@
         "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
-        "x": 1004,
-        "y": 3136,
+        "x": 1165,
+        "y": 3206,
         "wires": [
-            []
+            [
+                "fa90672f.41a5c8"
+            ]
         ]
     },
     {
@@ -8473,8 +8475,8 @@
         "chunk": false,
         "sendError": true,
         "encoding": "none",
-        "x": 388,
-        "y": 3136,
+        "x": 325,
+        "y": 3206,
         "wires": [
             [
                 "317c9840.35c308"
@@ -8493,11 +8495,11 @@
         "crontab": "",
         "once": true,
         "onceDelay": "1",
-        "x": 133,
-        "y": 3136,
+        "x": 126,
+        "y": 3038,
         "wires": [
             [
-                "327d2fe7.fd3e9"
+                "92696de5.62776"
             ]
         ]
     },
@@ -8511,16 +8513,22 @@
         "rules": [
             {
                 "t": "nnull"
+            },
+            {
+                "t": "null"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 1,
-        "x": 610,
-        "y": 3136,
+        "outputs": 2,
+        "x": 547,
+        "y": 3206,
         "wires": [
             [
-                "449c1f6b.86b58"
+                "50ca2446.e9453c"
+            ],
+            [
+                "fa90672f.41a5c8"
             ]
         ]
     },
@@ -8536,8 +8544,8 @@
         "tls": "",
         "proxy": "",
         "authType": "",
-        "x": 756,
-        "y": 3185,
+        "x": 917,
+        "y": 3262,
         "wires": [
             [
                 "3748f542.fb33ca"
@@ -8553,10 +8561,12 @@
         "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
-        "x": 1004,
-        "y": 3185,
+        "x": 1165,
+        "y": 3262,
         "wires": [
-            []
+            [
+                "f098085f.a53998"
+            ]
         ]
     },
     {
@@ -8569,31 +8579,11 @@
         "chunk": false,
         "sendError": true,
         "encoding": "none",
-        "x": 388,
-        "y": 3185,
+        "x": 325,
+        "y": 3262,
         "wires": [
             [
                 "c6a3d68e.38c868"
-            ]
-        ]
-    },
-    {
-        "id": "7acc47b4.bad208",
-        "type": "inject",
-        "z": "ade2c7a9.e97ba8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "2",
-        "x": 133,
-        "y": 3185,
-        "wires": [
-            [
-                "fa90672f.41a5c8"
             ]
         ]
     },
@@ -8607,16 +8597,22 @@
         "rules": [
             {
                 "t": "nnull"
+            },
+            {
+                "t": "null"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 1,
-        "x": 610,
-        "y": 3185,
+        "outputs": 2,
+        "x": 547,
+        "y": 3262,
         "wires": [
             [
-                "9e98a1eb.868"
+                "f2672897.c90058"
+            ],
+            [
+                "f098085f.a53998"
             ]
         ]
     },
@@ -8632,8 +8628,8 @@
         "tls": "",
         "proxy": "",
         "authType": "",
-        "x": 756,
-        "y": 3234,
+        "x": 917,
+        "y": 3318,
         "wires": [
             [
                 "64cd8a3b.49a3a4"
@@ -8649,10 +8645,12 @@
         "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
-        "x": 1004,
-        "y": 3234,
+        "x": 1165,
+        "y": 3318,
         "wires": [
-            []
+            [
+                "c77544a5.816a88"
+            ]
         ]
     },
     {
@@ -8665,31 +8663,11 @@
         "chunk": false,
         "sendError": true,
         "encoding": "none",
-        "x": 388,
-        "y": 3234,
+        "x": 325,
+        "y": 3318,
         "wires": [
             [
                 "4a44e145.a5326"
-            ]
-        ]
-    },
-    {
-        "id": "18ab26a8.3f71b9",
-        "type": "inject",
-        "z": "ade2c7a9.e97ba8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "3",
-        "x": 133,
-        "y": 3234,
-        "wires": [
-            [
-                "f098085f.a53998"
             ]
         ]
     },
@@ -8703,16 +8681,22 @@
         "rules": [
             {
                 "t": "nnull"
+            },
+            {
+                "t": "null"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 1,
-        "x": 610,
-        "y": 3234,
+        "outputs": 2,
+        "x": 547,
+        "y": 3318,
         "wires": [
             [
-                "4583cd7f.2cc774"
+                "bf1fa004.159ea"
+            ],
+            [
+                "c77544a5.816a88"
             ]
         ]
     },
@@ -8728,8 +8712,8 @@
         "tls": "",
         "proxy": "",
         "authType": "",
-        "x": 756,
-        "y": 3283,
+        "x": 917,
+        "y": 3367,
         "wires": [
             [
                 "1d8c3cc2.20ff53"
@@ -8745,10 +8729,12 @@
         "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
-        "x": 1004,
-        "y": 3283,
+        "x": 1165,
+        "y": 3367,
         "wires": [
-            []
+            [
+                "835b62fb.95c2c"
+            ]
         ]
     },
     {
@@ -8761,31 +8747,11 @@
         "chunk": false,
         "sendError": true,
         "encoding": "none",
-        "x": 388,
-        "y": 3283,
+        "x": 325,
+        "y": 3367,
         "wires": [
             [
                 "e5d57ca5.fcde6"
-            ]
-        ]
-    },
-    {
-        "id": "70513a7f.81b734",
-        "type": "inject",
-        "z": "ade2c7a9.e97ba8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "4",
-        "x": 133,
-        "y": 3283,
-        "wires": [
-            [
-                "c77544a5.816a88"
             ]
         ]
     },
@@ -8799,16 +8765,22 @@
         "rules": [
             {
                 "t": "nnull"
+            },
+            {
+                "t": "null"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 1,
-        "x": 610,
-        "y": 3283,
+        "outputs": 2,
+        "x": 547,
+        "y": 3367,
         "wires": [
             [
-                "3757a6cc.3938ea"
+                "10c8c78d.98c0f8"
+            ],
+            [
+                "835b62fb.95c2c"
             ]
         ]
     },
@@ -8824,8 +8796,8 @@
         "tls": "",
         "proxy": "",
         "authType": "",
-        "x": 756,
-        "y": 3332,
+        "x": 917,
+        "y": 3423,
         "wires": [
             [
                 "4d3d1e1e.84ad1"
@@ -8841,10 +8813,12 @@
         "appendNewline": false,
         "createDir": false,
         "overwriteFile": "true",
-        "x": 1004,
-        "y": 3332,
+        "x": 1165,
+        "y": 3423,
         "wires": [
-            []
+            [
+                "c010b83.76a7148"
+            ]
         ]
     },
     {
@@ -8857,31 +8831,11 @@
         "chunk": false,
         "sendError": true,
         "encoding": "none",
-        "x": 388,
-        "y": 3332,
+        "x": 325,
+        "y": 3423,
         "wires": [
             [
                 "8dd31ae2.1a4918"
-            ]
-        ]
-    },
-    {
-        "id": "7e5c089e.5da148",
-        "type": "inject",
-        "z": "ade2c7a9.e97ba8",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "5",
-        "x": 133,
-        "y": 3332,
-        "wires": [
-            [
-                "835b62fb.95c2c"
             ]
         ]
     },
@@ -8895,16 +8849,22 @@
         "rules": [
             {
                 "t": "nnull"
+            },
+            {
+                "t": "null"
             }
         ],
         "checkall": "true",
         "repair": false,
-        "outputs": 1,
-        "x": 610,
-        "y": 3332,
+        "outputs": 2,
+        "x": 547,
+        "y": 3423,
         "wires": [
             [
-                "a600b667.6373c8"
+                "b2ff3e21.fc829"
+            ],
+            [
+                "c010b83.76a7148"
             ]
         ]
     },
@@ -9496,6 +9456,414 @@
         "y": 537,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "92696de5.62776",
+        "type": "exec",
+        "z": "ade2c7a9.e97ba8",
+        "command": "sudo mount -o remount,rw /",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 372,
+        "y": 3038,
+        "wires": [
+            [],
+            [],
+            [
+                "f174a918.36ccd8"
+            ]
+        ]
+    },
+    {
+        "id": "f174a918.36ccd8",
+        "type": "switch",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "property": "payload.code",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 582,
+        "y": 3038,
+        "wires": [
+            [
+                "aadd6802.49ef28"
+            ]
+        ]
+    },
+    {
+        "id": "c010b83.76a7148",
+        "type": "exec",
+        "z": "ade2c7a9.e97ba8",
+        "command": "sudo mount -o remount,ro /",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 764,
+        "y": 3486,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "50ca2446.e9453c",
+        "type": "change",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "error",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 724,
+        "y": 3206,
+        "wires": [
+            [
+                "449c1f6b.86b58"
+            ]
+        ]
+    },
+    {
+        "id": "f2672897.c90058",
+        "type": "change",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "error",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 724,
+        "y": 3262,
+        "wires": [
+            [
+                "9e98a1eb.868"
+            ]
+        ]
+    },
+    {
+        "id": "bf1fa004.159ea",
+        "type": "change",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "error",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 724,
+        "y": 3318,
+        "wires": [
+            [
+                "4583cd7f.2cc774"
+            ]
+        ]
+    },
+    {
+        "id": "10c8c78d.98c0f8",
+        "type": "change",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "error",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 724,
+        "y": 3367,
+        "wires": [
+            [
+                "3757a6cc.3938ea"
+            ]
+        ]
+    },
+    {
+        "id": "b2ff3e21.fc829",
+        "type": "change",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "error",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 724,
+        "y": 3423,
+        "wires": [
+            [
+                "a600b667.6373c8"
+            ]
+        ]
+    },
+    {
+        "id": "4a4c6a1b.17abe4",
+        "type": "http request",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "https://raw.githubusercontent.com/bebben88/NibePi/master/nibepi/models/F1355.json",
+        "tls": "",
+        "proxy": "",
+        "authType": "",
+        "x": 917,
+        "y": 3150,
+        "wires": [
+            [
+                "9285b70c.d765d8"
+            ]
+        ]
+    },
+    {
+        "id": "9285b70c.d765d8",
+        "type": "file",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "filename": "/home/pi/.nibepi/models/F1355.json",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 1155,
+        "y": 3150,
+        "wires": [
+            [
+                "327d2fe7.fd3e9"
+            ]
+        ]
+    },
+    {
+        "id": "3d801bcb.55d514",
+        "type": "file in",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "filename": "/home/pi/.nibepi/models/F1355.json",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": true,
+        "encoding": "none",
+        "x": 315,
+        "y": 3150,
+        "wires": [
+            [
+                "731eb5b8.c37f2c"
+            ]
+        ]
+    },
+    {
+        "id": "731eb5b8.c37f2c",
+        "type": "switch",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "property": "error",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 547,
+        "y": 3150,
+        "wires": [
+            [
+                "9689b3b0.97eb7"
+            ],
+            [
+                "327d2fe7.fd3e9"
+            ]
+        ]
+    },
+    {
+        "id": "9689b3b0.97eb7",
+        "type": "change",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "error",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 724,
+        "y": 3150,
+        "wires": [
+            [
+                "4a4c6a1b.17abe4"
+            ]
+        ]
+    },
+    {
+        "id": "2f261ed0.bfc192",
+        "type": "http request",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "https://raw.githubusercontent.com/bebben88/NibePi/master/nibepi/models/F1345.json",
+        "tls": "",
+        "proxy": "",
+        "authType": "",
+        "x": 917,
+        "y": 3094,
+        "wires": [
+            [
+                "850145b6.865e88"
+            ]
+        ]
+    },
+    {
+        "id": "850145b6.865e88",
+        "type": "file",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "filename": "/home/pi/.nibepi/models/F1345.json",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "x": 1155,
+        "y": 3094,
+        "wires": [
+            [
+                "3d801bcb.55d514"
+            ]
+        ]
+    },
+    {
+        "id": "aadd6802.49ef28",
+        "type": "file in",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "filename": "/home/pi/.nibepi/models/F1345.json",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": true,
+        "encoding": "none",
+        "x": 315,
+        "y": 3094,
+        "wires": [
+            [
+                "2cf50207.257bde"
+            ]
+        ]
+    },
+    {
+        "id": "2cf50207.257bde",
+        "type": "switch",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "property": "error",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 547,
+        "y": 3094,
+        "wires": [
+            [
+                "240c5145.24e45e"
+            ],
+            [
+                "3d801bcb.55d514"
+            ]
+        ]
+    },
+    {
+        "id": "240c5145.24e45e",
+        "type": "change",
+        "z": "ade2c7a9.e97ba8",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "error",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 724,
+        "y": 3094,
+        "wires": [
+            [
+                "2f261ed0.bfc192"
+            ]
         ]
     }
 ]
