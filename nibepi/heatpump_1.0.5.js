@@ -653,7 +653,7 @@ function decodeMessage(register, buf) {
                         corruptData = true;
                         console.log('Corrupt payload ('+data+') from register '+address);
                         //Buggfix 1.0.5
-                        logMQTT('Korrupt data ('+data+') från register '+address);
+                        logMQTT(`Korrupt data (${data}) från register ${address}`);
                     }
                 }
             }
