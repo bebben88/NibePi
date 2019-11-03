@@ -66,6 +66,7 @@ http://anerdins.se/NibePi/nibepi_1.0.6.rar (1.0.6)<br>
 eller<br>
 https://1drv.ms/u/s!AijwO0Pec8KrhOJ5iVjv2AQB1HEWjw?e=Nlw2Mx (1.0.0)<br>
 https://1drv.ms/u/s!AijwO0Pec8KrhOQjladTxa9XekBBEA?e=EDWucy (1.0.3)<br>
+https://1drv.ms/u/s!AijwO0Pec8KrhOdHHS72ELrcG3r3ww?e=BMRGwg (1.0.6<br>
 På boot partionen (som även är tillgänglig i windows) ligger det en fil som heter wpa_supplicant.conf Där skriver du in dina wifi uppgifter.
 ```
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
