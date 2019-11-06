@@ -812,11 +812,9 @@ async function startMQTT() {
     mqtt_client.on('message', function (topic, message) {
         //console.log('Incoming MQTT message:', topic, message.toString());
         if(topic==config.plugins.indoor.mqttsensor) {
-            if(config.plugins.indoor.nibesensor==false) {
                 if(connected!==undefined && connected==true) {
                     mqtt_client.publish('nibe/plugins/indoor/mqttsensor', message.toString(),{retain:false});
                 }
-            }
         } else if(topic==config.plugins.airflow.co2_topic) {
             if(connected!==undefined && connected==true) {
                 mqtt_client.publish('nibe/plugins/airflow/co2_sensor', message.toString(),{retain:false});
@@ -1122,11 +1120,9 @@ async function externalMQTT() {
     ext_mqtt_client.on('message', function (topic, message) {
     //console.log('Incoming External MQTT message:', topic, message.toString());
     if(topic==config.plugins.indoor.mqttsensor) {
-        if(config.plugins.indoor.nibesensor==false) {
             if(ext_mqtt_connected!==undefined && ext_mqtt_connected==true) {
                 mqtt_client.publish('nibe/plugins/indoor/mqttsensor', message.toString(),{retain:false});
             }
-        }
     } else if(topic==config.plugins.airflow.co2_topic) {
         if(ext_mqtt_connected!==undefined && ext_mqtt_connected==true) {
             mqtt_client.publish('nibe/plugins/airflow/co2_sensor', message.toString(),{retain:false});
