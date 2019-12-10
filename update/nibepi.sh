@@ -13,3 +13,5 @@ echo "Looking for Node-RED folder."
 dirNode=$(find / -type f -name 'flows.json' 2>/dev/null | sed -r 's|/[^/]+$||' |sort |uniq)
 echo "${dirNode}"
 cd $dirNode && ls -l
+# Cleanup
+rm /tmp/nibepi.sh
