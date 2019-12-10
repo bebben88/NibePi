@@ -1,4 +1,5 @@
 #!/bin/bash
+# Version 1.1
 echo "Starting Update of NibePi"
 echo "Setting R/W mode for the filesystem during update..."
 mount=$(sudo mount -o remount,ro / 2>/tmp/tar_stderr);
