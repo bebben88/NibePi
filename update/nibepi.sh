@@ -397,13 +397,6 @@ echo " "
 exit 1
 fi
 fi
-echo "Setting R/O mode for the filesystem again..."
-mount=$(sudo mount -o remount,ro / 2>/tmp/tar_stderr);
-stderr_var=$( cat /tmp/tar_stderr )
-if [[ ($stderr_var == "mount: / is busy") ]]
-then
-    echo "Filesystem is busy"
-fi
 #cleanup
 #rm /tmp/nibepi.sh
 sudo service nodered restart
