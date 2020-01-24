@@ -1,0 +1,23 @@
+{
+    "version":"1.1",
+    "registers":[],
+    "connection": {
+        "enable":"serial",
+        "series":"fSeries"
+    },
+    "serial":{
+        "port":"/dev/ttyAMA0"
+    },
+    "mqtt": {
+        "enable":false,
+        "user":"",
+        "pass":"",
+        "topic":"nibe/modbus/"
+    },
+    "system": {
+        
+    },
+    "log": {
+        
+    }
+}
