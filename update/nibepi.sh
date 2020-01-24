@@ -17,13 +17,15 @@ rm -R $dirNode
 fi
 echo "Looking for Node-RED folder."
 dirNode=$(find / -type f -name 'flows.json' 2>/dev/null | sed -r 's|/[^/]+$||' |sort |uniq)
+if [[ ($dirNode != "") ]]
+then
 echo "Path found: ${dirNode}"
 echo "Installing the NibePi addon to Node-RED"
 cd $dirNode && npm install node-red-contrib-nibepi --save
 echo "Downloading new flows for Node-RED"
 cd /tmp && wget https://raw.githubusercontent.com/bebben88/NibePi/master/node-red/flows_1.1.json
 cd /tmp && mv -f flows_1.1.json $dirNode/flows.json
-
+fi
 echo "Upgrading Node-RED"
 #!/bin/bash
 #
@@ -397,6 +399,5 @@ echo " "
 exit 1
 fi
 fi
-#cleanup
-#rm /tmp/nibepi.sh
+echo "Upgrade is complete! Restarting NodeRED with NibePi."
 sudo service nodered restart
