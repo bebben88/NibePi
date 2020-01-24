@@ -538,28 +538,6 @@
         "collapse": false
     },
     {
-        "id": "54c90e3b.c2a5f",
-        "type": "mqtt-broker",
-        "z": "",
-        "name": "NibePi",
-        "broker": "127.0.0.1",
-        "port": "1883",
-        "clientid": "",
-        "usetls": false,
-        "compatmode": true,
-        "keepalive": "60",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "closeTopic": "",
-        "closeQos": "0",
-        "closePayload": "",
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": ""
-    },
-    {
         "id": "1409f0ed.f2d6cf",
         "type": "ui_group",
         "z": 0,
@@ -633,28 +611,6 @@
         "disp": true,
         "width": "12",
         "collapse": false
-    },
-    {
-        "id": "354a2557.e16d3a",
-        "type": "mqtt-broker",
-        "z": "",
-        "name": "",
-        "broker": "192.168.0.2",
-        "port": "1883",
-        "clientid": "",
-        "usetls": false,
-        "compatmode": false,
-        "keepalive": "60",
-        "cleansession": true,
-        "birthTopic": "",
-        "birthQos": "0",
-        "birthPayload": "",
-        "closeTopic": "",
-        "closeQos": "0",
-        "closePayload": "",
-        "willTopic": "",
-        "willQos": "0",
-        "willPayload": ""
     },
     {
         "id": "197ce413.27432c",
@@ -854,6 +810,16 @@
         "z": "",
         "name": "Varmvatten Prioritet",
         "tab": "958d2405.84c788",
+        "disp": true,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "97526682.5406d8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Loggning",
+        "tab": "6aa61182.b42ed",
         "disp": true,
         "width": "12",
         "collapse": false
@@ -6125,7 +6091,7 @@
         "topic": "",
         "qos": "2",
         "retain": "false",
-        "broker": "54c90e3b.c2a5f",
+        "broker": "d7f6b34d.d13d6",
         "x": 569,
         "y": 203,
         "wires": []
@@ -6151,7 +6117,8 @@
         "name": "",
         "topic": "#",
         "qos": "2",
-        "broker": "54c90e3b.c2a5f",
+        "datatype": "auto",
+        "broker": "d7f6b34d.d13d6",
         "x": 233,
         "y": 161,
         "wires": [
@@ -6182,7 +6149,8 @@
         "name": "",
         "topic": "nibe/config",
         "qos": "2",
-        "broker": "54c90e3b.c2a5f",
+        "datatype": "auto",
+        "broker": "d7f6b34d.d13d6",
         "x": 124,
         "y": 301,
         "wires": [
@@ -6263,7 +6231,7 @@
         "topic": "",
         "qos": "",
         "retain": "",
-        "broker": "54c90e3b.c2a5f",
+        "broker": "d7f6b34d.d13d6",
         "x": 982,
         "y": 301,
         "wires": []
@@ -6363,7 +6331,7 @@
         "topic": "#",
         "qos": "2",
         "datatype": "auto",
-        "broker": "54c90e3b.c2a5f",
+        "broker": "d7f6b34d.d13d6",
         "x": 863,
         "y": 399,
         "wires": [
@@ -9199,38 +9167,6 @@
         "wires": []
     },
     {
-        "id": "f6b8e6a8.57b048",
-        "type": "mqtt in",
-        "z": "a640aab2.a9f768",
-        "name": "",
-        "topic": "nibe/#",
-        "qos": "2",
-        "datatype": "auto",
-        "broker": "354a2557.e16d3a",
-        "x": 189,
-        "y": 294,
-        "wires": [
-            [
-                "7b1024d6.02598c"
-            ]
-        ]
-    },
-    {
-        "id": "7b1024d6.02598c",
-        "type": "debug",
-        "z": "a640aab2.a9f768",
-        "name": "MQTT",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 337,
-        "y": 294,
-        "wires": []
-    },
-    {
         "id": "73d89e64.225e8",
         "type": "mqtt out",
         "z": "a640aab2.a9f768",
@@ -10799,7 +10735,7 @@
         "type": "function",
         "z": "b7f67da0.fbf1",
         "name": "Add Registers",
-        "func": "var register = global.get('register');\nlet icons = {\n    \"\":\"fa-bars\",\n    \"°C\":\"fa-thermometer-three-quarters\",\n    \"A\":\"fa-flash\",\n    \"Hz\":\"fa-bar-chart\",\n    \"min\":\"fa-clock-o\",\n    \"h\":\"fa-clock-o\",\n    \"m\":\"fa-clock-o\",\n    \"kWh\":\"fa-area-chart\",\n    \"W\":\"fa-flash\",\n    \"l/m\":\"fa-leaf\",\n    \"%RH\":\"fa-cloud\",\n    \"%\":\"fa-percent\"\n}\nif(register===undefined) return;\nlet config = msg.payload;\nvar outRegister = [];\nfor( var i = 0; i < register.length; i++){\n    outRegister[i] = {};\n    outRegister[i].title = register[i].register+\" (\"+register[i].mode+\"): \"+register[i].titel;\n    outRegister[i].description = register[i].info;\n    outRegister[i].register = register[i].register;\n    outRegister[i].mode = register[i].mode;\n    outRegister[i].unit = register[i].unit;\n    outRegister[i].icon_name = icons[register[i].unit];\n    for( var n = 0; n < config.registers.length; n++){\n        if(config.registers[n]===register[i].register) {\n            outRegister[i].isChecked = true;\n        }\n    }\n    if(register[i].register==\"45001\") outRegister[i].icon_name = \"fa-warning\";\n    if(register[i].register==\"10001\") outRegister[i].icon_name = \"fa-warning\";\n}\nif(outRegister!==undefined && outRegister!==[]) {\n    node.send({payload:outRegister});\n}\n",
+        "func": "var register = global.get('register');\nlet icons = {\n    \"\":\"fa-bars\",\n    \"°C\":\"fa-thermometer-three-quarters\",\n    \"A\":\"fa-flash\",\n    \"Hz\":\"fa-bar-chart\",\n    \"min\":\"fa-clock-o\",\n    \"h\":\"fa-clock-o\",\n    \"m\":\"fa-clock-o\",\n    \"kWh\":\"fa-area-chart\",\n    \"W\":\"fa-flash\",\n    \"l/m\":\"fa-leaf\",\n    \"%RH\":\"fa-cloud\",\n    \"%\":\"fa-percent\"\n}\nif(register===undefined) return;\nlet config = msg.payload;\nvar outRegister = [];\nfor( var i = 0; i < register.length; i++){\n    outRegister[i] = {};\n    outRegister[i].title = register[i].register+\" (\"+register[i].mode+\") (\"+register[i].size+\"): \"+register[i].titel;\n    outRegister[i].description = register[i].info;\n    outRegister[i].register = register[i].register;\n    outRegister[i].mode = register[i].mode;\n    outRegister[i].unit = register[i].unit;\n    outRegister[i].icon_name = icons[register[i].unit];\n    for( var n = 0; n < config.registers.length; n++){\n        if(config.registers[n]===register[i].register) {\n            outRegister[i].isChecked = true;\n        }\n    }\n    if(register[i].register==\"45001\") outRegister[i].icon_name = \"fa-warning\";\n    if(register[i].register==\"10001\") outRegister[i].icon_name = \"fa-warning\";\n}\nif(outRegister!==undefined && outRegister!==[]) {\n    node.send({payload:outRegister});\n}\n",
         "outputs": 1,
         "noerr": 0,
         "x": 500,
@@ -15300,39 +15236,6 @@
         ]
     },
     {
-        "id": "5c0f5420.fb532c",
-        "type": "mqtt out",
-        "z": "b7f67da0.fbf1",
-        "name": "",
-        "topic": "test/topic/sensor",
-        "qos": "",
-        "retain": "false",
-        "broker": "d7f6b34d.d13d6",
-        "x": 695,
-        "y": 2163,
-        "wires": []
-    },
-    {
-        "id": "73d588ad.20b768",
-        "type": "inject",
-        "z": "b7f67da0.fbf1",
-        "name": "",
-        "topic": "",
-        "payload": "20",
-        "payloadType": "num",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 365,
-        "y": 2156,
-        "wires": [
-            [
-                "5c0f5420.fb532c"
-            ]
-        ]
-    },
-    {
         "id": "6a959097.836b1",
         "type": "function",
         "z": "b7f67da0.fbf1",
@@ -15894,5 +15797,361 @@
             ],
             []
         ]
+    },
+    {
+        "id": "22798341.63387c",
+        "type": "ui_switch",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "label": "Loggning på",
+        "tooltip": "",
+        "group": "97526682.5406d8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "enable",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 300,
+        "y": 2226,
+        "wires": [
+            [
+                "ad9a955e.bca628"
+            ]
+        ]
+    },
+    {
+        "id": "ad9a955e.bca628",
+        "type": "subflow:c191a5d.5d76258",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "env": [
+            {
+                "name": "Name",
+                "value": "log",
+                "type": "str"
+            },
+            {
+                "name": "Function",
+                "value": "enable",
+                "type": "str"
+            }
+        ],
+        "x": 524,
+        "y": 2226,
+        "wires": [
+            [
+                "22798341.63387c",
+                "d464fe8e.e8ef7"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "df3307ec.65d498",
+        "type": "ui_switch",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "label": "INFO",
+        "tooltip": "",
+        "group": "97526682.5406d8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "info",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 281,
+        "y": 2275,
+        "wires": [
+            [
+                "68bba490.cea85c"
+            ]
+        ]
+    },
+    {
+        "id": "68bba490.cea85c",
+        "type": "subflow:c191a5d.5d76258",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "env": [
+            {
+                "name": "Name",
+                "value": "log",
+                "type": "str"
+            },
+            {
+                "name": "Function",
+                "value": "info",
+                "type": "str"
+            }
+        ],
+        "x": 525,
+        "y": 2275,
+        "wires": [
+            [
+                "df3307ec.65d498"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "d464fe8e.e8ef7",
+        "type": "function",
+        "z": "b7f67da0.fbf1",
+        "name": "Enable/Disable",
+        "func": "msg = {\n    enabled:msg.payload\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 759,
+        "y": 2226,
+        "wires": [
+            [
+                "df3307ec.65d498",
+                "c548dfa7.e7696",
+                "4b9a995c.0f11b8",
+                "3b259789.2e49a8"
+            ]
+        ]
+    },
+    {
+        "id": "c548dfa7.e7696",
+        "type": "ui_switch",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "label": "ERROR",
+        "tooltip": "",
+        "group": "97526682.5406d8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "error",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 291,
+        "y": 2324,
+        "wires": [
+            [
+                "9f0b5119.f9854"
+            ]
+        ]
+    },
+    {
+        "id": "9f0b5119.f9854",
+        "type": "subflow:c191a5d.5d76258",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "env": [
+            {
+                "name": "Name",
+                "value": "log",
+                "type": "str"
+            },
+            {
+                "name": "Function",
+                "value": "error",
+                "type": "str"
+            }
+        ],
+        "x": 525,
+        "y": 2324,
+        "wires": [
+            [
+                "c548dfa7.e7696"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4b9a995c.0f11b8",
+        "type": "ui_switch",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "label": "DEBUG",
+        "tooltip": "",
+        "group": "97526682.5406d8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "debug",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 291,
+        "y": 2373,
+        "wires": [
+            [
+                "fbd484b.8d81e78"
+            ]
+        ]
+    },
+    {
+        "id": "fbd484b.8d81e78",
+        "type": "subflow:c191a5d.5d76258",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "env": [
+            {
+                "name": "Name",
+                "value": "log",
+                "type": "str"
+            },
+            {
+                "name": "Function",
+                "value": "debug",
+                "type": "str"
+            }
+        ],
+        "x": 525,
+        "y": 2373,
+        "wires": [
+            [
+                "4b9a995c.0f11b8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3b259789.2e49a8",
+        "type": "ui_switch",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "label": "CORE",
+        "tooltip": "",
+        "group": "97526682.5406d8",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "core",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 281,
+        "y": 2422,
+        "wires": [
+            [
+                "d695de6d.24616"
+            ]
+        ]
+    },
+    {
+        "id": "d695de6d.24616",
+        "type": "subflow:c191a5d.5d76258",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "env": [
+            {
+                "name": "Name",
+                "value": "log",
+                "type": "str"
+            },
+            {
+                "name": "Function",
+                "value": "core",
+                "type": "str"
+            }
+        ],
+        "x": 525,
+        "y": 2422,
+        "wires": [
+            [
+                "3b259789.2e49a8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "950de0aa.51125",
+        "type": "ui_template",
+        "z": "b7f67da0.fbf1",
+        "group": "97526682.5406d8",
+        "name": "Loggning Info",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "format": "<div><p>Loggning sker till \"/tmp/nibepi.log\"<br>I SSH kör kommando \"tail -f /tmp/nibepi.log\"<br><br></p></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 349,
+        "y": 2177,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3b6f4ac6.4ef9b6",
+        "type": "mqtt in",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "topic": "nibe/#",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "d7f6b34d.d13d6",
+        "x": 848,
+        "y": 322,
+        "wires": [
+            [
+                "274b71aa.648abe"
+            ]
+        ]
+    },
+    {
+        "id": "274b71aa.648abe",
+        "type": "debug",
+        "z": "b7f67da0.fbf1",
+        "name": "MQTT",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 996,
+        "y": 322,
+        "wires": []
     }
 ]
