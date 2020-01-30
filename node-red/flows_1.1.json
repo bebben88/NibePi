@@ -42,6 +42,13 @@
         "info": ""
     },
     {
+        "id": "eee76599.b5f0d8",
+        "type": "tab",
+        "label": "RMU 1.1",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "7e884fc9.b6c45",
         "type": "tab",
         "label": "Tibber",
@@ -213,6 +220,7 @@
         "z": 0,
         "name": "Inställningar",
         "icon": "settings",
+        "order": 2,
         "disabled": false,
         "hidden": false
     },
@@ -222,6 +230,7 @@
         "z": 0,
         "name": "Prognosreglering",
         "icon": "wi-wu-sunny",
+        "order": 3,
         "disabled": false,
         "hidden": false
     },
@@ -231,6 +240,7 @@
         "z": 0,
         "name": "Inomhusreglering",
         "icon": "home",
+        "order": 4,
         "disabled": false,
         "hidden": false
     },
@@ -240,6 +250,7 @@
         "z": 0,
         "name": "Lufthastighet",
         "icon": "wi-darksky-tornado",
+        "order": 5,
         "disabled": false,
         "hidden": false
     },
@@ -249,6 +260,7 @@
         "z": 0,
         "name": "Elprisreglering",
         "icon": "flash_on",
+        "order": 6,
         "disabled": false,
         "hidden": false
     },
@@ -257,7 +269,8 @@
         "type": "ui_tab",
         "z": 0,
         "name": "List",
-        "icon": "dashboard"
+        "icon": "dashboard",
+        "order": 7
     },
     {
         "id": "d814a7db.5cdc38",
@@ -265,6 +278,7 @@
         "z": 0,
         "name": "Uppdateringar",
         "tab": "6aa61182.b42ed",
+        "order": 1,
         "disp": true,
         "width": "12",
         "collapse": false
@@ -285,6 +299,7 @@
         "z": "",
         "name": "Datahantering",
         "tab": "6aa61182.b42ed",
+        "order": 3,
         "disp": true,
         "width": "12",
         "collapse": false
@@ -349,6 +364,7 @@
         "z": 0,
         "name": "Information",
         "tab": "6aa61182.b42ed",
+        "order": 4,
         "disp": true,
         "width": "12",
         "collapse": false
@@ -359,6 +375,7 @@
         "z": 0,
         "name": "Loggning",
         "tab": "6aa61182.b42ed",
+        "order": 5,
         "disp": true,
         "width": "12",
         "collapse": false
@@ -553,6 +570,7 @@
         "z": 0,
         "name": "Lufthastighet",
         "icon": "wi-darksky-tornado",
+        "order": 8,
         "disabled": false,
         "hidden": false
     },
@@ -579,6 +597,7 @@
         "z": "",
         "name": "Startsida",
         "icon": "dashboard",
+        "order": 1,
         "disabled": false,
         "hidden": false
     },
@@ -638,7 +657,8 @@
         "type": "ui_tab",
         "z": "",
         "name": "List",
-        "icon": "dashboard"
+        "icon": "dashboard",
+        "order": 9
     },
     {
         "id": "1dc0b5a5.8e56aa",
@@ -646,6 +666,7 @@
         "z": "",
         "name": "Datahantering",
         "icon": "dashboard",
+        "order": 10,
         "disabled": false,
         "hidden": false
     },
@@ -686,6 +707,7 @@
         "z": "",
         "name": "Inomhusgivare",
         "tab": "6aa61182.b42ed",
+        "order": 6,
         "disp": true,
         "width": "12",
         "collapse": false
@@ -761,6 +783,7 @@
         "z": "",
         "name": "System",
         "tab": "6aa61182.b42ed",
+        "order": 7,
         "disp": true,
         "width": "6",
         "collapse": false
@@ -771,6 +794,7 @@
         "z": "",
         "name": "Värmekurva S1",
         "tab": "6aa61182.b42ed",
+        "order": 8,
         "disp": true,
         "width": "6",
         "collapse": false
@@ -781,6 +805,7 @@
         "z": "",
         "name": "Värmekurva S2",
         "tab": "6aa61182.b42ed",
+        "order": 9,
         "disp": true,
         "width": "6",
         "collapse": false
@@ -791,6 +816,7 @@
         "z": "",
         "name": "Varmvattenreglering",
         "icon": "hot_tub",
+        "order": 11,
         "disabled": false,
         "hidden": false
     },
@@ -820,6 +846,48 @@
         "z": "",
         "name": "Loggning",
         "tab": "6aa61182.b42ed",
+        "order": 2,
+        "disp": true,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "ef983ace.21f138",
+        "type": "ui_group",
+        "z": "",
+        "name": "RMU40 S1",
+        "tab": "6aa61182.b42ed",
+        "order": 10,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "1b5fbfac.5e88f",
+        "type": "ui_spacer",
+        "name": "spacer",
+        "group": "4a7ab836.172ae8",
+        "order": 8,
+        "width": 6,
+        "height": 1
+    },
+    {
+        "id": "32b15b25.77ef94",
+        "type": "ui_group",
+        "z": "",
+        "name": "RMU40 S2",
+        "tab": "6aa61182.b42ed",
+        "order": 11,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "1d61b1b5.3ea93e",
+        "type": "ui_group",
+        "z": "",
+        "name": "Kompressorförbrukning",
+        "tab": "b75c3bdd.9e0ae8",
         "disp": true,
         "width": "12",
         "collapse": false
@@ -4011,7 +4079,7 @@
         "z": "ade2c7a9.e97ba8",
         "name": "",
         "group": "d814a7db.5cdc38",
-        "order": 3,
+        "order": 4,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -4038,8 +4106,8 @@
         "name": "",
         "group": "4a7ab836.172ae8",
         "order": 3,
-        "width": "6",
-        "height": "1",
+        "width": 6,
+        "height": 1,
         "passthru": false,
         "label": "Starta Samba",
         "tooltip": "Startar fildelningsservern och sätter NibePi i skrivläge",
@@ -4064,8 +4132,8 @@
         "name": "",
         "group": "4a7ab836.172ae8",
         "order": 4,
-        "width": "6",
-        "height": "1",
+        "width": 6,
+        "height": 1,
         "passthru": false,
         "label": "Stoppa Samba",
         "tooltip": "Stoppar fildelningsservern och sätter NibePi i läsläge",
@@ -4090,8 +4158,8 @@
         "name": "",
         "group": "4a7ab836.172ae8",
         "order": 5,
-        "width": "6",
-        "height": "1",
+        "width": 6,
+        "height": 1,
         "passthru": false,
         "label": "Starta om NibePi kärnan",
         "tooltip": "",
@@ -4116,8 +4184,8 @@
         "name": "",
         "group": "4a7ab836.172ae8",
         "order": 6,
-        "width": "6",
-        "height": "1",
+        "width": 6,
+        "height": 1,
         "passthru": false,
         "label": "Starta om Node-RED",
         "tooltip": "",
@@ -4143,8 +4211,8 @@
         "name": "",
         "group": "4a7ab836.172ae8",
         "order": 7,
-        "width": "6",
-        "height": "1",
+        "width": 6,
+        "height": 1,
         "passthru": false,
         "label": "Starta om NibePi hårdvara",
         "tooltip": "",
@@ -4657,8 +4725,8 @@
         "group": "d814a7db.5cdc38",
         "name": "Uppdatering Förtext",
         "order": 1,
-        "width": "12",
-        "height": "2",
+        "width": 12,
+        "height": 2,
         "format": "<div>Kolla efter uppdateringar för NibePi mjukvaran.<br>\nOBS. efter uppdateringen startar mjukvaran om och larm om Kom.avbrott kommer att genereras på pumpen.<br>\nVid uppstart återställs detta.\n</div>",
         "storeOutMessages": false,
         "fwdInMessages": false,
@@ -4896,9 +4964,9 @@
         "z": "ade2c7a9.e97ba8",
         "group": "d814a7db.5cdc38",
         "name": "Uppdatering Info",
-        "order": 4,
-        "width": "12",
-        "height": "4",
+        "order": 6,
+        "width": 12,
+        "height": 4,
         "format": "<div ng-bind-html=\"msg.payload\"></div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
@@ -5021,7 +5089,7 @@
         "z": "ade2c7a9.e97ba8",
         "name": "",
         "group": "d814a7db.5cdc38",
-        "order": 3,
+        "order": 5,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -7099,36 +7167,6 @@
         ]
     },
     {
-        "id": "842da42c.ee4328",
-        "type": "nibe-input",
-        "z": "a640aab2.a9f768",
-        "server": "844659a2.8d8508",
-        "name": "40079",
-        "x": 1156,
-        "y": 77,
-        "wires": [
-            [
-                "ba6426b0.794888"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "ba6426b0.794888",
-        "type": "debug",
-        "z": "a640aab2.a9f768",
-        "name": "Data",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "raw",
-        "targetType": "msg",
-        "x": 1310,
-        "y": 112,
-        "wires": []
-    },
-    {
         "id": "39b0fc16.7de5c4",
         "type": "function",
         "z": "b7f67da0.fbf1",
@@ -7181,6 +7219,7 @@
         "z": "b7f67da0.fbf1",
         "server": "844659a2.8d8508",
         "name": "",
+        "add": false,
         "x": 112,
         "y": 112,
         "wires": [
@@ -7608,6 +7647,7 @@
         "z": "a640aab2.a9f768",
         "server": "844659a2.8d8508",
         "name": "",
+        "add": false,
         "x": 165,
         "y": 196,
         "wires": [
@@ -7653,36 +7693,6 @@
                 "70b95995.bde3e8"
             ]
         ]
-    },
-    {
-        "id": "4d8bef59.6d046",
-        "type": "nibe-input",
-        "z": "a640aab2.a9f768",
-        "server": "844659a2.8d8508",
-        "name": "45001",
-        "x": 1156,
-        "y": 224,
-        "wires": [
-            [
-                "af86f7da.d6d908"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "af86f7da.d6d908",
-        "type": "debug",
-        "z": "a640aab2.a9f768",
-        "name": "45001",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 1296,
-        "y": 224,
-        "wires": []
     },
     {
         "id": "d8140a37.688338",
@@ -7960,7 +7970,8 @@
         "y": 224,
         "wires": [
             [
-                "1d1c593e.bdd0c7"
+                "1d1c593e.bdd0c7",
+                "b4a9d18b.4c69a"
             ],
             []
         ]
@@ -8159,7 +8170,7 @@
         "type": "function",
         "z": "b7f67da0.fbf1",
         "name": "",
-        "func": "node.send({timestamp:msg.payload,topic:\"Utomhustemperatur\",payload:msg.outside});\nnode.send({timestamp:msg.payload,topic:\"Kurvjustering\",payload:msg.curveadjust});\nnode.send({timestamp:msg.payload,topic:\"Inomhustemperatur\",payload:msg.inside});\nnode.send({timestamp:msg.payload,topic:\"Börvärde S1\",payload:msg.setpoint_s1});\nnode.send({timestamp:msg.payload,topic:\"Framledning S1\",payload:msg.supply_s1});\n",
+        "func": "node.send({timestamp:msg.payload,topic:\"Utomhustemperatur\",payload:msg.outside});\nnode.send({timestamp:msg.payload,topic:\"Kurvjustering\",payload:msg.curveadjust});\nif(msg.inside>-3277) {\n    node.send({timestamp:msg.payload,topic:\"Inomhustemperatur\",payload:msg.inside});\n}\nnode.send({timestamp:msg.payload,topic:\"Börvärde S1\",payload:msg.setpoint_s1});\nnode.send({timestamp:msg.payload,topic:\"Framledning S1\",payload:msg.supply_s1});\n",
         "outputs": 1,
         "noerr": 0,
         "x": 1051,
@@ -8205,7 +8216,7 @@
         "type": "ui_chart",
         "z": "b7f67da0.fbf1",
         "name": "",
-        "group": "a8bf2b6e.6abc18",
+        "group": "1d61b1b5.3ea93e",
         "order": 5,
         "width": 0,
         "height": 0,
@@ -8247,8 +8258,8 @@
         "type": "function",
         "z": "b7f67da0.fbf1",
         "name": "",
-        "func": "node.send({topic:\"Värme\",payload:Number((msg.cpr_tot_kwh-msg.cpr_hw_kwh).toFixed(0))});\nnode.send([null,{topic:\"Varmvatten\",payload:Number(msg.cpr_hw_kwh.toFixed(0))}]);",
-        "outputs": 2,
+        "func": "if(msg.cpr_tot_kwh!==0) {\n    let hide = {\n        \"group\":\n            {\"show\":\n                [\"Startsida_Kompressorförbrukning\"]\n            }\n        }\n    node.send([null,null,{payload:hide}]);\n    node.send({topic:\"Värme\",payload:Number((msg.cpr_tot_kwh-msg.cpr_hw_kwh).toFixed(0))});\n    node.send([null,{topic:\"Varmvatten\",payload:Number(msg.cpr_hw_kwh.toFixed(0))}]);\n} else {\n    let hide = {\n        \"group\":\n            {\"hide\":\n                [\"Startsida_Kompressorförbrukning\"]\n            }\n        }\n    node.send([null,null,{payload:hide}]);\n}\n",
+        "outputs": 3,
         "noerr": 0,
         "x": 918,
         "y": 1134,
@@ -8260,6 +8271,9 @@
             [
                 "b7aacf55.4c083",
                 "99ffc02f.7bb77"
+            ],
+            [
+                "bbeace10.c8e3d"
             ]
         ]
     },
@@ -8287,7 +8301,7 @@
         "id": "a508560f.9d9228",
         "type": "ui_text",
         "z": "b7f67da0.fbf1",
-        "group": "a8bf2b6e.6abc18",
+        "group": "1d61b1b5.3ea93e",
         "order": 6,
         "width": 0,
         "height": 0,
@@ -8303,7 +8317,7 @@
         "id": "b7aacf55.4c083",
         "type": "ui_text",
         "z": "b7f67da0.fbf1",
-        "group": "a8bf2b6e.6abc18",
+        "group": "1d61b1b5.3ea93e",
         "order": 7,
         "width": 0,
         "height": 0,
@@ -8520,7 +8534,7 @@
         "z": "b7f67da0.fbf1",
         "server": "844659a2.8d8508",
         "name": "supply_s1",
-        "x": 893,
+        "x": 900,
         "y": 833,
         "wires": [
             [
@@ -8660,7 +8674,8 @@
         "y": 182,
         "wires": [
             [
-                "d6176cc8.3e0d3"
+                "d6176cc8.3e0d3",
+                "87a83c1.3cd9fc"
             ]
         ]
     },
@@ -9075,96 +9090,6 @@
         "wires": [
             []
         ]
-    },
-    {
-        "id": "3181e0e2.bd24f",
-        "type": "nibe-input",
-        "z": "a640aab2.a9f768",
-        "server": "844659a2.8d8508",
-        "name": "40081",
-        "x": 1156,
-        "y": 126,
-        "wires": [
-            [
-                "ba6426b0.794888"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "7c3dd4fa.00c0ec",
-        "type": "nibe-input",
-        "z": "a640aab2.a9f768",
-        "server": "844659a2.8d8508",
-        "name": "40083",
-        "x": 1156,
-        "y": 175,
-        "wires": [
-            [
-                "ba6426b0.794888"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "e1e6eac6.af8998",
-        "type": "comment",
-        "z": "a640aab2.a9f768",
-        "name": "These are my favorite registers",
-        "info": "",
-        "x": 1236,
-        "y": 28,
-        "wires": []
-    },
-    {
-        "id": "16c35561.1b079b",
-        "type": "comment",
-        "z": "a640aab2.a9f768",
-        "name": "If I put a input node with a register,",
-        "info": "",
-        "x": 1239,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "cb5a418a.99845",
-        "type": "nibe-input",
-        "z": "a640aab2.a9f768",
-        "server": "844659a2.8d8508",
-        "name": "43136",
-        "x": 1156,
-        "y": 364,
-        "wires": [
-            [
-                "de844006.8ce3c"
-            ],
-            []
-        ]
-    },
-    {
-        "id": "de844006.8ce3c",
-        "type": "debug",
-        "z": "a640aab2.a9f768",
-        "name": "Comp. freq",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 1302,
-        "y": 364,
-        "wires": []
-    },
-    {
-        "id": "8f13ca83.1bf9a8",
-        "type": "comment",
-        "z": "a640aab2.a9f768",
-        "name": "it will be added to the \"regular\" list",
-        "info": "",
-        "x": 1229,
-        "y": 315,
-        "wires": []
     },
     {
         "id": "73d89e64.225e8",
@@ -10262,7 +10187,7 @@
         "label": "Kurvjustering S1",
         "tooltip": "",
         "group": "605e2041.0137e",
-        "order": 9,
+        "order": 2,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -10313,7 +10238,7 @@
         "label": "Kurvjustering S2",
         "tooltip": "",
         "group": "ea24545a.5d7038",
-        "order": 11,
+        "order": 2,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -10364,7 +10289,7 @@
         "label": "Värmekurva S1",
         "tooltip": "",
         "group": "605e2041.0137e",
-        "order": 8,
+        "order": 1,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -10416,7 +10341,7 @@
         "label": "Värmekurva S2",
         "tooltip": "",
         "group": "ea24545a.5d7038",
-        "order": 10,
+        "order": 1,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -10454,7 +10379,7 @@
         "z": "b7f67da0.fbf1",
         "name": "",
         "group": "d814a7db.5cdc38",
-        "order": 5,
+        "order": 7,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -10619,7 +10544,7 @@
         "z": "b7f67da0.fbf1",
         "name": "",
         "group": "d814a7db.5cdc38",
-        "order": 2,
+        "order": 3,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -11831,8 +11756,8 @@
         "z": "b7f67da0.fbf1",
         "server": "844659a2.8d8508",
         "name": "Config",
-        "x": 1093,
-        "y": 1946,
+        "x": 1100,
+        "y": 1981,
         "wires": [
             [
                 "88479ffd.f321c"
@@ -11862,7 +11787,7 @@
         ],
         "payload": "",
         "topic": "weather/sensor",
-        "x": 566,
+        "x": 573,
         "y": 371,
         "wires": [
             [
@@ -11896,31 +11821,9 @@
         "y": 371,
         "wires": [
             [
-                "8bdb8953.e3e8f8"
+                "10e30751.e4e639"
             ],
             []
-        ]
-    },
-    {
-        "id": "8bdb8953.e3e8f8",
-        "type": "trigger",
-        "z": "df0dd648.98daa8",
-        "op1": "",
-        "op2": "",
-        "op1type": "nul",
-        "op2type": "payl",
-        "duration": "250",
-        "extend": true,
-        "units": "ms",
-        "reset": "",
-        "bytopic": "all",
-        "name": "",
-        "x": 248,
-        "y": 371,
-        "wires": [
-            [
-                "10e30751.e4e639"
-            ]
         ]
     },
     {
@@ -12014,8 +11917,8 @@
         "func": "var sensors = msg.payload.home.inside_sensors;\nvar output = [\"Ingen\"];\nfor (const arr of sensors) {\n    output.push(arr.name)\n}\nif(output!==undefined && output!==[]) {\n    node.send({options:output});\n    if(msg.payload.indoor!==undefined) {\n        node.send({payload:msg.payload.indoor.sensor_s1})\n    }\n    \n}\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 456,
-        "y": 427,
+        "x": 414,
+        "y": 434,
         "wires": [
             [
                 "f421e95f.a41718"
@@ -12160,8 +12063,8 @@
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 1187,
-        "y": 623,
+        "x": 256,
+        "y": 1393,
         "wires": [
             [
                 "c3b3d118.e4f23"
@@ -12185,11 +12088,12 @@
                 "type": "str"
             }
         ],
-        "x": 1147,
-        "y": 672,
+        "x": 517,
+        "y": 1393,
         "wires": [
             [
-                "c0a999e9.8d63b8"
+                "c0a999e9.8d63b8",
+                "bb501ea0.7f712"
             ],
             []
         ]
@@ -14512,10 +14416,7 @@
                 "d68a22ce.9289d",
                 "c0a999e9.8d63b8",
                 "9f4e48ae.0cdd88",
-                "a10195f0.da9188",
-                "5e1062d0.a33cbc",
-                "5725972f.b219a8",
-                "c475b1a1.ae577"
+                "a10195f0.da9188"
             ],
             [
                 "e1739c13.ca664",
@@ -14727,7 +14628,7 @@
         "func": "var sensors = msg.payload.home.inside_sensors;\nvar output = [\"Ingen\"];\nfor (const arr of sensors) {\n    output.push(arr.name)\n}\nif(output!==undefined && output!==[]) {\n    node.send({options:output});\n    if(msg.payload.indoor!==undefined) {\n        node.send({payload:msg.payload.indoor.sensor_s2})\n    }\n    \n}\n",
         "outputs": 1,
         "noerr": 0,
-        "x": 463,
+        "x": 442,
         "y": 1260,
         "wires": [
             [
@@ -15096,10 +14997,7 @@
                 "d136e0d4.36424",
                 "d5bb2eff.594fe",
                 "98a2ba00.9574c8",
-                "9ad9efa4.3453",
-                "2f4cb05b.407d1",
-                "8cf9b82c.df7338",
-                "ced9439e.afef"
+                "9ad9efa4.3453"
             ],
             [
                 "a20f3f7d.f9096",
@@ -15191,12 +15089,12 @@
             },
             {
                 "name": "Function",
-                "value": "read-only",
+                "value": "readonly",
                 "type": "str"
             }
         ],
-        "x": 1119,
-        "y": 203,
+        "x": 1154,
+        "y": 399,
         "wires": [
             [
                 "9414a4e7.3d88c8"
@@ -15212,12 +15110,12 @@
         "label": "Read-only",
         "tooltip": "",
         "group": "da3c0db0.9c6aa",
-        "order": 0,
+        "order": 1,
         "width": 0,
         "height": 0,
         "passthru": false,
         "decouple": "true",
-        "topic": "read-only",
+        "topic": "readonly",
         "style": "",
         "onvalue": "true",
         "onvalueType": "bool",
@@ -15227,8 +15125,8 @@
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 924,
-        "y": 203,
+        "x": 959,
+        "y": 399,
         "wires": [
             [
                 "4711e827.788878"
@@ -15302,7 +15200,7 @@
         "type": "ui_switch",
         "z": "b7f67da0.fbf1",
         "name": "",
-        "label": "MQTT Discovery",
+        "label": "HA Discovery",
         "tooltip": "",
         "group": "ada224d8.213a68",
         "order": 1,
@@ -15320,7 +15218,7 @@
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": 167,
+        "x": 157,
         "y": 273,
         "wires": [
             [
@@ -15806,7 +15704,7 @@
         "label": "Loggning på",
         "tooltip": "",
         "group": "97526682.5406d8",
-        "order": 0,
+        "order": 1,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -15864,7 +15762,7 @@
         "label": "INFO",
         "tooltip": "",
         "group": "97526682.5406d8",
-        "order": 0,
+        "order": 2,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -15940,7 +15838,7 @@
         "label": "ERROR",
         "tooltip": "",
         "group": "97526682.5406d8",
-        "order": 0,
+        "order": 3,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -15997,7 +15895,7 @@
         "label": "DEBUG",
         "tooltip": "",
         "group": "97526682.5406d8",
-        "order": 0,
+        "order": 4,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -16054,7 +15952,7 @@
         "label": "CORE",
         "tooltip": "",
         "group": "97526682.5406d8",
-        "order": 0,
+        "order": 5,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -16109,10 +16007,10 @@
         "z": "b7f67da0.fbf1",
         "group": "97526682.5406d8",
         "name": "Loggning Info",
-        "order": 5,
+        "order": 6,
         "width": 0,
         "height": 0,
-        "format": "<div><p>Loggning sker till \"/tmp/nibepi.log\"<br>I SSH kör kommando \"tail -f /tmp/nibepi.log\"<br><br></p></div>",
+        "format": "<p>Loggning sker till \"/tmp/nibepi.log\"<br>I SSH kör kommando \"tail -f /tmp/nibepi.log\"<br><br></p>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "templateScope": "local",
@@ -16131,8 +16029,8 @@
         "qos": "2",
         "datatype": "auto",
         "broker": "d7f6b34d.d13d6",
-        "x": 848,
-        "y": 322,
+        "x": 911,
+        "y": 462,
         "wires": [
             [
                 "274b71aa.648abe"
@@ -16150,8 +16048,618 @@
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 996,
-        "y": 322,
+        "x": 1059,
+        "y": 462,
         "wires": []
+    },
+    {
+        "id": "b4a9d18b.4c69a",
+        "type": "function",
+        "z": "b7f67da0.fbf1",
+        "name": "Enable/Disable",
+        "func": "if(msg.payload===true) {\n    node.send({enabled:false});\n} else {\n    node.send({enabled:true});\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 612,
+        "y": 245,
+        "wires": [
+            [
+                "3f2df90a.87e2f6",
+                "5eaea9fd.2ab8b8",
+                "3eed3ea7.c66072",
+                "7cc82e4d.8f653",
+                "6fe84622.e973e8"
+            ]
+        ]
+    },
+    {
+        "id": "485ac39d.e1262c",
+        "type": "ui_ui_control",
+        "z": "df0dd648.98daa8",
+        "name": "",
+        "events": "all",
+        "x": 690,
+        "y": 112,
+        "wires": [
+            [
+                "b21fd6b9.6b28e8"
+            ]
+        ]
+    },
+    {
+        "id": "b21fd6b9.6b28e8",
+        "type": "function",
+        "z": "df0dd648.98daa8",
+        "name": "Prognosreglering",
+        "func": "var timeSaved = context.get('time')||(Date.now()-1000);\nvar time = Date.now();\nif(msg.name==\"Prognosreglering\") {\n    if(time>timeSaved) {\n        context.set('time',(time+30000));\n        return msg;\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 860,
+        "y": 112,
+        "wires": [
+            [
+                "8a714b3a.55fa18"
+            ]
+        ]
+    },
+    {
+        "id": "8a714b3a.55fa18",
+        "type": "nibe-request",
+        "z": "df0dd648.98daa8",
+        "server": "844659a2.8d8508",
+        "name": "Config",
+        "x": 1044,
+        "y": 112,
+        "wires": [
+            [],
+            [
+                "10e30751.e4e639"
+            ]
+        ]
+    },
+    {
+        "id": "87a83c1.3cd9fc",
+        "type": "nibe-request",
+        "z": "358baec9.c8b902",
+        "server": "844659a2.8d8508",
+        "name": "Config",
+        "x": 127,
+        "y": 385,
+        "wires": [
+            [],
+            [
+                "dff05253.9f618"
+            ]
+        ]
+    },
+    {
+        "id": "e0751200.e40b5",
+        "type": "ui_switch",
+        "z": "358baec9.c8b902",
+        "name": "Aktivera Stoppa värmeproduktion",
+        "label": "Stoppa värmeproduktion",
+        "tooltip": "",
+        "group": "95b0af9c.89089",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "dm_reset_enable_stop",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 280,
+        "y": 1442,
+        "wires": [
+            [
+                "c5d3afd1.ce899"
+            ]
+        ]
+    },
+    {
+        "id": "c5d3afd1.ce899",
+        "type": "subflow:c191a5d.5d76258",
+        "z": "358baec9.c8b902",
+        "name": "",
+        "env": [
+            {
+                "name": "Name",
+                "value": "indoor",
+                "type": "str"
+            },
+            {
+                "name": "Function",
+                "value": "dm_reset_enable_stop",
+                "type": "str"
+            }
+        ],
+        "x": 545,
+        "y": 1442,
+        "wires": [
+            [
+                "e0751200.e40b5",
+                "49abf480.acd38c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "5abdd88.e5f8628",
+        "type": "subflow:c191a5d.5d76258",
+        "z": "358baec9.c8b902",
+        "name": "",
+        "env": [
+            {
+                "name": "Name",
+                "value": "indoor",
+                "type": "str"
+            },
+            {
+                "name": "Function",
+                "value": "dm_reset_stop_diff",
+                "type": "str"
+            }
+        ],
+        "x": 545,
+        "y": 1498,
+        "wires": [
+            [
+                "46fd6a28.346e94"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "46fd6a28.346e94",
+        "type": "ui_slider",
+        "z": "358baec9.c8b902",
+        "name": "",
+        "label": "Differens",
+        "tooltip": "",
+        "group": "95b0af9c.89089",
+        "order": 6,
+        "width": "0",
+        "height": "0",
+        "passthru": false,
+        "outs": "end",
+        "topic": "dm_reset_stop_diff",
+        "min": "0.5",
+        "max": "3",
+        "step": "0.1",
+        "x": 284,
+        "y": 1498,
+        "wires": [
+            [
+                "5abdd88.e5f8628"
+            ]
+        ]
+    },
+    {
+        "id": "bb2ea9a3.783e38",
+        "type": "subflow:c191a5d.5d76258",
+        "z": "358baec9.c8b902",
+        "name": "",
+        "env": [
+            {
+                "name": "Name",
+                "value": "indoor",
+                "type": "str"
+            },
+            {
+                "name": "Function",
+                "value": "dm_reset_slow_diff",
+                "type": "str"
+            }
+        ],
+        "x": 545,
+        "y": 1547,
+        "wires": [
+            [
+                "a56e3e6c.baf92"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a56e3e6c.baf92",
+        "type": "ui_slider",
+        "z": "358baec9.c8b902",
+        "name": "",
+        "label": "Differens",
+        "tooltip": "",
+        "group": "95b0af9c.89089",
+        "order": 4,
+        "width": "0",
+        "height": "0",
+        "passthru": false,
+        "outs": "end",
+        "topic": "dm_reset_slow_diff",
+        "min": "0.1",
+        "max": "3",
+        "step": "0.1",
+        "x": 284,
+        "y": 1547,
+        "wires": [
+            [
+                "bb2ea9a3.783e38"
+            ]
+        ]
+    },
+    {
+        "id": "49abf480.acd38c",
+        "type": "function",
+        "z": "358baec9.c8b902",
+        "name": "Enable/Disable",
+        "func": "msg = {\n    enabled:msg.payload\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 773,
+        "y": 1442,
+        "wires": [
+            [
+                "46fd6a28.346e94"
+            ]
+        ]
+    },
+    {
+        "id": "bb501ea0.7f712",
+        "type": "function",
+        "z": "358baec9.c8b902",
+        "name": "Enable/Disable",
+        "func": "msg = {\n    enabled:msg.payload\n};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 745,
+        "y": 1393,
+        "wires": [
+            [
+                "e0751200.e40b5",
+                "46fd6a28.346e94",
+                "a56e3e6c.baf92"
+            ]
+        ]
+    },
+    {
+        "id": "54f823ff.b8206c",
+        "type": "ui_ui_control",
+        "z": "eee76599.b5f0d8",
+        "name": "",
+        "events": "all",
+        "x": 144,
+        "y": 210,
+        "wires": [
+            [
+                "b59bafd9.45e65"
+            ]
+        ]
+    },
+    {
+        "id": "b59bafd9.45e65",
+        "type": "function",
+        "z": "eee76599.b5f0d8",
+        "name": "Inomhusreglering",
+        "func": "var timeSaved = context.get('time')||(Date.now()-1000);\nvar time = Date.now();\nif(msg.name==\"Inställningar\") {\n    if(time>timeSaved) {\n        context.set('time',(time+30000));\n        return msg;\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 314,
+        "y": 210,
+        "wires": [
+            [
+                "893baad1.277128"
+            ]
+        ]
+    },
+    {
+        "id": "893baad1.277128",
+        "type": "nibe-request",
+        "z": "eee76599.b5f0d8",
+        "server": "844659a2.8d8508",
+        "name": "Config",
+        "x": 260,
+        "y": 252,
+        "wires": [
+            [],
+            [
+                "d85ce7ca.219c78",
+                "8820ada.454c85"
+            ]
+        ]
+    },
+    {
+        "id": "d85ce7ca.219c78",
+        "type": "function",
+        "z": "eee76599.b5f0d8",
+        "name": "Update list",
+        "func": "var sensors = msg.payload.home.inside_sensors;\nvar output = [\"Ingen\"];\nif(sensors.length===0) {\n    return;\n}\nfor (const arr of sensors) {\n    output.push(arr.name)\n}\nif(output!==undefined && output!==[]) {\n    node.send({options:output});\n    if(msg.payload.indoor!==undefined) {\n        node.send({payload:msg.payload.rmu.sensor_s1})\n    }\n    \n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 434,
+        "y": 308,
+        "wires": [
+            [
+                "120d7487.c214bb"
+            ]
+        ]
+    },
+    {
+        "id": "120d7487.c214bb",
+        "type": "ui_dropdown",
+        "z": "eee76599.b5f0d8",
+        "name": "",
+        "label": "Välj Inomhusgivare",
+        "tooltip": "",
+        "place": "Välj",
+        "group": "ef983ace.21f138",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "options": [
+            {
+                "label": "",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "rmu/sensor",
+        "x": 622,
+        "y": 308,
+        "wires": [
+            [
+                "17916cf8.c093b3"
+            ]
+        ]
+    },
+    {
+        "id": "dc42d90.1df3a28",
+        "type": "subflow:c191a5d.5d76258",
+        "z": "eee76599.b5f0d8",
+        "name": "",
+        "env": [
+            {
+                "name": "Name",
+                "value": "rmu",
+                "type": "str"
+            },
+            {
+                "name": "Function",
+                "value": "sensor_s1",
+                "type": "str"
+            }
+        ],
+        "x": 237,
+        "y": 308,
+        "wires": [
+            [],
+            [
+                "d85ce7ca.219c78"
+            ]
+        ]
+    },
+    {
+        "id": "17916cf8.c093b3",
+        "type": "nibe-rmu",
+        "z": "eee76599.b5f0d8",
+        "server": "844659a2.8d8508",
+        "name": "",
+        "system": "s1",
+        "sensor": "",
+        "x": 738,
+        "y": 371,
+        "wires": [
+            [
+                "ed7a28da.800c78"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "15852af8.995215",
+        "type": "inject",
+        "z": "eee76599.b5f0d8",
+        "name": "",
+        "topic": "update",
+        "payload": "Uppdatera",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 524,
+        "y": 371,
+        "wires": [
+            [
+                "17916cf8.c093b3"
+            ]
+        ]
+    },
+    {
+        "id": "8820ada.454c85",
+        "type": "function",
+        "z": "eee76599.b5f0d8",
+        "name": "Update list",
+        "func": "var sensors = msg.payload.home.inside_sensors;\nvar output = [\"Ingen\"];\nif(sensors.length===0) {\n    return;\n}\nfor (const arr of sensors) {\n    output.push(arr.name)\n}\nif(output!==undefined && output!==[]) {\n    node.send({options:output});\n    if(msg.payload.indoor!==undefined) {\n        node.send({payload:msg.payload.rmu.sensor_s2})\n    }\n    \n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 434,
+        "y": 441,
+        "wires": [
+            [
+                "c9b16100.9942c"
+            ]
+        ]
+    },
+    {
+        "id": "c9b16100.9942c",
+        "type": "ui_dropdown",
+        "z": "eee76599.b5f0d8",
+        "name": "",
+        "label": "Välj Inomhusgivare",
+        "tooltip": "",
+        "place": "Välj",
+        "group": "32b15b25.77ef94",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "options": [
+            {
+                "label": "",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "rmu/sensor",
+        "x": 622,
+        "y": 441,
+        "wires": [
+            [
+                "9e04abe.ef6d058"
+            ]
+        ]
+    },
+    {
+        "id": "9eada6bf.9eade8",
+        "type": "subflow:c191a5d.5d76258",
+        "z": "eee76599.b5f0d8",
+        "name": "",
+        "env": [
+            {
+                "name": "Name",
+                "value": "rmu",
+                "type": "str"
+            },
+            {
+                "name": "Function",
+                "value": "sensor_s2",
+                "type": "str"
+            }
+        ],
+        "x": 237,
+        "y": 441,
+        "wires": [
+            [],
+            [
+                "8820ada.454c85"
+            ]
+        ]
+    },
+    {
+        "id": "9e04abe.ef6d058",
+        "type": "nibe-rmu",
+        "z": "eee76599.b5f0d8",
+        "server": "844659a2.8d8508",
+        "name": "",
+        "system": "s2",
+        "sensor": "",
+        "x": 738,
+        "y": 504,
+        "wires": [
+            [
+                "66a2f83a.e878d8",
+                "f86092a6.e0f16"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "911f0c0d.14384",
+        "type": "inject",
+        "z": "eee76599.b5f0d8",
+        "name": "",
+        "topic": "update",
+        "payload": "Uppdatera",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 524,
+        "y": 504,
+        "wires": [
+            [
+                "9e04abe.ef6d058"
+            ]
+        ]
+    },
+    {
+        "id": "66a2f83a.e878d8",
+        "type": "function",
+        "z": "eee76599.b5f0d8",
+        "name": "Enable/Disable",
+        "func": "if(msg.enabled!==undefined && msg.enabled===true) {\n    let hide = {\n        \"group\":\n            {\"show\":\n                [\"Inställningar_RMU40_S2\"]\n            }\n        }\n    node.send([null,{payload:hide}]);\n} else if(msg.enabled===false) {\n    let hide = {\n        \"group\":\n            {\"hide\":\n                [\"Inställningar_RMU40_S2\"]\n            }\n        }\n    node.send([null,{payload:hide}]);\n}",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 913,
+        "y": 588,
+        "wires": [
+            [],
+            [
+                "4ae37d2f.ae3654"
+            ]
+        ]
+    },
+    {
+        "id": "4ae37d2f.ae3654",
+        "type": "ui_ui_control",
+        "z": "eee76599.b5f0d8",
+        "name": "Disable Group S2",
+        "events": "all",
+        "x": 1133,
+        "y": 588,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ed7a28da.800c78",
+        "type": "debug",
+        "z": "eee76599.b5f0d8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 960,
+        "y": 371,
+        "wires": []
+    },
+    {
+        "id": "f86092a6.e0f16",
+        "type": "debug",
+        "z": "eee76599.b5f0d8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 949,
+        "y": 467,
+        "wires": []
+    },
+    {
+        "id": "bbeace10.c8e3d",
+        "type": "ui_ui_control",
+        "z": "b7f67da0.fbf1",
+        "name": "Disable View",
+        "events": "all",
+        "x": 1204,
+        "y": 1204,
+        "wires": [
+            []
+        ]
     }
 ]
