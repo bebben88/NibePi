@@ -1,0 +1,3 @@
+```
+sudo service nodered stop && sudo mount -o remount,rw / &&  npm install nibepi@latest && npm install node-red-contrib-nibepi@latest --save && sudo mount -o remount,rw / && wget https://raw.githubusercontent.com/bebben88/NibePi/master/node-red/flows_1.1B.json && mv -f flows_1.1B.json flows.json && sudo service nodered start
+```
