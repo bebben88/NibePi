@@ -278,7 +278,7 @@
         "z": 0,
         "name": "Uppdateringar",
         "tab": "6aa61182.b42ed",
-        "order": 1,
+        "order": 2,
         "disp": true,
         "width": "12",
         "collapse": false
@@ -299,7 +299,7 @@
         "z": "",
         "name": "Datahantering",
         "tab": "6aa61182.b42ed",
-        "order": 3,
+        "order": 4,
         "disp": true,
         "width": "12",
         "collapse": false
@@ -364,7 +364,7 @@
         "z": 0,
         "name": "Information",
         "tab": "6aa61182.b42ed",
-        "order": 4,
+        "order": 5,
         "disp": true,
         "width": "12",
         "collapse": false
@@ -375,7 +375,7 @@
         "z": 0,
         "name": "Loggning",
         "tab": "6aa61182.b42ed",
-        "order": 5,
+        "order": 6,
         "disp": true,
         "width": "12",
         "collapse": false
@@ -707,7 +707,7 @@
         "z": "",
         "name": "Extra givare",
         "tab": "6aa61182.b42ed",
-        "order": 6,
+        "order": 7,
         "disp": true,
         "width": "12",
         "collapse": false
@@ -783,7 +783,7 @@
         "z": "",
         "name": "System",
         "tab": "6aa61182.b42ed",
-        "order": 7,
+        "order": 8,
         "disp": true,
         "width": "6",
         "collapse": false
@@ -794,7 +794,7 @@
         "z": "",
         "name": "Värmekurva S1",
         "tab": "6aa61182.b42ed",
-        "order": 8,
+        "order": 9,
         "disp": true,
         "width": "6",
         "collapse": false
@@ -805,7 +805,7 @@
         "z": "",
         "name": "Värmekurva S2",
         "tab": "6aa61182.b42ed",
-        "order": 9,
+        "order": 10,
         "disp": true,
         "width": "6",
         "collapse": false
@@ -846,7 +846,7 @@
         "z": "",
         "name": "Loggning",
         "tab": "6aa61182.b42ed",
-        "order": 2,
+        "order": 3,
         "disp": true,
         "width": "12",
         "collapse": false
@@ -857,19 +857,10 @@
         "z": "",
         "name": "RMU40 S1",
         "tab": "6aa61182.b42ed",
-        "order": 10,
+        "order": 11,
         "disp": true,
         "width": "6",
         "collapse": false
-    },
-    {
-        "id": "1b5fbfac.5e88f",
-        "type": "ui_spacer",
-        "name": "spacer",
-        "group": "4a7ab836.172ae8",
-        "order": 8,
-        "width": 6,
-        "height": 1
     },
     {
         "id": "32b15b25.77ef94",
@@ -877,7 +868,7 @@
         "z": "",
         "name": "RMU40 S2",
         "tab": "6aa61182.b42ed",
-        "order": 11,
+        "order": 12,
         "disp": true,
         "width": "6",
         "collapse": false
@@ -891,6 +882,36 @@
         "disp": true,
         "width": "12",
         "collapse": false
+    },
+    {
+        "id": "fe94277c.dcd118",
+        "type": "ui_group",
+        "z": "",
+        "name": "Avancerat",
+        "tab": "6aa61182.b42ed",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "3cdc3a0c.02b986",
+        "type": "ui_group",
+        "z": "",
+        "name": "Two dimension Array",
+        "tab": "9a403c9b.86b71",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "9a403c9b.86b71",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Table Examples",
+        "icon": "dashboard",
+        "order": 1
     },
     {
         "id": "24d4f99f.449346",
@@ -10660,14 +10681,17 @@
         "type": "function",
         "z": "b7f67da0.fbf1",
         "name": "Add Registers",
-        "func": "var register = global.get('register');\nlet icons = {\n    \"\":\"fa-bars\",\n    \"°C\":\"fa-thermometer-three-quarters\",\n    \"A\":\"fa-flash\",\n    \"Hz\":\"fa-bar-chart\",\n    \"min\":\"fa-clock-o\",\n    \"h\":\"fa-clock-o\",\n    \"m\":\"fa-clock-o\",\n    \"kWh\":\"fa-area-chart\",\n    \"W\":\"fa-flash\",\n    \"l/m\":\"fa-leaf\",\n    \"%RH\":\"fa-cloud\",\n    \"%\":\"fa-percent\"\n}\nif(register===undefined) return;\nlet config = msg.payload;\nvar outRegister = [];\nfor( var i = 0; i < register.length; i++){\n    outRegister[i] = {};\n    outRegister[i].title = register[i].register+\" (\"+register[i].mode+\") (\"+register[i].size+\"): \"+register[i].titel;\n    outRegister[i].description = register[i].info;\n    outRegister[i].register = register[i].register;\n    outRegister[i].mode = register[i].mode;\n    outRegister[i].unit = register[i].unit;\n    outRegister[i].icon_name = icons[register[i].unit];\n    for( var n = 0; n < config.registers.length; n++){\n        if(config.registers[n]===register[i].register) {\n            outRegister[i].isChecked = true;\n        }\n    }\n    if(register[i].register==\"45001\") outRegister[i].icon_name = \"fa-warning\";\n    if(register[i].register==\"10001\") outRegister[i].icon_name = \"fa-warning\";\n}\nif(outRegister!==undefined && outRegister!==[]) {\n    node.send({payload:outRegister});\n}\n",
-        "outputs": 1,
+        "func": "var register = global.get('register');\nlet icons = {\n    \"\":\"fa-bars\",\n    \"°C\":\"fa-thermometer-three-quarters\",\n    \"A\":\"fa-flash\",\n    \"Hz\":\"fa-bar-chart\",\n    \"min\":\"fa-clock-o\",\n    \"h\":\"fa-clock-o\",\n    \"m\":\"fa-clock-o\",\n    \"kWh\":\"fa-area-chart\",\n    \"W\":\"fa-flash\",\n    \"l/m\":\"fa-leaf\",\n    \"%RH\":\"fa-cloud\",\n    \"%\":\"fa-percent\"\n}\nif(register===undefined) return;\nlet config = msg.payload;\nvar outRegister = [];\nvar remove = [];\nfor( var i = 0; i < register.length; i++){\n    outRegister[i] = {};\n    outRegister[i].title = register[i].register+\" (\"+register[i].mode+\") (\"+register[i].size+\"): \"+register[i].titel;\n    outRegister[i].description = register[i].info;\n    outRegister[i].register = register[i].register;\n    outRegister[i].mode = register[i].mode;\n    outRegister[i].unit = register[i].unit;\n    outRegister[i].icon_name = icons[register[i].unit];\n    for( var n = 0; n < config.registers.length; n++){\n        if(config.registers[n]===register[i].register) {\n            outRegister[i].isChecked = true;\n            let word = register[i].register+\": \"+register[i].titel;\n            remove.push({[word]:register[i].register});\n        }\n    }\n    if(register[i].register==\"45001\") outRegister[i].icon_name = \"fa-warning\";\n    if(register[i].register==\"10001\") outRegister[i].icon_name = \"fa-warning\";\n}\nif(outRegister!==undefined && outRegister!==[]) {\n    node.send({payload:outRegister});\n}\nif(remove!==undefined && remove!==[]) {\n    node.send([null,{options:remove}]);\n}",
+        "outputs": 2,
         "noerr": 0,
         "x": 500,
         "y": 1379,
         "wires": [
             [
                 "bd1f8046.e4efe"
+            ],
+            [
+                "a06c6ec7.72b5e"
             ]
         ]
     },
@@ -10679,7 +10703,7 @@
         "name": "Register",
         "order": 4,
         "width": "12",
-        "height": "15",
+        "height": "16",
         "lineType": "three",
         "actionType": "check",
         "allowHTML": false,
@@ -10741,7 +10765,7 @@
         "z": "b7f67da0.fbf1",
         "group": "bd199d65.157fc",
         "name": "Data",
-        "order": 3,
+        "order": 2,
         "width": "12",
         "height": "11",
         "lineType": "three",
@@ -12170,9 +12194,7 @@
             [
                 "5f8c6837.106e18"
             ],
-            [
-                "e78514aa.0d9f28"
-            ],
+            [],
             [
                 "cf0c0b96.d635f8"
             ],
@@ -12290,7 +12312,7 @@
         "type": "function",
         "z": "358baec9.c8b902",
         "name": "",
-        "func": "msg.payload = getFormattedDate(msg.payload);\nreturn msg;\nfunction getFormattedDate() {\n    var date = new Date();\n\n    var month = date.getMonth() + 1;\n    var day = date.getDate();\n    var hour = date.getHours();\n    var min = date.getMinutes();\n    var sec = date.getSeconds();\n\n    month = (month < 10 ? \"0\" : \"\") + month;\n    day = (day < 10 ? \"0\" : \"\") + day;\n    hour = (hour < 10 ? \"0\" : \"\") + hour;\n    min = (min < 10 ? \"0\" : \"\") + min;\n    sec = (sec < 10 ? \"0\" : \"\") + sec;\n\n    var str = hour + \":\" + min + \":\" + sec;\n\n    /*alert(str);*/\n\n    return str;\n}",
+        "func": "msg.payload = getFormattedDate(msg.raw.timestamp);\nreturn msg;\nfunction getFormattedDate() {\n    var date = new Date();\n\n    var month = date.getMonth() + 1;\n    var day = date.getDate();\n    var hour = date.getHours();\n    var min = date.getMinutes();\n    var sec = date.getSeconds();\n\n    month = (month < 10 ? \"0\" : \"\") + month;\n    day = (day < 10 ? \"0\" : \"\") + day;\n    hour = (hour < 10 ? \"0\" : \"\") + hour;\n    min = (min < 10 ? \"0\" : \"\") + min;\n    sec = (sec < 10 ? \"0\" : \"\") + sec;\n\n    var str = hour + \":\" + min + \":\" + sec;\n\n    /*alert(str);*/\n\n    return str;\n}",
         "outputs": 1,
         "noerr": 0,
         "x": 1093,
@@ -13286,7 +13308,7 @@
         "name": "",
         "label": "Skicka värde",
         "group": "bd199d65.157fc",
-        "order": 5,
+        "order": 4,
         "width": 0,
         "height": 0,
         "options": [
@@ -16674,8 +16696,8 @@
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "x": 916,
-        "y": 112,
+        "x": 909,
+        "y": 196,
         "wires": [
             [
                 "a95a74f4.953cd8"
@@ -16691,8 +16713,8 @@
         "qos": "",
         "retain": "",
         "broker": "d7f6b34d.d13d6",
-        "x": 1128,
-        "y": 126,
+        "x": 1093,
+        "y": 217,
         "wires": []
     },
     {
@@ -16726,7 +16748,7 @@
         "type": "ui_slider",
         "z": "b7f67da0.fbf1",
         "name": "",
-        "label": "Timeout tid för alla givare",
+        "label": "Timeout tid för MQTT givare",
         "tooltip": "Givaren måste uppdateras inom detta interval annars ignoreras den. OBS \"0\" inaktiverar timeout.",
         "group": "fb207b28.da59b8",
         "order": 3,
@@ -16738,7 +16760,7 @@
         "min": 0,
         "max": "120",
         "step": 1,
-        "x": 327,
+        "x": 337,
         "y": 1764,
         "wires": [
             [
@@ -16784,5 +16806,316 @@
         "x": 1044,
         "y": 280,
         "wires": []
+    },
+    {
+        "id": "bc033700.b4f528",
+        "type": "exec",
+        "z": "b7f67da0.fbf1",
+        "command": "",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 974,
+        "y": 119,
+        "wires": [
+            [
+                "96e5be75.41ca7"
+            ],
+            [
+                "96e5be75.41ca7"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "76bd6ec4.718d8",
+        "type": "debug",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1253,
+        "y": 329,
+        "wires": []
+    },
+    {
+        "id": "8c94d6ec.86fc68",
+        "type": "nibe-input",
+        "z": "358baec9.c8b902",
+        "server": "844659a2.8d8508",
+        "name": "dM",
+        "add": false,
+        "x": 876,
+        "y": 686,
+        "wires": [
+            [
+                "5f8c6837.106e18"
+            ],
+            [
+                "e78514aa.0d9f28"
+            ]
+        ]
+    },
+    {
+        "id": "23951e95.29e3a2",
+        "type": "nibe-input",
+        "z": "358baec9.c8b902",
+        "server": "844659a2.8d8508",
+        "name": "outside",
+        "add": false,
+        "x": 876,
+        "y": 735,
+        "wires": [
+            [
+                "61436d60.0601e4"
+            ],
+            [
+                "e78514aa.0d9f28"
+            ]
+        ]
+    },
+    {
+        "id": "60eab66c.e5a1b8",
+        "type": "ui_template",
+        "z": "b7f67da0.fbf1",
+        "group": "fe94277c.dcd118",
+        "name": "",
+        "order": 2,
+        "width": "12",
+        "height": "5",
+        "format": "<p>{{msg.payload}}</p>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 1278,
+        "y": 119,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "96e5be75.41ca7",
+        "type": "function",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "func": "var data = global.get('cmdLog')||[];\nlet time = Date.now();\nlet da = msg.payload//.replace('\\n','<br>')\nnode.send({payload:da});\n/*\ndata.unshift([da]);\nglobal.set('cmdLog',data);\nif(da!==undefined && da!==[]) {\n    node.send({payload:data});\n}*/",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1128,
+        "y": 119,
+        "wires": [
+            [
+                "60eab66c.e5a1b8",
+                "76bd6ec4.718d8"
+            ]
+        ]
+    },
+    {
+        "id": "db8da946.5afd58",
+        "type": "subflow:c191a5d.5d76258",
+        "z": "b7f67da0.fbf1",
+        "name": "Model",
+        "env": [
+            {
+                "name": "Name",
+                "value": "system",
+                "type": "str"
+            },
+            {
+                "name": "Function",
+                "value": "pump",
+                "type": "str"
+            }
+        ],
+        "x": 1051,
+        "y": 714,
+        "wires": [
+            [
+                "3a72bbe0.7394c4"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "c89baea1.1190b",
+        "type": "subflow:c191a5d.5d76258",
+        "z": "b7f67da0.fbf1",
+        "name": "Firmware",
+        "env": [
+            {
+                "name": "Name",
+                "value": "system",
+                "type": "str"
+            },
+            {
+                "name": "Function",
+                "value": "firmware",
+                "type": "str"
+            }
+        ],
+        "x": 1061,
+        "y": 756,
+        "wires": [
+            [
+                "d9877026.b0431"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3a72bbe0.7394c4",
+        "type": "ui_text",
+        "z": "b7f67da0.fbf1",
+        "group": "4a7ab836.172ae8",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "Nibe",
+        "label": "",
+        "format": "Nibe {{msg.payload}}",
+        "layout": "row-left",
+        "x": 1205,
+        "y": 714,
+        "wires": []
+    },
+    {
+        "id": "d9877026.b0431",
+        "type": "ui_text",
+        "z": "b7f67da0.fbf1",
+        "group": "4a7ab836.172ae8",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "Firmware",
+        "label": "",
+        "format": "Firmware {{msg.payload}}",
+        "layout": "row-left",
+        "x": 1222,
+        "y": 756,
+        "wires": []
+    },
+    {
+        "id": "6b066e4b.c9df2",
+        "type": "debug",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1107,
+        "y": 63,
+        "wires": []
+    },
+    {
+        "id": "e3908904.192158",
+        "type": "ui_text_input",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "label": "Kör kommando",
+        "tooltip": "Skriv ett kommando. Återkoppling i rutan nedan",
+        "group": "fe94277c.dcd118",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 780,
+        "y": 119,
+        "wires": [
+            [
+                "bc033700.b4f528"
+            ]
+        ]
+    },
+    {
+        "id": "95df0257.5f871",
+        "type": "ui_text_input",
+        "z": "fa4686d6.c21688",
+        "d": true,
+        "name": "",
+        "label": "Start",
+        "tooltip": "",
+        "group": "38b6d907.520796",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "time",
+        "delay": "0",
+        "topic": "priority_time_start1",
+        "x": 442,
+        "y": 476,
+        "wires": [
+            [
+                "4b2e686f.1be868"
+            ]
+        ]
+    },
+    {
+        "id": "4b2e686f.1be868",
+        "type": "subflow:c191a5d.5d76258",
+        "z": "fa4686d6.c21688",
+        "name": "",
+        "env": [
+            {
+                "name": "Name",
+                "value": "hotwater",
+                "type": "str"
+            },
+            {
+                "name": "Function",
+                "value": "priority_time_start1",
+                "type": "str"
+            }
+        ],
+        "x": 643,
+        "y": 476,
+        "wires": [
+            [
+                "95df0257.5f871"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a06c6ec7.72b5e",
+        "type": "ui_dropdown",
+        "z": "b7f67da0.fbf1",
+        "name": "",
+        "label": "Ta bort Register",
+        "tooltip": "",
+        "place": "Välj register",
+        "group": "bd199d65.157fc",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "options": [
+            {
+                "label": "",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "removeRegister",
+        "x": 871,
+        "y": 1421,
+        "wires": [
+            [
+                "1b0cc4df.6a668b"
+            ]
+        ]
     }
 ]
