@@ -395,12 +395,10 @@ echo " "
 exit 1
 fi
 fi
-echo "Upgrade is complete! Restarting NodeRED with NibePi."
+
 mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
 echo "Installing the NibePi addon to Node-RED"
-cd $dirNode && npm install node-red-contrib-nibepi@latest --save
-echo "Downloading new flows for Node-RED"
-cd /tmp && wget https://raw.githubusercontent.com/bebben88/NibePi/master/node-red/flows_1.1B.json
-cd /tmp && mv -f flows_1.1B.json $dirNode/flows.json
+cd /tmp && bash <(curl -sL https://raw.githubusercontent.com/anerdins/nibepi-flow/master/update/update.sh)
 fi
+echo "Upgrade is complete! Restarting NodeRED with NibePi."
 sudo service nodered restart
