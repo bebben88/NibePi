@@ -2,7 +2,7 @@
 echo "Starting Update of NibePi"
 echo "Setting R/W mode for the filesystem during update..."
 mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
-
+sudo rm /etc/cron.hourly/fake-hwclock 2>/tmp/tar_stderr #Bugfix for RO unintentionally
 echo "Looking for NibePi folder."
 dirNode=$(find / -type f -name 'heatpump.js' 2>/dev/null | sed -r 's|/[^/]+$||' |sort |uniq);
 if [ -z $dirNode ]
