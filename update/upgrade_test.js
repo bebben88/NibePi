@@ -15,14 +15,10 @@ function requireF(modulePath){ // force require
     }
 }
 function startUpgrade() {
-    const myShellScript = exec('sh /tmp/upgrade.sh');
-    myShellScript.stdout.on('data', (data)=>{
-        console.log(data); 
-        // do whatever you want here with data
-    });
-    myShellScript.stderr.on('data', (data)=>{
-        console.error(data);
-    });
+    child.spawn('bash', ['/tmp/upgrade.sh'], {
+        detached: false,
+        stdio: 'inherit'
+      });
 }
 let started = false;
 let config = {
