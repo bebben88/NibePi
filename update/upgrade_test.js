@@ -15,7 +15,7 @@ function requireF(modulePath){ // force require
     }
 }
 function startUpgrade() {
-    const myShellScript = exec('sh /tmp/upgrade.sh');
+    const myShellScript = exec('sh upgrade.sh /tmp');
     myShellScript.stdout.on('data', (data)=>{
         console.log(data); 
         // do whatever you want here with data
@@ -216,6 +216,7 @@ startMQTT().then(async function (result) {
     }
     
 },(err => {
+    console.log(err)
     fail();
 }))
 async function startMQTT() {
