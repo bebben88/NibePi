@@ -34,7 +34,6 @@ else
 echo "Path found: ${dirNodeRED}"
 sudo mount -o remount,rw / 2>/tmp/tar_stderr
 echo "Upgrading Node-RED"
-sudo -i -u pi bash << EOF
 #!/bin/bash
 #
 # Copyright 2016,2019 JS Foundation and other contributors, https://js.foundation/
@@ -423,7 +422,6 @@ echo " "
 exit 1
 fi
 fi
-EOF
 # End of update
 sudo mount -o remount,rw / 2>/tmp/tar_stderr
 echo "Installing the NibePi addon to Node-RED"
