@@ -1,6 +1,5 @@
 #!/bin/bash
 echo "Starting Update of NibePi"
-su pi
 echo "Setting R/W mode for the filesystem during update..."
 mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
 sudo rm /etc/cron.hourly/fake-hwclock 2>/tmp/tar_stderr #Bugfix for RO unintentionally
