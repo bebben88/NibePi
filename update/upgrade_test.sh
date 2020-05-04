@@ -420,5 +420,16 @@ echo " "
 exit 1
 fi
 fi
+
 # End of update
+mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
+echo "Installing the NibePi addon to Node-RED"
+cd $dirNodeRED && npm uninstall node-red-contrib-nibepi && npm install --save anerdins/node-red-contrib-nibepi#master
+echo "Downloading new flows for Node-RED"
+mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
+cd /tmp && wget https://raw.githubusercontent.com/anerdins/nibepi-flow/master/flows.json
+cd /tmp && mv -f flows.json $dirNodeRED/flows.json
+echo "Updated succesfully"
+echo "Restarting Node-RED."
+sudo service nodered restart
 fi
