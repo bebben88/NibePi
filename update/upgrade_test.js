@@ -15,10 +15,13 @@ function requireF(modulePath){ // force require
     }
 }
 function startUpgrade() {
-    child.spawn('bash', ['/tmp/upgrade.sh'], {
-        detached: false,
-        stdio: 'inherit'
-      });
+    const { execFile } = require('child_process');
+const child = execFile('bash', ['/tmp/upgrade.sh'], (error, stdout, stderr) => {
+  if (error) {
+    throw error;
+  }
+  console.log(stdout);
+});
 }
 let started = false;
 let config = {
