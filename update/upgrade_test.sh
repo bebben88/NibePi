@@ -18,9 +18,9 @@ echo $dirNodeRED
 if [ -z $dirNodeRED ]
 then
 echo "Path not found, restoring last version."
-/home/pi/.node-red/flows_saved.bak
-/home/pi/.nibepi/heatpump_saved.js
-/home/pi/.nibepi/config_saved.json
+#/home/pi/.node-red/flows_saved.bak
+#/home/pi/.nibepi/heatpump_saved.js
+#/home/pi/.nibepi/config_saved.json
 cp /home/pi/.node-red/flows_saved.bak /home/pi/.node-red/flow.json 2>/dev/null
 cp /home/pi/.nibepi/heatpump_saved.js /home/pi/.nibepi/heatpump.js 2>/dev/null
 cp /home/pi/.nibepi/config_saved.json /home/pi/.nibepi/config.json 2>/dev/null
@@ -82,6 +82,22 @@ if [[ "$(uname)" != "Darwin" ]]; then
 if curl -f https://www.npmjs.com/package/node-red  >/dev/null 2>&1; then
 echo -e '\033]2;'Node-RED update'\007'
 echo " "
+echo "This script will remove versions of Node.js prior to version 7.x, and Node-RED and"
+echo "if necessary replace them with Node.js 10.x LTS (dubnium) and the latest Node-RED from Npm."
+echo " "
+echo "It also moves any Node-RED nodes that are globally installed into your user"
+echo "~/.node-red/node_modules directory, and adds them to your package.json, so that"
+echo "you can manage them with the palette manager."
+echo " "
+echo "It also tries to run 'npm rebuild' to refresh any extra nodes you have installed"
+echo "that may have a native binary component. While this normally works ok, you need"
+echo "to check that it succeeds for your combination of installed nodes."
+echo " "
+echo "To do all this it runs commands as root - please satisfy yourself that this will"
+echo "not damage your Pi, or otherwise compromise your configuration."
+echo "If in doubt please backup your SD card first."
+echo " "
+
         echo ""
         EXTRANODES=""
         EXTRAW="update"
@@ -402,4 +418,7 @@ echo "Sorry - I'm not able to upgrade old Wheezy installations. Please think abo
 echo "Please see the documentation at http://nodered.org/docs/getting-started/upgrading."
 echo " "
 exit 1
+fi
+fi
+# End of update
 fi
