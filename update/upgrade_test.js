@@ -16,6 +16,8 @@ function requireF(modulePath){ // force require
 }
 function startUpgrade() {
     child.spawn('bash', ['/tmp/upgrade.sh'], {
+        uid: 1000,
+        gid: 1000,
         detached: false,
         stdio: 'inherit'
       });
