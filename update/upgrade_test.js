@@ -15,7 +15,7 @@ function requireF(modulePath){ // force require
     }
 }
 function startUpgrade() {
-    const myShellScript = exec('sh upgrade.sh /tmp');
+    const myShellScript = exec('sh /tmp/upgrade.sh');
     myShellScript.stdout.on('data', (data)=>{
         console.log(data); 
         // do whatever you want here with data
