@@ -21,6 +21,7 @@ const child = execFile('bash', ['/tmp/upgrade.sh'], (error, stdout, stderr) => {
     throw error;
   }
   console.log(stdout);
+  close();
 });
 }
 let started = false;
@@ -209,7 +210,6 @@ startMQTT().then(async function (result) {
                     publishMQTT('upgrade','Kunde inte spara inställningar till SD-kort. Avbryter');
                 }))
                 startUpgrade()
-                close();
             }
         });
     }
