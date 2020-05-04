@@ -18,13 +18,13 @@ var download = function(url, dest, cb) {
   });
   
 };
-download("https://raw.githubusercontent.com/bebben88/NibePi/master/update/upgrade_test.js","./upgrade.js", function(result) {
+download("https://raw.githubusercontent.com/bebben88/NibePi/master/update/upgrade_test.js",`${__dirname}/upgrade.js`, function(result) {
   if(result===undefined) {
-    exec(`sudo chown ${process.env.USER}:${process.env.USER} ./upgrade.js`, function(error, stdout, stderr) {
+    exec(`sudo chown ${process.env.USER}:${process.env.USER} ${__dirname}/upgrade.js`, function(error, stdout, stderr) {
       download("https://raw.githubusercontent.com/bebben88/NibePi/master/update/upgrade_test.sh","/tmp/upgrade.sh", function(result) {
   if(result===undefined) {
     exec(`sudo chown ${process.env.USER}:${process.env.USER} /tmp/upgrade.sh && chmod u+x /tmp/upgrade.sh`, function(error, stdout, stderr) {
-      const child = spawn('node', ['./upgrade.js'], {
+      const child = spawn('node', [`${__dirname}/upgrade.js`], {
         env: { data: "Hello" },
         detached: true,
         stdio: 'inherit'
