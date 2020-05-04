@@ -1,0 +1,333 @@
+[
+    {
+        "id": "1deb8c08.4c99c4",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "7fe739b8.c78948",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Uppdatering",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": true
+    },
+    {
+        "id": "36196e8e.4b1f72",
+        "type": "ui_group",
+        "z": "",
+        "name": "Uppdatering",
+        "tab": "7fe739b8.c78948",
+        "disp": false,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "8ae5631c.aa9e",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "a7912fdc.d60fc",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "127.0.0.1",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "bf9f05f.a3e05f8",
+        "type": "ui_text",
+        "z": "1deb8c08.4c99c4",
+        "group": "36196e8e.4b1f72",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "Rubrik",
+        "label": "",
+        "format": "Uppdatering pågår...",
+        "layout": "row-left",
+        "x": 911,
+        "y": 196,
+        "wires": []
+    },
+    {
+        "id": "63a987b0.2d5918",
+        "type": "mqtt in",
+        "z": "1deb8c08.4c99c4",
+        "name": "",
+        "topic": "upgrade",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "a7912fdc.d60fc",
+        "x": 172,
+        "y": 231,
+        "wires": [
+            [
+                "b40b62aa.ef5f7",
+                "9474e316.1ca16"
+            ]
+        ]
+    },
+    {
+        "id": "43073a99.d88254",
+        "type": "function",
+        "z": "1deb8c08.4c99c4",
+        "name": "",
+        "func": "let log = global.get('log')||[];\nlet message = \"\";\nlog.unshift(msg.payload);\nfor (i = 0; i < log.length; i = i + 1) {\n    message = message+log[i]+\"<br>\";\n}\nmessage = message+\"<br>\"\nglobal.set('log',log);\nnode.send({payload:message})",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 561,
+        "y": 224,
+        "wires": [
+            [
+                "b672d041.e523f"
+            ]
+        ]
+    },
+    {
+        "id": "75175dd7.aad3f4",
+        "type": "inject",
+        "z": "1deb8c08.4c99c4",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 161,
+        "y": 126,
+        "wires": [
+            [
+                "43073a99.d88254"
+            ]
+        ]
+    },
+    {
+        "id": "b672d041.e523f",
+        "type": "ui_text",
+        "z": "1deb8c08.4c99c4",
+        "group": "36196e8e.4b1f72",
+        "order": 0,
+        "width": "12",
+        "height": "12",
+        "name": "Information",
+        "label": "{{msg.payload}}",
+        "format": "",
+        "layout": "row-left",
+        "x": 749,
+        "y": 266,
+        "wires": []
+    },
+    {
+        "id": "b40b62aa.ef5f7",
+        "type": "debug",
+        "z": "1deb8c08.4c99c4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 357,
+        "y": 301,
+        "wires": []
+    },
+    {
+        "id": "9474e316.1ca16",
+        "type": "delay",
+        "z": "1deb8c08.4c99c4",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "0.5",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 371,
+        "y": 224,
+        "wires": [
+            [
+                "43073a99.d88254"
+            ]
+        ]
+    },
+    {
+        "id": "c9a39f19.3197e",
+        "type": "mqtt out",
+        "z": "1deb8c08.4c99c4",
+        "name": "",
+        "topic": "startupgrade",
+        "qos": "",
+        "retain": "false",
+        "broker": "a7912fdc.d60fc",
+        "x": 735,
+        "y": 98,
+        "wires": []
+    },
+    {
+        "id": "fddb1fa2.3258d",
+        "type": "inject",
+        "z": "1deb8c08.4c99c4",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "x": 469,
+        "y": 98,
+        "wires": [
+            [
+                "c9a39f19.3197e"
+            ]
+        ]
+    },
+    {
+        "id": "1cc54457.06149c",
+        "type": "mqtt in",
+        "z": "1deb8c08.4c99c4",
+        "name": "",
+        "topic": "config",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "a7912fdc.d60fc",
+        "x": 155,
+        "y": 357,
+        "wires": [
+            [
+                "a3b2b80a.00f3d8"
+            ]
+        ]
+    },
+    {
+        "id": "a3b2b80a.00f3d8",
+        "type": "debug",
+        "z": "1deb8c08.4c99c4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 322,
+        "y": 357,
+        "wires": []
+    }
+]
