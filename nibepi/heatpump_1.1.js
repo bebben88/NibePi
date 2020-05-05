@@ -18,20 +18,24 @@ var download = function(url, dest, cb) {
   });
   
 };
-download("https://raw.githubusercontent.com/bebben88/NibePi/master/update/upgrade_test.js",`${__dirname}/upgrade.js`, function(result) {
+download("https://raw.githubusercontent.com/bebben88/NibePi/master/update/upgrade.js",`${__dirname}/upgrade.js`, function(result) {
   if(result===undefined) {
-    exec(`sudo chown ${process.env.USER}:${process.env.USER} ${__dirname}/upgrade.js`, function(error, stdout, stderr) {
-      download("https://raw.githubusercontent.com/bebben88/NibePi/master/update/upgrade_test.sh","/tmp/upgrade.sh", function(result) {
+    exec(`sudo chown pi:pi ${__dirname}/upgrade.js`, function(error, stdout, stderr) {
+      download("https://raw.githubusercontent.com/bebben88/NibePi/master/update/upgrade_nodered.sh","/tmp/upgrade_nodered.sh", function(result) {
   if(result===undefined) {
-    exec(`sudo chown ${process.env.USER}:${process.env.USER} /tmp/upgrade.sh && chmod u+x /tmp/upgrade.sh`, function(error, stdout, stderr) {
-      const child = spawn('node', [`${__dirname}/upgrade.js`], {
-        env: { data: "Hello" },
-        detached: true,
-        stdio: 'inherit'
+    exec(`sudo chown pi:pi /tmp/upgrade_nodered.sh && chmod u+x /tmp/upgrade_nodered.sh`, function(error, stdout, stderr) {
+      download("https://raw.githubusercontent.com/bebben88/NibePi/master/update/upgrade_nibepi.sh",`/tmp/upgrade_nibepi.sh`, function(result) {
+        if(result===undefined) {
+          exec(`sudo chown pi:pi /tmp/upgrade_nibepi.sh && chmod u+x /tmp/upgrade_nibepi.sh`, function(error, stdout, stderr) {
+            const child = spawn('node', [`${__dirname}/upgrade.js`], {
+              detached: true,
+              stdio: 'inherit'
+            });
+            child.unref();
+          });
+        }
       });
-      //child.unref();
     });
-    
   }
 })
   });
