@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Starting Update of NibePi"
 echo "Setting R/W mode for the filesystem during update..."
-sudo mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
+mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
 sudo rm /etc/cron.hourly/fake-hwclock 2>/tmp/tar_stderr #Bugfix for RO unintentionally
 
 echo "Looking for Node-RED folder."
@@ -22,11 +22,11 @@ sudo service nodered restart
 # Abort
 else
 echo "Path found: ${dirNodeRED}"
-sudo mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
+mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
 echo "Installing the NibePi addon to Node-RED"
 cd $dirNodeRED && npm uninstall node-red-contrib-nibepi && npm install --save anerdins/node-red-contrib-nibepi#master
 echo "Downloading new flows for Node-RED"
-sudo mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
+mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
 cd /tmp && wget https://raw.githubusercontent.com/anerdins/nibepi-flow/master/flows.json
 cd /tmp && mv -f flows.json $dirNodeRED/flows.json
 echo "Updated succesfully"
@@ -38,7 +38,7 @@ then
 echo "Path not found"
 else
 echo "Path found: ${dirNode}"
-sudo mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
+mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
 echo "Disabling NibePi Service"
 sudo systemctl stop nibepi.service
 mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
