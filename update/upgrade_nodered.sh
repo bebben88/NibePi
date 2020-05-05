@@ -16,7 +16,6 @@
 # limitations under the License.
 
 # Node-RED Installer for DEB based systems
-sudo mount -o remount,rw / 2>/tmp/tar_stderr
 umask 0022
 echo -ne "\033[2 q"
 if [[ -e /mnt/dietpi_userdata ]]; then
@@ -384,4 +383,4 @@ echo " "
 exit 1
 fi
 fi
-sudo service start nodered
+sudo service nodered start
