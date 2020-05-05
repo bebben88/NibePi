@@ -1,40 +1,4 @@
 #!/bin/bash
-echo "Starting Update of NibePi"
-echo "User $USER"
-echo "Folder $HOME"
-echo "Setting R/W mode for the filesystem during update..."
-sudo mount -o remount,rw / 2>/tmp/tar_stderr
-sudo rm /etc/cron.hourly/fake-hwclock 2>/tmp/tar_stderr #Bugfix for RO unintentionally
-echo "Looking for NibePi folder."
-dirNode=$(find / -type f -name 'heatpump.js' 2>/dev/null | sed -r 's|/[^/]+$||' |sort |uniq);
-if [ -z $dirNode ]
-then
-echo "Path not found"
-else
-echo "Path found: ${dirNode}"
-sudo mount -o remount,rw / 2>/tmp/tar_stderr
-fi
-echo "Looking for Node-RED folder."
-dirNodeRED=$(find / -type f -name 'flows.json' 2>/dev/null | sed -r 's|/[^/]+$||' |sort |uniq);
-echo $dirNodeRED
-if [ -z $dirNodeRED ]
-then
-echo "Path not found, restoring last version."
-#/home/pi/.node-red/flows_saved.bak
-#/home/pi/.nibepi/heatpump_saved.js
-#/home/pi/.nibepi/config_saved.json
-cp /home/pi/.node-red/flows_saved.bak /home/pi/.node-red/flow.json 2>/dev/null
-cp /home/pi/.nibepi/heatpump_saved.js /home/pi/.nibepi/heatpump.js 2>/dev/null
-cp /home/pi/.nibepi/config_saved.json /home/pi/.nibepi/config.json 2>/dev/null
-echo "Restarting with the old version"
-sudo service nibepi restart
-sudo service nodered restart
-# Abort
-else
-echo "Path found: ${dirNodeRED}"
-sudo mount -o remount,rw / 2>/tmp/tar_stderr
-echo "Upgrading Node-RED"
-#!/bin/bash
 #
 # Copyright 2016,2019 JS Foundation and other contributors, https://js.foundation/
 # Copyright 2015,2016 IBM Corp.
@@ -52,7 +16,7 @@ echo "Upgrading Node-RED"
 # limitations under the License.
 
 # Node-RED Installer for DEB based systems
-
+sudo mount -o remount,rw / 2>/tmp/tar_stderr
 umask 0022
 echo -ne "\033[2 q"
 if [[ -e /mnt/dietpi_userdata ]]; then
@@ -67,17 +31,15 @@ if [[ -e /mnt/dietpi_userdata ]]; then
     echo "journalctl -f -n 0 -u node-red -o cat" >> /usr/bin/node-red-start
     chmod +x /usr/bin/node-red-start
 else
-
-if [ "$EUID" == "0" ]
-  then echo -en "\nRoot user detected. Typically install as a normal user. No need for sudo.\r\n\r\n"
-  read -p "Are you really sure you want to install as root ? (y/N) ? " yn
-  case $yn in
-    [Yy]* )
-    ;;
-    * )
-      exit
-    ;;
-  esac
+if [ "$EUID" == "0" ]; then
+echo -en "\nRoot user detected. Switching to Pi user. No need for sudo.\r\n\r\n"
+  user=pi
+  dir=/home/pi
+  shift 2     # if you need some other parameters
+  cd "$dir"
+  exec su "$user" "$0" -- "$@"
+  # nothing will be executed beyond that line,
+  # because exec replaces running process with the new one
 fi
 if [[ $(cat /etc/*-release | grep VERSION=) != *"wheezy"* ]]; then
 if [[ "$(uname)" != "Darwin" ]]; then
@@ -422,15 +384,4 @@ echo " "
 exit 1
 fi
 fi
-# End of update
-sudo mount -o remount,rw / 2>/tmp/tar_stderr
-echo "Installing the NibePi addon to Node-RED"
-cd $dirNodeRED && npm uninstall node-red-contrib-nibepi && npm install --save anerdins/node-red-contrib-nibepi#master
-echo "Downloading new flows for Node-RED"
-sudo mount -o remount,rw / 2>/tmp/tar_stderr
-cd /tmp && wget https://raw.githubusercontent.com/anerdins/nibepi-flow/master/flows.json
-cd /tmp && mv -f flows.json $dirNodeRED/flows.json
-echo "Updated succesfully"
-echo "Restarting Node-RED."
-sudo service nodered restart
-fi
+sudo service start nodered
