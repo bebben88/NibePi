@@ -17,7 +17,7 @@ function requireF(modulePath){ // force require
 }
 async function startUpgrade() {
     await publishMQTT('upgrade',`Uppdaterar Node-RED, Det kan ta 10-30 minuter och "Connection lost" kommer synas under tiden.`);
-    execFile('bash', ['/tmp/upgrade_nodered.sh'], (error, stdout, stderr) => {
+    execFile('bash', ['/tmp/upgrade_nodered.sh'], async function (error, stdout, stderr) {
         if (error) {
             console.error('stderr', stderr);
             exec(`rm /tmp/upgrade_nodered.sh`, async function(error, stdout, stderr) {});
@@ -28,7 +28,7 @@ async function startUpgrade() {
         exec(`rm /tmp/upgrade_nodered.sh`, async function(error, stdout, stderr) {});
         await publishMQTT('upgrade',`Uppgradering till senaste Node-RED lyckad.`);
         await publishMQTT('upgrade',`Fortsätter uppgradering...`);
-        execFile('bash', ['/tmp/upgrade_nibepi.sh'], (error, stdout, stderr) => {
+        execFile('bash', ['/tmp/upgrade_nibepi.sh'], async function (error, stdout, stderr) {
             if (error) {
                 console.error('stderr', stderr);
                 exec(`rm /tmp/upgrade_nibepi.sh`, async function(error, stdout, stderr) {});
