@@ -31,7 +31,7 @@ download("https://raw.githubusercontent.com/bebben88/NibePi/master/update/upgrad
               detached: true,
               stdio: 'inherit'
             });
-            child.unref();
+            //child.unref();
           });
         }
       });
