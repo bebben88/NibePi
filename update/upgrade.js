@@ -16,7 +16,7 @@ function requireF(modulePath){ // force require
     }
 }
 async function startUpgrade() {
-    await publishMQTT('upgrade',`Uppdaterar Node-RED, Det kan ta 10-30 minuter och "Connection lost" kommer synas under tiden.\nNär det är färdigt kommer 1.1 vara igång.`);
+    await publishMQTT('upgrade',`Uppdaterar Node-RED, Det kan ta 10-30 minuter och "Connection lost" kommer synas under tiden.`);
     execFile('bash', ['/tmp/upgrade_nodered.sh'], (error, stdout, stderr) => {
         if (error) {
             console.error('stderr', stderr);
@@ -26,6 +26,8 @@ async function startUpgrade() {
         }
         console.log('stdout', stdout);
         exec(`rm /tmp/upgrade_nodered.sh`, function(error, stdout, stderr) {});
+        await publishMQTT('upgrade',`Uppgradering till senaste Node-RED lyckad.`);
+        await publishMQTT('upgrade',`Fortsätter uppgradering...`);
         execFile('bash', ['/tmp/upgrade_nibepi.sh'], (error, stdout, stderr) => {
             if (error) {
                 console.error('stderr', stderr);
@@ -35,6 +37,12 @@ async function startUpgrade() {
             }
             console.log('stdout', stdout);
             exec(`rm /tmp/upgrade_nibepi.sh`, function(error, stdout, stderr) {});
+            await publishMQTT('upgrade',`Uppgraderingen lyckad`);
+            await publishMQTT('upgrade',`Raderar gammal data.`);
+            await publishMQTT('upgrade',`Startar om NibePi...`);
+            exec(`sudo systemctl restart nodered.service`, function(error, stdout, stderr) {});
+            exec(`sudo systemctl disable nibepi.service`, function(error, stdout, stderr) {});
+            exec(`sudo systemctl stop nibepi.service`, function(error, stdout, stderr) {});
             close();
         });
 
