@@ -1,8 +1,9 @@
 var child = require('child_process');
+const execFile = child.execFile;
 let exec = child.exec;
 const fs = require('fs');
 if (!fs.existsSync("/etc/nibepi")) {
-    exec(`sudo mount -o remount,rw / && sudo mkdir /etc/nibepi && sudo chown ${process.env.USER}:${process.env.USER} /etc/nibepi`, function(error, stdout, stderr) {
+    exec(`sudo mount -o remount,rw / && sudo mkdir /etc/nibepi && sudo chown pi:pi /etc/nibepi`, function(error, stdout, stderr) {
         console.log('Configuration directory created /etc/nibepi');
     });
 }
@@ -14,15 +15,30 @@ function requireF(modulePath){ // force require
         return;
     }
 }
-function startUpgrade() {
-    const { execFile } = require('child_process');
-const child = execFile('bash', ['/tmp/upgrade.sh'], (error, stdout, stderr) => {
-  if (error) {
-    throw error;
-  }
-  console.log(stdout);
-  close();
-});
+async function startUpgrade() {
+    await publishMQTT('upgrade',`Uppdaterar Node-RED, Det kan ta 10-30 minuter och "Connection lost" kommer synas under tiden.\nNär det är färdigt kommer 1.1 vara igång.`);
+    execFile('bash', ['/tmp/upgrade_nodered.sh'], (error, stdout, stderr) => {
+        if (error) {
+            console.error('stderr', stderr);
+            exec(`rm /tmp/upgrade_nodered.sh`, function(error, stdout, stderr) {});
+            throw error;
+            fail();
+        }
+        console.log('stdout', stdout);
+        exec(`rm /tmp/upgrade_nodered.sh`, function(error, stdout, stderr) {});
+        execFile('bash', ['/tmp/upgrade_nibepi.sh'], (error, stdout, stderr) => {
+            if (error) {
+                console.error('stderr', stderr);
+                exec(`rm /tmp/upgrade_nibepi.sh`, function(error, stdout, stderr) {});
+                throw error;
+                fail();
+            }
+            console.log('stdout', stdout);
+            exec(`rm /tmp/upgrade_nibepi.sh`, function(error, stdout, stderr) {});
+            close();
+        });
+
+    });
 }
 let started = false;
 let config = {
@@ -96,10 +112,11 @@ function close() {
 function saveConfig() {
     return new Promise(function(resolve, reject) {
     exec('sudo mount -o remount,rw /', function(error, stdout, stderr) {
-            fs.writeFile('./new_config.json', JSON.stringify(config,null,2), async function(err) {
+            fs.writeFile('/etc/nibepi/config.json', JSON.stringify(config,null,2), async function(err) {
                 if(err) {
                     reject(err);
                 } else {
+                    exec('sudo chown pi:pi /etc/nibepi/config.json', function(error, stdout, stderr) {});
                     resolve()
                 }
             });
