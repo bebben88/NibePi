@@ -16,6 +16,7 @@
 # limitations under the License.
 
 # Node-RED Installer for DEB based systems
+mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
 umask 0022
 echo -ne "\033[2 q"
 if [[ -e /mnt/dietpi_userdata ]]; then
@@ -130,6 +131,7 @@ echo " "
         fi
         # ensure ~/.config dir is owned by the user
         echo "Now install nodejs" | sudo tee -a /var/log/nodered-install.log >>/dev/null
+        mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
         sudo chown -Rf $NODERED_USER:$NODERED_GROUP $NODERED_HOME/.config/
         # maybe remove Node.js - or upgrade if nodesoure.list exists
         if [[ -e $NODERED_HOME/.nvm ]]; then
@@ -137,6 +139,7 @@ echo " "
             echo -ne '  NOTE: Using nvm is NOT RECOMMENDED. Node-RED will not run as a service unde nvm.\r\n'
             export NVM_DIR=$NODERED_HOME/.nvm
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+            mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
             nvm install --lts/* >/dev/null 2>&1
             nvm use lts/* >/dev/null 2>&1
             nvm alias default lts/* >/dev/null 2>&1
@@ -166,6 +169,7 @@ echo " "
                 fi
                 echo -ne "  Remove old version of Node.js       $CHAR  $nv\r\n"
                 echo -ne "  Update Node.js LTS                  \r"
+                mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
                 if sudo apt install -y nodejs 2>&1 | sudo tee -a /var/log/nodered-install.log >>/dev/null; then CHAR=$TICK; else CHAR=$CROSS; fi
                 echo -ne "  Update Node.js LTS                  $CHAR"
             else
@@ -187,6 +191,7 @@ echo " "
                 # sudo apt update -y 2>&1 | sudo tee -a /var/log/nodered-install.log >>/dev/null
                 if uname -m | grep -q armv6l ; then
                     echo -ne "  Install Node.js for Armv6           \r"
+                    mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
                     f=$(curl -sL https://nodejs.org/download/release/latest-dubnium/ | grep "armv6l.tar.gz" | cut -d '"' -f 2)
                     curl -sL -o node.tgz https://nodejs.org/download/release/latest-dubnium/$f 2>&1 | sudo tee -a /var/log/nodered-install.log >>/dev/null
                     # unpack it into the correct places
@@ -200,12 +205,14 @@ echo " "
                     rm node.tgz 2>&1 | sudo tee -a /var/log/nodered-install.log >>/dev/null
                     echo -ne "  Install Node.js for Armv6           $CHAR"
                 elif [[ $(lsb_release -d) == *"18.10"* ]]; then
+                mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
                     echo -ne "  Apt install Node.js                 \r"
                     if sudo apt install -y nodejs npm curl 2>&1 | sudo tee -a /var/log/nodered-install.log >>/dev/null; then CHAR=$TICK; else CHAR=$CROSS; fi
                     echo -ne "  Apt install Node.js                 $CHAR"
                 else
                     echo -ne "  Install Node.js LTS                 \r"
                     # use the official script to install for other debian platforms
+                    mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
                     sudo apt install -y curl 2>&1 | sudo tee -a /var/log/nodered-install.log >>/dev/null
                     OV=`cat /etc/os-release | grep VERSION_ID | cut -d '"' -f 2`
                     if [[ "$OV" = "8" ]]; then
@@ -213,6 +220,7 @@ echo " "
                     else
                         curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - 2>&1 | sudo tee -a /var/log/nodered-install.log >>/dev/null
                     fi
+                    mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
                     if sudo apt install -y nodejs 2>&1 | sudo tee -a /var/log/nodered-install.log >>/dev/null; then CHAR=$TICK; else CHAR=$CROSS; fi
                     echo -ne "  Install Node.js LTS                 $CHAR"
                 fi
@@ -257,6 +265,7 @@ echo " "
         echo -ne "  Install Node-RED core               $CHAR   $nrv\r\n"
 
         # install any nodes, that were installed globally, as local instead
+        mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
         echo "Now create basic package.json for the user and move any global nodes" | sudo tee -a /var/log/nodered-install.log >>/dev/null
         mkdir -p "$NODERED_HOME/.node-red/node_modules"
         sudo chown -Rf $NODERED_USER:$NODERED_GROUP $NODERED_HOME/.node-red/ 2>&1 >>/dev/null
@@ -283,7 +292,7 @@ echo " "
                 if npm i --unsafe-perm --save --no-progress $EXTRANODES 2>&1 | sudo tee -a /var/log/nodered-install.log >>/dev/null; then CHAR=$TICK; else CHAR=$CROSS; fi
             fi
             echo -ne "  Install extra Pi nodes              $CHAR\r\n"
-
+mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
             # try to rebuild any already installed nodes
             if [[ $NUPG == $TICK ]]; then
                 if npm rebuild --unsafe-perm 2>&1 | sudo tee -a /var/log/nodered-install.log >>/dev/null; then CHAR=$TICK; else CHAR=$CROSS; fi
