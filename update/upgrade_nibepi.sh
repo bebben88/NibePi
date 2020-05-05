@@ -39,15 +39,14 @@ echo "Path not found"
 else
 echo "Path found: ${dirNode}"
 mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
-echo "Disabling NibePi Service"
-sudo systemctl stop nibepi.service
-mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
-sudo systemctl disable nibepi.service
-echo "Removing old version of NibePi..."
+#echo "Disabling NibePi Service"
+#sudo systemctl stop nibepi.service
+#mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
+#sudo systemctl disable nibepi.service
+#echo "Removing old version of NibePi..."
 rm -R $dirNode
 fi
 
-echo "Restarting Node-RED."
-sudo service nodered restart
+
 
 fi
