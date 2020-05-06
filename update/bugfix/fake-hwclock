@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# Simple cron script - save the current clock periodically in case of
+# a power failure or other crash
+
+FILE=/etc/nibepi/ro_check.txt
+[ ! -d "/etc/nibepi" ] && echo "Directory /path/to/dir DOES NOT exists." && mkdir /etc/nibepi
+# Check health of host machine
+touch ${FILE} >/dev/null 2>&1
+
+if [ -f ${FILE} ];
+then
+   rm ${FILE}
+#   echo "File System is Good!"
+if (command -v fake-hwclock >/dev/null 2>&1) ; then
+  fake-hwclock save
+fi
+else
+   message="File System is R/O !"
+if (command -v fake-hwclock >/dev/null 2>&1) ; then
+  mount -o remount,rw /
+  fake-hwclock save
+  mount -o remount,ro /
+fi
+#   echo ${message} >> /tmp/ro_check.log >&2
+fi
