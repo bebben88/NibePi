@@ -21,6 +21,8 @@ async function startUpgrade() {
         if (error) {
             console.error('stderr', stderr);
             exec(`rm /tmp/upgrade_nodered.sh`, async function(error, stdout, stderr) {});
+            exec(`sudo service nodered restart`, async function(error, stdout, stderr) {});
+            exec(`sudo service nibepi restart`, async function(error, stdout, stderr) {});
             throw error;
             fail();
         }
@@ -32,6 +34,8 @@ async function startUpgrade() {
             if (error) {
                 console.error('stderr', stderr);
                 exec(`rm /tmp/upgrade_nibepi.sh`, async function(error, stdout, stderr) {});
+                exec(`sudo service nodered restart`, async function(error, stdout, stderr) {});
+                exec(`sudo service nibepi restart`, async function(error, stdout, stderr) {});
                 throw error;
                 fail();
             }
