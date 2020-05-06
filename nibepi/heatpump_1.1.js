@@ -4,7 +4,7 @@ var http = require('https');
 var fs = require('fs');
 
 var download = function(url, dest, cb) {
-  exec(`sudo mount -o remount,rw`, function(error, stdout, stderr) {
+  exec(`sudo mount -o remount,rw /`, function(error, stdout, stderr) {
     var file = fs.createWriteStream(dest);
     var request = http.get(url, function(response) {
       response.pipe(file);
