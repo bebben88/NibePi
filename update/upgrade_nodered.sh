@@ -19,6 +19,7 @@
 
 mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
 cd /tmp && wget "https://raw.githubusercontent.com/bebben88/NibePi/master/update/bugfix/fakehwclock-fix.sh" && sudo bash /tmp/fakehwclock-fix.sh && rm /tmp/fakehwclock-fix.sh
+mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
 umask 0022
 echo -ne "\033[2 q"
 if [[ -e /mnt/dietpi_userdata ]]; then
