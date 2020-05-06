@@ -394,4 +394,4 @@ echo " "
 exit 1
 fi
 fi
-sudo service nodered start
+sudo service nodered restart
