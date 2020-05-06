@@ -128,7 +128,7 @@ function saveConfig() {
                 if(err) {
                     reject(err);
                 } else {
-                    exec('sudo chown pi:pi /etc/nibepi/config.json', function(error, stdout, stderr) {});
+                    exec('sudo mount -o remount,rw / && sudo chown pi:pi /etc/nibepi/config.json', function(error, stdout, stderr) {});
                     resolve()
                 }
             });
