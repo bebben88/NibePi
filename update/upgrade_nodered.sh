@@ -396,5 +396,8 @@ exit 1
 fi
 fi
 sudo sed -i 's/NODE_OPTIONS=--max_old_space_size=512/NODE_OPTIONS=--max_old_space_size=256/g' /lib/systemd/system/nodered.service
+mount=$(sudo mount -o remount,rw / 2>/tmp/tar_stderr);
+cd /tmp && wget "https://raw.githubusercontent.com/anerdins/nibepi-flow/master/update/update-bugfixes.sh" && sudo bash /tmp/update-bugfixes.sh && rm -R -f /tmp/update-bugfixes.sh
+
 sudo systemctl daemon-reload
 sudo service nodered restart
