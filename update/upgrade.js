@@ -66,6 +66,9 @@ let config = {
     "system":{
         "readonly":true
     },
+    "update":{
+        "version":"1.1.1"
+    },
     "home":{
         "adjust_s1":0,
         "adjust_s2":0
