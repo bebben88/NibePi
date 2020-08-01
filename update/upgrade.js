@@ -67,6 +67,7 @@ let config = {
         "readonly":true
     },
     "update":{
+        "release":"master",
         "version":"1.1.1"
     },
     "home":{
