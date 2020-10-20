@@ -1,5 +1,5 @@
 # NibePi
-
+OBS: PROJEKTET HAR BLIVIT FLYTTAT TILL NY GITHUB. http://github.com/anerdins/nibepi
 ![alt text](https://github.com/bebben88/NibePi/blob/master/pics/nibepi-pic.jpg)
 
 Följ projektet på Facebook. https://www.facebook.com/groups/nibepi/
